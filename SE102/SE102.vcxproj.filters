@@ -1,0 +1,478 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Framework">
+      <UniqueIdentifier>{407e8621-f5b6-4d18-b5dd-7a3f2af59e78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game">
+      <UniqueIdentifier>{b02f2312-15c0-4b7c-bc8f-6ea487278656}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\GameObject">
+      <UniqueIdentifier>{aeaf987b-8be7-4aeb-8e6e-c16fdb5e2c22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameResources">
+      <UniqueIdentifier>{f5a7343a-5644-46da-8e40-d01b0b4799b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameResources\Objects">
+      <UniqueIdentifier>{31ac6d0a-fedf-4de3-b354-9a2a922e5cf3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameResources\Objects\Mario">
+      <UniqueIdentifier>{75847410-80ff-487b-a747-da8421966f52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameResources\Scences">
+      <UniqueIdentifier>{1bd8823a-8690-4ffc-9654-792ff5e05ab5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\TextureManager">
+      <UniqueIdentifier>{d922e30e-984c-4a6c-9054-14bdbc2dff4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameResources\Objects\Brick">
+      <UniqueIdentifier>{8f6ec28a-7fec-4c5a-849f-5e653a3e03a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Animations">
+      <UniqueIdentifier>{25425555-4227-4bdd-98f7-b11fa53f2926}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Animations\Animation">
+      <UniqueIdentifier>{ca32026d-3843-48ce-b172-1988445274da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Animations\AnimationFrame">
+      <UniqueIdentifier>{ac9ce793-075c-4e73-a562-7fdccc2bd19c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Animations\AnimationManager">
+      <UniqueIdentifier>{b6fca067-6fcf-47c5-b6aa-b0e372a69c8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Animations\AnimationSet">
+      <UniqueIdentifier>{f23f923d-d1d5-4f30-a0f1-48dc6217d8c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameResources\Objects\Goomba">
+      <UniqueIdentifier>{9b86d5e6-ba70-4735-8124-5c1ad7feb82e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\KeyEventHandler">
+      <UniqueIdentifier>{d9a66bd3-ee9b-4b18-a8f0-d3347b07110c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameResources\Objects\Koopas">
+      <UniqueIdentifier>{43de74c1-5033-4955-b7e5-ee425119e20b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameResources\Objects\Portal">
+      <UniqueIdentifier>{b106eb7b-4766-4991-a799-e8d69f773db4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Scences">
+      <UniqueIdentifier>{9dbedb3c-5d68-4318-9df4-664359bde02f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Scences\Scence">
+      <UniqueIdentifier>{380afeb2-23ca-4be9-8690-04c1683186f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\MapReader">
+      <UniqueIdentifier>{3a044aed-e53c-414b-8ed5-75e796a2b8a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameResources\Scences\PlayScence">
+      <UniqueIdentifier>{0afc84ca-4aa8-46aa-a965-bc591b45d547}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Utils">
+      <UniqueIdentifier>{b7a17faa-6d8a-4013-92d4-82f8d41d8c11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameResources\Objects\CollisionBox">
+      <UniqueIdentifier>{8d07873b-5928-46b5-ae96-520592ba8ebb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Scences\SenceManager">
+      <UniqueIdentifier>{a8266424-2054-45a2-9e28-100190cf43fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\GameMap1">
+      <UniqueIdentifier>{17ed61c5-e93d-43f1-ba09-39ce96a1ed92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\GameMap">
+      <UniqueIdentifier>{77d70b8f-6bac-4b21-9a38-68c53334b735}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\GameMap\TileSet">
+      <UniqueIdentifier>{1abd63aa-2976-4d4d-bbfa-5734d614b3b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\GameMap\MapLayer">
+      <UniqueIdentifier>{85fee0ec-0023-47a3-93d4-73bd05c71181}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Sprites">
+      <UniqueIdentifier>{9f3641fb-7646-4526-9cdd-7e2e38a9bbdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Sprites\Sprite">
+      <UniqueIdentifier>{41f18fb0-bfdf-4229-882a-a64b013e34cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Sprites\SpriteManager">
+      <UniqueIdentifier>{d8868306-ed04-4fc6-81a2-e632cc72a19d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\GameMap\GameMap">
+      <UniqueIdentifier>{fb053d18-1075-43e2-a745-7d08ccec5a59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Camera">
+      <UniqueIdentifier>{f19e562f-7a59-401f-8912-45bce236c43f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameResources\Objects\PlatForm">
+      <UniqueIdentifier>{2a944ee0-ac2c-4f45-bae4-c4df95f3bb56}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Framework\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Mario.cpp">
+      <Filter>GameResources\Objects\Mario</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Framework\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Framework\Sprites\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteManager.cpp">
+      <Filter>Framework\Sprites\SpriteManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Framework\Animations\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationFrame.cpp">
+      <Filter>Framework\Animations\AnimationFrame</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationManager.cpp">
+      <Filter>Framework\Animations\AnimationManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>GameResources\Objects\Brick</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationSet.cpp">
+      <Filter>Framework\Animations\AnimationSet</Filter>
+    </ClCompile>
+    <ClCompile Include="Goomba.cpp">
+      <Filter>GameResources\Objects\Goomba</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyEventHandler.cpp">
+      <Filter>Framework\KeyEventHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="Koopas.cpp">
+      <Filter>GameResources\Objects\Koopas</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayScence.cpp">
+      <Filter>GameResources\Scences\PlayScence</Filter>
+    </ClCompile>
+    <ClCompile Include="Portal.cpp">
+      <Filter>GameResources\Objects\Portal</Filter>
+    </ClCompile>
+    <ClCompile Include="Scence.cpp">
+      <Filter>Framework\Scences\Scence</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\base64.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\miniz.c">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\tinyxml2.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxEllipse.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxImage.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxImageLayer.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxLayer.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxMap.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxObject.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxObjectGroup.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxPolygon.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxPolyline.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxPropertySet.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxTerrain.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxTerrainArray.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxTile.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxTileLayer.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxTileOffset.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxTileset.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="MapReader\TmxUtil.cpp">
+      <Filter>Framework\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMap.cpp">
+      <Filter>Framework\GameMap1</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Framework\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionBox.cpp">
+      <Filter>GameResources\Objects\CollisionBox</Filter>
+    </ClCompile>
+    <ClCompile Include="tinystr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxmlerror.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxmlparser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ScenceManager.cpp">
+      <Filter>Framework\Scences\SenceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="TileSet.cpp">
+      <Filter>Framework\GameMap\TileSet</Filter>
+    </ClCompile>
+    <ClCompile Include="MapLayer.cpp">
+      <Filter>Framework\GameMap\MapLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Framework\TextureManager</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMap1.cpp">
+      <Filter>Framework\GameMap\GameMap</Filter>
+    </ClCompile>
+    <ClCompile Include="RectF.cpp">
+      <Filter>Framework\GameMap\TileSet</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Framework\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Framework\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatForm.cpp">
+      <Filter>GameResources\Objects\PlatForm</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game.h">
+      <Filter>Framework\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Mario.h">
+      <Filter>GameResources\Objects\Mario</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Framework\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Framework\Sprites\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteManager.h">
+      <Filter>Framework\Sprites\SpriteManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Framework\Animations\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationFrame.h">
+      <Filter>Framework\Animations\AnimationFrame</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationManager.h">
+      <Filter>Framework\Animations\AnimationManager</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>Framework\TextureManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>GameResources\Objects\Brick</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationSet.h">
+      <Filter>Framework\Animations\AnimationSet</Filter>
+    </ClInclude>
+    <ClInclude Include="Goomba.h">
+      <Filter>GameResources\Objects\Goomba</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyEventHandler.h">
+      <Filter>Framework\KeyEventHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="Koopas.h">
+      <Filter>GameResources\Objects\Koopas</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScence.h">
+      <Filter>GameResources\Scences\PlayScence</Filter>
+    </ClInclude>
+    <ClInclude Include="Portal.h">
+      <Filter>GameResources\Objects\Portal</Filter>
+    </ClInclude>
+    <ClInclude Include="Scence.h">
+      <Filter>Framework\Scences\Scence</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\base64.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\tinyxml2.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxEllipse.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxImage.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxImageLayer.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxLayer.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxMap.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxMapTile.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxObject.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxObjectGroup.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxPoint.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxPolygon.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxPolyline.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxPropertySet.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxTerrain.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxTerrainArray.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxTile.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxTileLayer.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxTileOffset.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxTileset.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\TmxUtil.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\zconf.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapReader\zlib.h">
+      <Filter>Framework\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMap.h">
+      <Filter>Framework\GameMap1</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Framework\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionBox.h">
+      <Filter>GameResources\Objects\CollisionBox</Filter>
+    </ClInclude>
+    <ClInclude Include="tinystr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tinyxml.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ScenceManager.h">
+      <Filter>Framework\Scences\SenceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="TileSet.h">
+      <Filter>Framework\GameMap\TileSet</Filter>
+    </ClInclude>
+    <ClInclude Include="MapLayer.h">
+      <Filter>Framework\GameMap\MapLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMap1.h">
+      <Filter>Framework\GameMap\GameMap</Filter>
+    </ClInclude>
+    <ClInclude Include="RectF.h">
+      <Filter>Framework\GameMap\TileSet</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Framework\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Framework\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatForm.h">
+      <Filter>GameResources\Objects\PlatForm</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="zlibwapi.dll" />
+    <None Include="MapReader\Tmx.h.in">
+      <Filter>Framework\MapReader</Filter>
+    </None>
+    <None Include="Resources\New folder\world-1-1.tsx">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resources\New folder\world-1-1-map.tmx">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="zlib.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\New folder\world-1-1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="mario.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="MarioDB.xml">
+      <Filter>Resource Files</Filter>
+    </Xml>
+    <Xml Include="MarioAnim.xml">
+      <Filter>Resource Files</Filter>
+    </Xml>
+  </ItemGroup>
+</Project>

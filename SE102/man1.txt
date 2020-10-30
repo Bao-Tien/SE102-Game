@@ -1,0 +1,12 @@
+[MAP FILE]
+Resources/New Folder/world-1-1-map.tmx
+
+[TEXTURE FILE]
+# file          TexID
+mario.png       tex-mario
+
+[SPRITE FILE]
+MarioDB.xml
+
+[ANIMATION FILE]
+MarioAnim.xml

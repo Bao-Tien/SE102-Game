@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Game>
+  <Start name="StartScence" id="1"/>
+    <!--ListScence-->
+  <Scence name="Scence1" id="1" path="Scence1.xml" />
+  <Scence name="Scence2" id="2" path="Scence2.xml" />
+  <Scence name="Scence3" id="3" path="Scence3.xml" />
+</Game>
