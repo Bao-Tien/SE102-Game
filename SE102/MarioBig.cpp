@@ -14,7 +14,7 @@ void CMarioBig::Render()
 	if (vy < 0)
 	{
 		if (isHighJump)
-			ani = MARIO_ANI_BIG_HIGH_JUMP;
+			ani = MARIO_ANI_BIG_JUMP;
 		else ani = MARIO_ANI_BIG_JUMP;
 	}
 	CMario::Render();

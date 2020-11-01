@@ -1,4 +1,5 @@
 #include "MarioRaccoon.h"
+#include "Game.h"
 
 CMarioRaccoon::CMarioRaccoon(float x, float y) : CMario(x, y) {
 
@@ -11,7 +12,8 @@ void CMarioRaccoon::SetState(int state)
 	switch (state)
 	{
 	case MARIO_STATE_FLY:
-		
+		/*while (this->y < CGame::GetInstance()->camera->GetCamPosition().y + 50)
+			vy += MARIO_GRAVITY * dt;*/
 		vy = -MARIO_JUMP_SPEED_Y * 1.25;
 		isFly = true;
 		break;

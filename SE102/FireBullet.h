@@ -10,8 +10,6 @@
 
 class CFireBullet: public CGameObject
 {
-	float ax = 0.010f * 3;
-	int remember = 0;
 public:
 	CFireBullet(float x = 0.0f, float y = 0.0f);
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);

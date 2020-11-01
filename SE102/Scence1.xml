@@ -8,22 +8,34 @@
     <BackgroundColor R="255" G="255" B="255"/>
   </BBox>
 
-  <Texture name="Texture" path="mario-new.png" id="tex-mario">
-    <BackgroundColor R="156" G="252" B="240"/>
-  </Texture>
+  <Textures>
+    <Texture name="Texture" path="Textures/mario-new.png" id="tex-mario">
+      <BackgroundColor R="156" G="252" B="240"/>
+    </Texture>
+    <Texture name="Texture" path="Textures/enemy.png" id="tex-enemy">
+      <BackgroundColor R="156" G="252" B="240"/>
+    </Texture>
+  </Textures>
 
-  <Sprite name="Sprite" path="MarioDB.xml"/>
-
-  <Animation name="Animation" path="MarioAnim.xml"/>
+  <Sprites>
+    <Sprite name="Sprite" path="MarioDB.xml"/>
+    <Sprite name="Sprite" path="EnemyDB.xml"/>
+  </Sprites>
+  
+  <Animations>
+    <Animation name="Animation" path="MarioAnim.xml"/>
+    <Animation name="Animation" path="EnemyAnim.xml"/>
+  </Animations>
+  
 
   <Player name="Player" type="marioSmall" x="50" y="850">
     <BackgroundColor R="156" G="252" B="240"/>
   </Player>
   
   <Objects >
-    <Goomba x="600" y="1150"/>
-    <Goomba x="750" y="1150" />
-    <Goomba x="900" y="1150" />
+    <Goomba x="2200" y="1150" />
+    <Goomba x="2300" y="1150" />
+    <Goomba x="3000" y="1000"/>
   </Objects>
 
   <Camera name="Camera" start="0" main="1">

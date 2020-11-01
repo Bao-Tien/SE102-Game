@@ -3,6 +3,7 @@
 #include <d3dx9.h>
 #include "KeyEventHandler.h"
 #include <string>
+#include "GameObject.h"
 
 class CScene
 {
@@ -19,12 +20,13 @@ public:
 	virtual void Unload() = 0;
 	virtual void Update(DWORD dt) = 0;
 	virtual void Render() = 0;
+	virtual void SwitchPlayer(LPGAMEOBJECT newPlayer) = 0;
 	virtual std::string GetScenceFilePath() = 0;
 };
 typedef CScene* LPSCENE;
 
 
-class CScenceKeyHandler : public CKeyEventHandler  // moi Scence co key event khac nhau
+class CScenceKeyHandler : public CKeyEventHandler
 {
 protected:
 	CScene* scence;

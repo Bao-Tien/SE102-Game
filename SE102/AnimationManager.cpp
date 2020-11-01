@@ -43,29 +43,23 @@ bool CAnimations::LoadAnimationFile(string path)
 	string gameObjectID = info->Attribute("gameObjectId");
 	string textureID = info->Attribute("textureId");
 
-	OutputDebugStringW(ToLPCWSTR("Gameobject id: " + gameObjectID + '\n'));
-	OutputDebugStringW(ToLPCWSTR("Texture id: " + textureID + '\n'));
-
 	for (TiXmlElement* node = info->FirstChildElement(); node != nullptr; node = node->NextSiblingElement())
 	{
 		string aniId = node->Attribute("aniId");
 		float frameTime;
 		node->QueryFloatAttribute("frameTime", &frameTime);
-		string name = node->Attribute("name");
-		OutputDebugStringW(ToLPCWSTR(aniId + ':' + to_string(frameTime) + ':' + name + '\n'));
 		CAnimation* animation = new CAnimation(aniId, frameTime);
 
 		for (TiXmlElement* sprNode = node->FirstChildElement(); sprNode != nullptr; sprNode = sprNode->NextSiblingElement())
 		{
 			string id = sprNode->Attribute("id");
-			float detailFrameTime;
+			float detailFrameTime = 100;
 			sprNode->QueryFloatAttribute("frameTime", &detailFrameTime);
 			animation->Add(id,detailFrameTime);
 
 			OutputDebugStringW(ToLPCWSTR("|--" + id + ':' + to_string(detailFrameTime) + '\n'));
 		}
 		Add(aniId, animation);
-		OutputDebugStringW(ToLPCWSTR(aniId + ':' + to_string(frameTime) + ':' + name + '\n'));
 	}
 }
 

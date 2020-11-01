@@ -14,6 +14,9 @@
 #include "MarioSmall.h"
 #include "MarioBig.h"
 #include "MarioRaccoon.h"
+#include "PlayScence.h"
+#include "Scence.h"
+#include "ScenceManager.h"
 
 CMario::CMario(float x, float y) : CGameObject()
 {
@@ -34,11 +37,10 @@ CMario::CMario(float x, float y) : CGameObject()
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	//dt = 20;
 	float vxMax = isRunning ? VELOCITY_X_SPEEDUP_MAX : VELOCITY_X_MAX;
 	
 	if (fabs(vx + ax) < vxMax)
-		vx = vx + ax;
+		vx = vx + ax * dt;
 	if (vx > 0) f = -0.0045f;
 	if (vx < 0) f = 0.0045f;
 	if (isStanding)
@@ -49,32 +51,23 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 
 	vy += MARIO_GRAVITY * dt;
-
-	if (vy > MARIO_JUMP_SPEED_Y * 1.25 * 2)
-		vy -= MARIO_GRAVITY * dt;
 	
 	CGameObject::Update(dt);
-
-	// Simple fall down
-	
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
 	coEvents.clear();
 
-	// turn off collision when die 
 	if (state != MARIO_STATE_DIE)
 		CalcPotentialCollisions(coObjects, coEvents);
 
-	// reset untouchable timer if untouchable time has passed
 	if (GetTickCount() - untouchable_start > MARIO_UNTOUCHABLE_TIME)
 	{
 		untouchable_start = 0;
 		untouchable = 0;
 	}
 
-	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
 	{
 		x += dx;
@@ -85,8 +78,6 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		float min_tx, min_ty, nx = 0, ny;
 		float rdx = 0;
 		float rdy = 0;
-		// 0----------------X----------0
-		// TODO: This is a very ugly designed function!!!!
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
 		x += min_tx * dx + nx * 0.4f;
@@ -100,10 +91,6 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			isFly = false;
 		}
 
-
-		//
-		// Collision logic with other objects
-		//
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
@@ -127,13 +114,13 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					{
 						if (goomba->GetState() != GOOMBA_STATE_DIE)
 						{
-							/*if (level > MARIO_LEVEL_SMALL)
+							if (this != dynamic_cast<CMarioSmall*>(this))
 							{
-								level = MARIO_LEVEL_SMALL;
+								LPSCENE scence = CScences::GetInstance()->Get(CGame::GetInstance()->GetCurrentSceneId());
+								scence->SwitchPlayer(new CMarioSmall(this->x, this->y));
 								StartUntouchable();
 							}
-							else
-								SetState(MARIO_STATE_DIE);*/
+							else SetState(MARIO_STATE_DIE);
 						}
 					}
 				}
@@ -145,7 +132,6 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 		}
 	}
-	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	ax = 0;
 }
@@ -175,76 +161,55 @@ void CMario::SetState(int state)
 	switch (state)
 	{
 	case MARIO_STATE_WALKING_RIGHT:
-		ax = 0.010f*3;
+		ax = MARIO_ACCELERATION_WALK;
 		nx = 1;
 		isRunning = false;
 		break;
 	case MARIO_STATE_WALKING_LEFT:
-		ax = -0.010f*3;
+		ax = -MARIO_ACCELERATION_WALK;
 		nx = -1;
 		isRunning = false;
 		break;
 	case MARIO_STATE_RUN_RIGHT:
-		ax = 0.02f*3;
+		ax = MARIO_ACCELERATION_RUN;
 		nx = 1;
 		isRunning = true;
 		break;
 	case MARIO_STATE_RUN_LEFT:
-		ax = -0.02f*3;
+		ax = -MARIO_ACCELERATION_RUN;
 		nx = -1;
 		isRunning = true;
 		break;
 	case MARIO_STATE_JUMP:
 		if (isStanding) {
 			isStanding = false;
-			vy = -MARIO_JUMP_SPEED_Y*2;
+			vy = -MARIO_JUMP_SPEED_Y;
 			isHighJump = false;
 		}
 		break;
 	case MARIO_STATE_HIGH_JUMP:
 		if (isStanding)
 		{
-			vy = -MARIO_JUMP_SPEED_Y * 1.25*2;
+			vy = -MARIO_HIGH_JUMP_SPEED_Y;
 			isHighJump = true;
 			isStanding = false;
 		}
 		break;
 	case MARIO_STATE_IDLE:
-		//vx = 0;
 		break;
 	case MARIO_STATE_ATTACK:
 		break;
 	case MARIO_STATE_DIE:
 		ax = 0;
-		ay = -0.02f;
+		ay = -MARIO_ACCELERATION_DIE;
 		break;
 	}
 }
 
 void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	/*left = x;
-	top = y;
-	if (level == MARIO_LEVEL_FROG)
-	{
-		right = x + MARIO_FROG_BBOX_WIDTH;
-		if (vx == 0)
-			bottom = y + MARIO_FROG_BBOX_HEIGHT;
-		else bottom = y + MARIO_FROG_BBOX_HEIGHT_NOT_IDLE;
-		
-	}
-	else if (level == MARIO_LEVEL_TANOOKI)
-	{
-		if(vx==0)
-			right = x + MARIO_TANOOKI_BBOX_WIDTH;
-		else right = x + MARIO_TANOOKI_BBOX_WIDTH_NOT_IDLE;
-		bottom = y + MARIO_TANOOKI_BBOX_HEIGHT;
-	}*/
 }
 
-/*
-	Reset Mario status to the beginning state of a scene
-*/
 void CMario::Reset()
 {
 	SetState(MARIO_STATE_IDLE);

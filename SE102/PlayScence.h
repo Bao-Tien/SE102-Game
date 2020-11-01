@@ -13,6 +13,7 @@ class CPlayScene : public CScene
 {
 protected:
 	LPGAMEOBJECT player;					// A play scene has to have player, right? 
+	vector<LPGAMEOBJECT> objects_Enemy;
 	vector<LPGAMEOBJECT> objects_Map;
 	vector<LPGAMEOBJECT> objects;
 	shared_ptr<CGameMap> mMap;

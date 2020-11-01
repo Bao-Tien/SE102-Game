@@ -12,20 +12,16 @@ CFireBullet::CFireBullet(float x, float y)
 
 void CFireBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 {
-	
-	//dt = 20;
-	vx += 0.03f * nx;
+	vx += BULLET_SPEED_Y * nx;
 	vy += BULLET_GRAVITY * dt;
 	CGameObject::Update(dt);
 
-	// Simple fall down
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
 	coEvents.clear();
 
-	// turn off collision when die 
 	CalcPotentialCollisions(colliable_objects, coEvents);
 
 	if (coEvents.size() == 0)
@@ -51,9 +47,7 @@ void CFireBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 			vy = -BULLET_SPEED_Y;
 		}
 	}
-	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
-	//ax = 0;
 	
 }
 

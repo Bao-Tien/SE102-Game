@@ -9,7 +9,7 @@ CPlatForm::CPlatForm(int x, int y, int width, int height) {
 
 void CPlatForm::Render()
 {
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CPlatForm::GetBoundingBox(float& l, float& t, float& r, float& b)
