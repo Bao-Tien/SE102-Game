@@ -9,6 +9,10 @@
 #include "CollisionBox.h"
 #include "ScenceManager.h"
 #include "GameObject.h"
+#include "MarioSmall.h"
+#include "MarioBig.h"
+#include "MarioRaccoon.h"
+#include "MarioFire.h"
 
 using namespace std;
 
@@ -16,6 +20,37 @@ CPlayScene::CPlayScene(string id, string filePath) :
 	CScene(id, filePath)
 {
 	key_handler = new CPlayScenceKeyHandler(this);
+}
+
+void CPlayScene::SwitchPlayer(LPGAMEOBJECT newPlayer)
+{
+	if (!newPlayer) return;
+
+	if (player)
+	{
+		float l_old, t_old, r_old, b_old;
+		player->GetBoundingBox(l_old, t_old, r_old, b_old);
+		float l_new, t_new, r_new, b_new;
+		newPlayer->GetBoundingBox(l_new, t_new, r_new, b_new);
+		newPlayer->y = player->y + (b_old - t_old) - (b_new - t_new) - 1;
+		newPlayer->x = player->x;
+	}
+
+	while (objects.size() > 0) {
+		delete objects.at(0);
+		objects.erase(objects.begin());
+	}
+
+	player = newPlayer;
+	objects.push_back(newPlayer);
+
+	/*if (dynamic_cast<CMarioFire*>(player))
+	{
+		objects.push_back(((CMarioFire*)player)->bullets[0]);
+		objects.push_back(((CMarioFire*)player)->bullets[1]);
+	}*/
+	//vt cua map
+	CGame::GetInstance()->camera->InitPositionController(player);
 }
 
 bool CPlayScene::Load()
@@ -72,100 +107,73 @@ bool CPlayScene::Load()
 
 	//load player
 	TiXmlElement* play = root->FirstChildElement("Player");
+	string type_Player = play->Attribute("type");
 	float player_x = atof(play->Attribute("x"));
 	float player_y = atof(play->Attribute("y"));
+	if (type_Player == "marioSmall") SwitchPlayer(new CMarioSmall(player_x, player_y));
+	else if (type_Player == "marioBig") SwitchPlayer(new CMarioBig(player_x, player_y));
+	else if (type_Player == "marioRaccoon") SwitchPlayer(new CMarioRaccoon(player_x, player_y));
+	else if (type_Player == "marioFire") SwitchPlayer(new CMarioFire(player_x, player_y));
 
-	TiXmlElement* BackgroundColor_play = play->FirstChildElement("BackgroundColor");
-	int player_R = atoi(BackgroundColor_play->Attribute("R"));
-	int player_G = atoi(BackgroundColor_play->Attribute("G"));
-	int player_B = atoi(BackgroundColor_play->Attribute("B"));
+	//TiXmlElement* BackgroundColor_play = play->FirstChildElement("BackgroundColor");
+	//int player_R = atoi(BackgroundColor_play->Attribute("R"));
+	//int player_G = atoi(BackgroundColor_play->Attribute("G"));
+	//int player_B = atoi(BackgroundColor_play->Attribute("B"));
 
-	//load Camara
-	TiXmlElement* camara = root->FirstChildElement("Camera");
-	int start = atoi(camara->Attribute("start"));
-	int main = atoi(camara->Attribute("main"));
+	////load Camara
+	//TiXmlElement* camara = root->FirstChildElement("Camera");
+	//int start = atoi(camara->Attribute("start"));
+	//int main = atoi(camara->Attribute("main"));
 
-	TiXmlElement* boundary = camara->FirstChildElement("Boundary");
-	int id = atoi(boundary->Attribute("id"));
-	int camara_x = atoi(boundary->Attribute("x"));
-	int camara_y = atoi(boundary->Attribute("y"));
-	int left = atoi(boundary->Attribute("left"));
-	int top = atoi(boundary->Attribute("top"));
-	int right = atoi(boundary->Attribute("right"));
-	int bottom = atoi(boundary->Attribute("bottom"));
+	//TiXmlElement* boundary = camara->FirstChildElement("Boundary");
+	//int id = atoi(boundary->Attribute("id"));
+	//int camara_x = atoi(boundary->Attribute("x"));
+	//int camara_y = atoi(boundary->Attribute("y"));
+	//int left = atoi(boundary->Attribute("left"));
+	//int top = atoi(boundary->Attribute("top"));
+	//int right = atoi(boundary->Attribute("right"));
+	//int bottom = atoi(boundary->Attribute("bottom"));
 
 	//load BBox
 	//load trang thai, thong so mario
 
 	DebugOut(L"[INFO] Loading game file : %s has been loaded successfully\n", sceneFilePath);
-	//mMap = new CGameMap(MapPath.c_str());
+
 	CTextures::GetInstance()->Initialization(BboxPath, BboxId, bbox_R, bbox_G, bbox_B);
 	CTextures::GetInstance()->Initialization(TexturePath, TextureId, tex_R, tex_G, tex_B);
 	CSprites::GetInstance()->Initialization(SpritePath);
 	CAnimations::GetInstance()->Initialization(AnimationPath);
-
-	CMario* mario = new CMario(50, 1100);
-	player = mario;
-	objects.push_back(mario);
-	CGame::GetInstance()->camera->InitPositionController(player);
-	mMap = CGameMap().FromTMX(MapPath, &objects);
-	//mMap->GetMapSize(mapSize);
-	//CGame::GetInstance()->camera->LoadMap(, &objects);
-	//mMap = (new CGameMap())->FromTMX(MapPath, &objects);
-
 	
-	//DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
+	mMap = CGameMap().FromTMX(MapPath, &objects_Map);
 }
 
 void CPlayScene::Update(DWORD dt)
 {
-	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
-	// TO-DO: This is a "dirty" way, need a more organized way 
-
-	
-	//mMap->UpdateCamPosition(camPosition);
-	//CGame::GetInstance()->camera->Update(dt);
-
 	vector<LPGAMEOBJECT> coObjects;
-	for (size_t i = 1; i < objects.size(); i++)
+	for (size_t i = 0; i < objects_Map.size(); i++)
 	{
-		coObjects.push_back(objects[i]);
+		coObjects.push_back(objects_Map[i]);
 	}
 
-	/*for (size_t i = 0; i < objects.size(); i++)
+	for (size_t i = 0; i < objects.size(); i++)
 	{
 		objects[i]->Update(dt, &coObjects);
-	}*/
+	}
 
-	player->Update(dt, &coObjects);
 	CGame::GetInstance()->camera->Update(dt);
-	mMap->Update(dt);
-	//// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
+	//mMap->Update(dt);
+
 	if (player == NULL) return;
 
-	//// Update camera to follow mario
-	float cx, cy;
-	//player->GetPosition(cx, cy);
-
-	//CGame* game = CGame::GetInstance();
-	//cx -= game->GetScreenWidth() / 2;
-	//cy -= game->GetScreenHeight() / 2;
-
-	//CGame::GetInstance()->SetCamPos(cx, 1000 /*cy*/);
 }
 
 void CPlayScene::Render()
 {
 	mMap->Render();
-	//CGame::GetInstance()->camera->Render();
-	float x, y;
-	D3DXVECTOR2 scale = D3DXVECTOR2(1.0f,1.0f);
-	//mMap->Draw(scale);
 	for (int i = 0; i < objects.size(); i++)
 	{
-		objects[i]->Render();
-		objects[i]->GetPosition(x, y);
-
+		if (!objects[i]->isHidden)
+			objects[i]->Render();
 	}
 }
 
@@ -184,41 +192,48 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)  //event
 {
 	DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 
-	CMario* mario = ((CPlayScene*)scence)->GetPlayer();
+	CMario* currentPlayer = (CMario*)((CPlayScene*)scence)->GetPlayer();
+
 	switch (KeyCode)
 	{
 	case DIK_1:
-		mario->SetLevel(MARIO_LEVEL_SMALL);
+		((CPlayScene*)scence)->SwitchPlayer(new CMarioSmall(currentPlayer->x, currentPlayer->y));
 		break;
 	case DIK_2:
-		mario->SetLevel(MARIO_LEVEL_BIG);
+		((CPlayScene*)scence)->SwitchPlayer(new CMarioBig(currentPlayer->x, currentPlayer->y));
 		break;
 	case DIK_3:
-		mario->SetLevel(MARIO_LEVEL_FIRE);
+		//((CPlayScene*)scence)->SwitchPlayer(new CMarioFire(currentPlayer->x, currentPlayer->y));
 		break;
 	/*case DIK_4:
 		mario->SetLevel(MARIO_LEVEL_FROG);
 		break;*/
-	case DIK_5:
-		mario->SetLevel(MARIO_LEVEL_RACCOON);
+	case DIK_4:
+		((CPlayScene*)scence)->SwitchPlayer(new CMarioRaccoon(currentPlayer->x, currentPlayer->y));
 		break;
-	case DIK_6:
-		mario->SetLevel(MARIO_LEVEL_TANOOKI);
+	case DIK_5:
+		((CPlayScene*)scence)->SwitchPlayer(new CMarioFire(currentPlayer->x, currentPlayer->y));
+		break;
+	/*case DIK_6:
+		currentPlayer->SetLevel(MARIO_LEVEL_TANOOKI);
 		break;
 	case DIK_7:
-		mario->SetLevel(MARIO_LEVEL_HAMMER);
-		break;
+		currentPlayer->SetLevel(MARIO_LEVEL_HAMMER);
+		break;*/
 	case DIK_X:
-		mario->SetState(MARIO_STATE_JUMP);
+		currentPlayer->SetState(MARIO_STATE_JUMP);
 		break;
 	case DIK_S:
-		mario->SetState(MARIO_STATE_HIGH_JUMP);
+		currentPlayer->SetState(MARIO_STATE_HIGH_JUMP);
 		break;
-	case DIK_A:
-		mario->SetState(MARIO_STATE_ATTACK);
+	case DIK_D:
+		currentPlayer->SetState(MARIO_STATE_ATTACK);
+		break;
+	case DIK_B:
+		currentPlayer->SetState(MARIO_STATE_FLY);
 		break;
 	case DIK_R:
-		mario->Reset();
+		currentPlayer->Reset();
 		break;
 		
 	}
@@ -227,7 +242,7 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)  //event
 void CPlayScenceKeyHandler::KeyState(BYTE* states)
 {
 	CGame* game = CGame::GetInstance();
-	CMario* mario = ((CPlayScene*)scence)->GetPlayer();
+	LPGAMEOBJECT mario = ((CPlayScene*)scence)->GetPlayer();
 
 	if (mario->GetState() == MARIO_STATE_DIE) return;
 	if (game->IsKeyDown(DIK_RIGHT))
@@ -236,16 +251,14 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 			mario->SetState(MARIO_STATE_RUN_RIGHT);
 		else mario->SetState(MARIO_STATE_WALKING_RIGHT);
 	}
-	else if (game->IsKeyDown(DIK_LEFT))
-	{
-		if (game->IsKeyDown(DIK_A))
-			mario->SetState(MARIO_STATE_RUN_LEFT);
-		else mario->SetState(MARIO_STATE_WALKING_LEFT);
-	}
-	else if (game->IsKeyDown(DIK_S) && game->IsKeyDown(DIK_B))
-	{
-		mario->SetState(MARIO_STATE_FLY);
-	}
+	else 
+		if (game->IsKeyDown(DIK_LEFT))
+		{
+			if (game->IsKeyDown(DIK_A))
+				mario->SetState(MARIO_STATE_RUN_LEFT);
+			else mario->SetState(MARIO_STATE_WALKING_LEFT);
+		}
+		
 
 	else
 		mario->SetState(MARIO_STATE_IDLE);

@@ -12,19 +12,20 @@
 class CPlayScene : public CScene
 {
 protected:
-	CMario* player;					// A play scene has to have player, right? 
+	LPGAMEOBJECT player;					// A play scene has to have player, right? 
+	vector<LPGAMEOBJECT> objects_Map;
 	vector<LPGAMEOBJECT> objects;
 	shared_ptr<CGameMap> mMap;
-	//Vector2 mapSize; // (width, height) px
 public:
 	CPlayScene(string id, string filePath);
+	void SwitchPlayer(LPGAMEOBJECT newPlayer);
 	virtual bool Load();
 	virtual void Update(DWORD dt);
 	virtual void Render();
 	virtual void Unload();
 	virtual string GetScenceFilePath() { return sceneFilePath; }
 	
-	CMario* GetPlayer() { return player; }
+	LPGAMEOBJECT GetPlayer() { return player; }
 
 	//friend class CPlayScenceKeyHandler;
 };
@@ -32,6 +33,7 @@ public:
 
 class CPlayScenceKeyHandler : public CScenceKeyHandler
 {
+	CMario* currentPlayer;
 public:
 	virtual void KeyState(BYTE* states);
 	virtual void OnKeyDown(int KeyCode);

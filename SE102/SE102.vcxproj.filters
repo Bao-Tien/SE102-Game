@@ -118,6 +118,18 @@
     <Filter Include="GameResources\Objects\PlatForm">
       <UniqueIdentifier>{2a944ee0-ac2c-4f45-bae4-c4df95f3bb56}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameResources\Objects\Mario\Mario_Small">
+      <UniqueIdentifier>{2c3089c8-44d9-41c8-9911-e843829d536e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameResources\Objects\Mario\Mario_Big">
+      <UniqueIdentifier>{0a62a855-a7f7-4afb-bf9d-d29cb172ca54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameResources\Objects\Mario\Mario_Raccoon">
+      <UniqueIdentifier>{c62c8817-f4cd-4198-93e8-340ae0e32e8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameResources\Objects\Mario\Mario_Fire">
+      <UniqueIdentifier>{6db46b61-df53-4588-b1e4-7881f61f1fe9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -278,6 +290,21 @@
     </ClCompile>
     <ClCompile Include="PlatForm.cpp">
       <Filter>GameResources\Objects\PlatForm</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioSmall.cpp">
+      <Filter>GameResources\Objects\Mario\Mario_Small</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioBig.cpp">
+      <Filter>GameResources\Objects\Mario\Mario_Big</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioRaccoon.cpp">
+      <Filter>GameResources\Objects\Mario\Mario_Raccoon</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioFire.cpp">
+      <Filter>GameResources\Objects\Mario\Mario_Fire</Filter>
+    </ClCompile>
+    <ClCompile Include="FireBullet.cpp">
+      <Filter>GameResources\Objects\Mario\Mario_Fire</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -442,6 +469,24 @@
     </ClInclude>
     <ClInclude Include="PlatForm.h">
       <Filter>GameResources\Objects\PlatForm</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioConst.h">
+      <Filter>GameResources\Objects\Mario</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioSmall.h">
+      <Filter>GameResources\Objects\Mario\Mario_Small</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioBig.h">
+      <Filter>GameResources\Objects\Mario\Mario_Big</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioRaccoon.h">
+      <Filter>GameResources\Objects\Mario\Mario_Raccoon</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioFire.h">
+      <Filter>GameResources\Objects\Mario\Mario_Fire</Filter>
+    </ClInclude>
+    <ClInclude Include="FireBullet.h">
+      <Filter>GameResources\Objects\Mario\Mario_Fire</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

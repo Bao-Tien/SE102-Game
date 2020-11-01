@@ -15,7 +15,6 @@ class CGameMap
 	int tileWidth;
 	int tileHeight;
 	Vector2 camPosition;
-	//shared_ptr<Camera> camera;
 
 	map<int, shared_ptr<CTileSet>> tilesets;
 	vector<shared_ptr<CMapLayer>> layers;
@@ -34,7 +33,7 @@ public:
 	virtual void AddLayer(shared_ptr<CMapLayer> layer);
 
 	//void UpdateCamPosition(Vector2 newPos);
-	Vector2 ConvertToPositionInCam(Vector2 oldPos);
+	//Vector2 ConvertToPositionInCam(Vector2 oldPos);
 
 	virtual void Update(int dt);
 

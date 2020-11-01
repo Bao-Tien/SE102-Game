@@ -17,6 +17,7 @@ CGameObject::CGameObject()
 	x = y = 0;
 	vx = vy = 0;
 	nx = 1;
+	isHidden = false;
 }
 
 void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -29,6 +30,16 @@ void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 /*
 	extension of original SweptAABB to deal with two moving objects
 */
+bool CGameObject::isInScreen()
+{
+	Vector2 camPos = CGame::GetInstance()->camera->GetCamPosition();
+	if (this->x < camPos.x && this->y < camPos.y &&
+		this->x > CGame::GetInstance()->GetScreenWidth() + camPos.x
+		&& this->y > CGame::GetInstance()->GetScreenHeight() + camPos.y)
+		return false;
+	return true;
+}
+
 LPCOLLISIONEVENT CGameObject::SweptAABBEx(LPGAMEOBJECT coO)
 {
 	float sl, st, sr, sb;		// static object bbox
@@ -120,8 +131,8 @@ void CGameObject::FilterCollision(
 		}
 	}
 
-	if (min_ix >= 0) coEventsResult.push_back(coEvents[min_ix]); // vat va cham theo chieu x
-	if (min_iy >= 0) coEventsResult.push_back(coEvents[min_iy]); // vat va cham theo chieu y // => va cham theo chieu nao????
+	if (min_ix >= 0) coEventsResult.push_back(coEvents[min_ix]);
+	if (min_iy >= 0) coEventsResult.push_back(coEvents[min_iy]); 
 }
 
 

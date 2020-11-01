@@ -20,9 +20,9 @@ CGameMap::CGameMap(int width, int height, int tileWidth, int tileHeight)
 //	camPosition = newPos;
 //}
 
-Vector2 CGameMap::ConvertToPositionInCam(Vector2 oldPos) {
-	return Vector2(oldPos.x - camPosition.x, oldPos.y - camPosition.y);
-}
+//Vector2 CGameMap::ConvertToPositionInCam(Vector2 oldPos) {
+//	return Vector2(oldPos.x - camPosition.x, oldPos.y - camPosition.y);
+//}
 
 Vector2 CGameMap::GetBound()
 {
@@ -48,7 +48,7 @@ void CGameMap::AddLayer(shared_ptr<CMapLayer> layer)
 
 void CGameMap::Update(int dt)
 {
-	camPosition = CGame::GetInstance()->camera->GetCamPosition();
+	//camPosition = CGame::GetInstance()->camera->GetCamPosition();
 }
 
 void CGameMap::Render()
@@ -66,8 +66,8 @@ void CGameMap::Render()
 	Vector2 camSize = Vector2(CGame::GetInstance()->GetScreenWidth() / tileWidth, 
 								CGame::GetInstance()->GetScreenHeight() / tileHeight);
 
-	for (int i = col; i < camSize.x + col + 4; i++) {
-		for (int j = row; j < camSize.y + row + 4; j++) {
+	for (int i = col; i <= camSize.x + col + 2; i++) {
+		for (int j = row; j <= camSize.y + row + 2; j++) {
 
 			int x = i * tileWidth;
 			int y = j * tileHeight;

@@ -16,9 +16,15 @@
 
   <Animation name="Animation" path="MarioAnim.xml"/>
 
-  <Player name="Player" x="94" y="1150">
+  <Player name="Player" type="marioSmall" x="50" y="850">
     <BackgroundColor R="156" G="252" B="240"/>
   </Player>
+  
+  <Objects >
+    <Goomba x="600" y="1150"/>
+    <Goomba x="750" y="1150" />
+    <Goomba x="900" y="1150" />
+  </Objects>
 
   <Camera name="Camera" start="0" main="1">
     <!--Camera-->

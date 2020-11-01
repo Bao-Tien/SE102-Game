@@ -325,6 +325,13 @@
 			<Sprite id="spr-fire-mario-climb-0" left="664" top="111"  width="16" height="25" frameTime="100"/>
 			<Sprite id="spr-fire-mario-climb-1" left="683" top="111"  width="16" height="25" frameTime="100"/>
 		</Animation>
+		<!-- Animation FIRE BULLET -->
+		<Animation aniId="ani-fire-bullet" frameTime="100" name="FIRE_BULLET">
+			<Sprite id="spr-fire-bullet-0" left="160" top="122"  width="11" height="11" frameTime="100"/>
+			<Sprite id="spr-fire-bullet-1" left="171" top="122"  width="11" height="11" frameTime="100"/>
+			<Sprite id="spr-fire-bullet-2" left="182" top="122"  width="11" height="11" frameTime="100"/>
+			<Sprite id="spr-fire-bullet-3" left="193" top="122"  width="11" height="11" frameTime="100"/>
+		</Animation>
 
 		<!-- Hammer Mario -->
 		<!-- Animation MAP -->

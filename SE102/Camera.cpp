@@ -14,6 +14,8 @@ CCamera::~CCamera() {
 }
 
 void CCamera::InitPositionController(CGameObject* player) {
+	if (player->x < CGame::GetInstance()->GetScreenWidth() / 2)
+		CGame::GetInstance()->camera->SetCamPosition(Vector2(1, 1));
 	this->positionController = player;
 }
 

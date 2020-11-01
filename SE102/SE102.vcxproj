@@ -150,6 +150,7 @@
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="AnimationSet.cpp" />
     <ClCompile Include="Brick.cpp" />
+    <ClCompile Include="FireBullet.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CollisionBox.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -182,6 +183,10 @@
     <ClCompile Include="MapReader\TmxTileset.cpp" />
     <ClCompile Include="MapReader\TmxUtil.cpp" />
     <ClCompile Include="Mario.cpp" />
+    <ClCompile Include="MarioBig.cpp" />
+    <ClCompile Include="MarioFire.cpp" />
+    <ClCompile Include="MarioRaccoon.cpp" />
+    <ClCompile Include="MarioSmall.cpp" />
     <ClCompile Include="PlatForm.cpp" />
     <ClCompile Include="PlayScence.cpp" />
     <ClCompile Include="Portal.cpp" />
@@ -205,6 +210,7 @@
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="AnimationSet.h" />
     <ClInclude Include="Brick.h" />
+    <ClInclude Include="FireBullet.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CollisionBox.h" />
     <ClInclude Include="Game.h" />
@@ -239,6 +245,11 @@
     <ClInclude Include="MapReader\zconf.h" />
     <ClInclude Include="MapReader\zlib.h" />
     <ClInclude Include="Mario.h" />
+    <ClInclude Include="MarioBig.h" />
+    <ClInclude Include="MarioConst.h" />
+    <ClInclude Include="MarioFire.h" />
+    <ClInclude Include="MarioRaccoon.h" />
+    <ClInclude Include="MarioSmall.h" />
     <ClInclude Include="PlatForm.h" />
     <ClInclude Include="PlayScence.h" />
     <ClInclude Include="Portal.h" />
