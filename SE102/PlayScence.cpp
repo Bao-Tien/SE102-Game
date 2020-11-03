@@ -131,26 +131,29 @@ void CPlayScene::Update(DWORD dt)
 	{
 		coObjects.push_back(objects_Map[i]);
 	}
-	for (size_t i = 0; i < objects_Enemy.size(); i++)
-	{
-		coObjects.push_back(objects_Enemy[i]);
-	}
 
 	if (player->x - CGame::GetInstance()->camera->GetCamPosition().x < CGame::GetInstance()->GetScreenWidth() / 2)
 	{
 		for (int i = 0; i < objects_Enemy.size(); i++)
 		{
-			if (dynamic_cast<CGoomba*>(objects_Enemy[i]))
+			if (!objects_Enemy[i]->isHidden)
 			{
-				objects_Enemy[i]->Update(dt, &objects_Map);
+				objects_Enemy[i]->Update(dt, &coObjects);
 			}
 		}
+	}
+
+	for (size_t i = 0; i < objects_Enemy.size(); i++)
+	{
+		coObjects.push_back(objects_Enemy[i]);
 	}
 
 	for (size_t i = 0; i < objects.size(); i++)
 	{
 		objects[i]->Update(dt, &coObjects);
 	}
+
+	
 
 	CGame::GetInstance()->camera->Update(dt);
 
@@ -173,10 +176,11 @@ void CPlayScene::Render()
 	}
 	for (int i = 0; i < objects_Enemy.size(); i++)
 	{
-		if (dynamic_cast<CGoomba*>(objects_Enemy[i]))
+		/*if (!objects_Enemy[i]->isHidden)
 		{
 			objects_Enemy[i]->Render();
-		}
+		}*/
+		objects_Enemy[i]->Render();
 	}
 
 }

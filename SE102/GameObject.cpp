@@ -33,9 +33,9 @@ void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 bool CGameObject::isInScreen()
 {
 	Vector2 camPos = CGame::GetInstance()->camera->GetCamPosition();
-	if (this->x < camPos.x && this->y < camPos.y &&
+	if (this->x < camPos.x || this->y < camPos.y ||
 		this->x > CGame::GetInstance()->GetScreenWidth() + camPos.x
-		&& this->y > CGame::GetInstance()->GetScreenHeight() + camPos.y)
+		|| this->y > CGame::GetInstance()->GetScreenHeight() + camPos.y)
 		return false;
 	return true;
 }

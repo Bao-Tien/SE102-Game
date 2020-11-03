@@ -1,22 +1,11 @@
 #include "MarioBig.h"
 
 CMarioBig::CMarioBig(float x, float y) : CMario(x, y) {
-
+	mType = EMarioType::BIG;
 }
 
 void CMarioBig::Render()
 {
-	if (vx == 0)
-		ani = MARIO_ANI_BIG_IDLE;
-	else if (isRunning)
-		ani = MARIO_ANI_BIG_RUN;
-	else ani = MARIO_ANI_BIG_WALK;
-	if (vy < 0)
-	{
-		if (isHighJump)
-			ani = MARIO_ANI_BIG_JUMP;
-		else ani = MARIO_ANI_BIG_JUMP;
-	}
 	CMario::Render();
 }
 

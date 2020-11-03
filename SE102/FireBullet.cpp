@@ -1,5 +1,6 @@
 #include "FireBullet.h"
 #include "Game.h"
+#include "Goomba.h"
 
 CFireBullet::CFireBullet(float x, float y)
 {
@@ -12,7 +13,7 @@ CFireBullet::CFireBullet(float x, float y)
 
 void CFireBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 {
-	vx += BULLET_SPEED_Y * nx;
+	vx = BULLET_SPEED_X  * nx;
 	vy += BULLET_GRAVITY * dt;
 	CGameObject::Update(dt);
 
@@ -35,8 +36,17 @@ void CFireBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 		float rdx = 0;
 		float rdy = 0;
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+
 		x += min_tx * dx + nx * 0.4f;
 		y += min_ty * dy + ny * 0.4f;
+		
+		for (int i = 0; i < coEventsResult.size(); i++)
+		{
+			if (dynamic_cast<CGoomba*>(coEventsResult[i]->obj))
+			{
+				((CGoomba*)(coEventsResult[i]->obj))->SetState(GOOMBA_STATE_BEING_SHOOTED, nx);
+			}
+		}
 
 		if (nx != 0) {
 			vx = 0;
@@ -48,7 +58,7 @@ void CFireBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 		}
 	}
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
-	
+	if (!this->isInScreen()) this->isHidden = true;
 }
 
 void CFireBullet::Render()

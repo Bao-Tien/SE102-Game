@@ -33,7 +33,7 @@
   </Player>
   
   <Objects >
-    <Goomba x="2200" y="1150" />
+    <Goomba x="1000" y="1150" />
     <Goomba x="2300" y="1150" />
     <Goomba x="3000" y="1000"/>
   </Objects>

@@ -4,8 +4,9 @@
 #define FIRE_BULLET_WIDTH		30
 #define FIRE_BULLET_HEIGHT		30
 #define ANI_FIRE_BULLET			"ani-fire-bullet"
-#define BULLET_GRAVITY			0.0006f
-#define BULLET_SPEED_Y				0.3f
+#define BULLET_GRAVITY			0.0012f
+#define BULLET_SPEED_X				0.3f
+#define BULLET_SPEED_Y				0.44f
 
 
 class CFireBullet: public CGameObject

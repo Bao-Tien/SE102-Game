@@ -3,6 +3,23 @@
 #include "Transform.h"
 #include "MarioConst.h"
 
+enum class EMarioType {
+	SMALL,
+	BIG,
+	RACCOON,
+	FIRE,
+};
+
+enum class EMarioState {
+	IDLE,
+	WALK,
+	RUN,
+	JUMP,
+	FLY,
+	FALL,
+	ATTACK,
+	DIE,
+};
 
 class CMario : public CGameObject
 {
@@ -16,10 +33,14 @@ protected:
 	bool isHighJump;
 	bool isRunning;
 	bool isAttack;
+
+	EMarioType mType;
+	EMarioState mState;
+	// int mState; 0: IDLE, 1: ..., 2...
+
 	float isFly;
 	float ax,ay;
 	float f;
-	string ani;
 public:
 	CMario(float x = 0.0f, float y = 0.0f);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
@@ -27,6 +48,8 @@ public:
 
 	void SetState(int state);
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
+
+	virtual string GetAnimationIdFromState();
 
 	void Reset();
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
