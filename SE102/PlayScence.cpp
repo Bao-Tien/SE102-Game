@@ -153,9 +153,8 @@ void CPlayScene::Update(DWORD dt)
 		objects[i]->Update(dt, &coObjects);
 	}
 
-	
-
 	CGame::GetInstance()->camera->Update(dt);
+	
 
 	if (player == NULL) return;
 
@@ -176,11 +175,8 @@ void CPlayScene::Render()
 	}
 	for (int i = 0; i < objects_Enemy.size(); i++)
 	{
-		/*if (!objects_Enemy[i]->isHidden)
-		{
+		if (!objects_Enemy[i]->isHidden)
 			objects_Enemy[i]->Render();
-		}*/
-		objects_Enemy[i]->Render();
 	}
 
 }
@@ -216,29 +212,14 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)  //event
 	case DIK_4:
 		((CPlayScene*)scence)->SwitchPlayer(new CMarioRaccoon(currentPlayer->x, currentPlayer->y));
 		break;
-		/*case DIK_4:
-		mario->SetLevel(MARIO_LEVEL_FROG);
-		break;*/
-	/*case DIK_5:
-		((CPlayScene*)scence)->SwitchPlayer(new CMarioFire(currentPlayer->x, currentPlayer->y));
-		break;*/
-	/*case DIK_6:
-		currentPlayer->SetLevel(MARIO_LEVEL_TANOOKI);
+	case DIK_X: //nhay thap + (raccoon: bay thap)
+		currentPlayer->KeyboardHandle(KEYBOARD_PRESS_X,	false);
 		break;
-	case DIK_7:
-		currentPlayer->SetLevel(MARIO_LEVEL_HAMMER);
-		break;*/
-	case DIK_X:
-		currentPlayer->SetState(MARIO_STATE_JUMP);
+	case DIK_S: //nhay cao + (raccoon: bay cao)
+		currentPlayer->KeyboardHandle(KEYBOARD_PRESS_S, false);
 		break;
-	case DIK_S:
-		currentPlayer->SetState(MARIO_STATE_HIGH_JUMP);
-		break;
-	case DIK_D:
-		currentPlayer->SetState(MARIO_STATE_ATTACK);
-		break;
-	case DIK_B:
-		currentPlayer->SetState(MARIO_STATE_FLY);
+	case DIK_A:
+		currentPlayer->KeyboardHandle(KEYBOARD_PRESS_A, false);
 		break;
 	case DIK_R:
 		currentPlayer->Reset();
@@ -250,24 +231,27 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)  //event
 void CPlayScenceKeyHandler::KeyState(BYTE* states)
 {
 	CGame* game = CGame::GetInstance();
-	LPGAMEOBJECT mario = ((CPlayScene*)scence)->GetPlayer();
+	CMario* mario = (CMario*)(((CPlayScene*)scence)->GetPlayer());
 
-	if (mario->GetState() == MARIO_STATE_DIE) return;
+	//if (mario->GetState() == MARIO_STATE_DIE) return;
+	if (mario->mState == EMarioState::DIE) return;
+	// Su kien di kem
+	if (game->IsKeyDown(DIK_A))//chay nhanh
+	{
+		mario->KeyboardHandle(KEYBOARD_PRESS_A, true);
+	}
+
+	// Su kien rieng
 	if (game->IsKeyDown(DIK_RIGHT))
 	{
-		if (game->IsKeyDown(DIK_A))
-			mario->SetState(MARIO_STATE_RUN_RIGHT);
-		else mario->SetState(MARIO_STATE_WALKING_RIGHT);
+		mario->KeyboardHandle(KEYBOARD_PRESS_RIGHT, true);
 	}
-	else 
-		if (game->IsKeyDown(DIK_LEFT))
-		{
-			if (game->IsKeyDown(DIK_A))
-				mario->SetState(MARIO_STATE_RUN_LEFT);
-			else mario->SetState(MARIO_STATE_WALKING_LEFT);
-		}
-		
-
-	else
-		mario->SetState(MARIO_STATE_IDLE);
+	else if (game->IsKeyDown(DIK_LEFT))
+	{
+		mario->KeyboardHandle(KEYBOARD_PRESS_LEFT, true);
+	}
+	else if (game->IsKeyDown(DIK_S)) //nhay cao hon
+	{
+		mario->KeyboardHandle(KEYBOARD_PRESS_S, true);
+	}
 }

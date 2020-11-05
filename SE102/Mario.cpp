@@ -20,19 +20,17 @@
 
 CMario::CMario(float x, float y) : CGameObject()
 {
-	isStanding = false;
 	untouchable = 0;
-	SetState(MARIO_STATE_IDLE);
-	isHighJump = false;
-	isRunning = false;
-	isAttack = false;
-	isFly = false;
+	mState = EMarioState::IDLE;
 	ax = ay = 0;
 	f = 0;
 	start_x = x;
 	start_y = y;
 	this->x = x;
 	this->y = y;
+	movementRatioX = 1;
+	synergies = 0;
+	vxMax = VELOCITY_X_MAX;
 } 
 
 string CMario::GetAnimationIdFromState()
@@ -57,19 +55,92 @@ string CMario::GetAnimationIdFromState()
 	return typeString + "-" + stateString;
 }
 
+void CMario::SetState(EMarioState newState, DWORD timeState) {
+	this->beginState = GetTickCount();
+	this->timeState = timeState;
+	mState = newState;
+}
+
+bool CMario::SwitchState(EMarioState newState)
+{
+	if (mState == EMarioState::DIE) return false;
+	if (GetTickCount() < beginState + timeState) return false;
+	else if (newState == EMarioState::DIE) {
+		SetState(newState);
+		return true;
+	}
+	else if (newState == EMarioState::ATTACK)
+	{
+		SetState(newState, 500);
+		return true;
+	}
+	else if (newState == EMarioState::JUMP) {
+		if (mState == EMarioState::IDLE || mState == EMarioState::WALK || mState == EMarioState::RUN)
+		{
+			SetState(newState);
+			return true;
+		}
+	}
+	else if (newState == EMarioState::FLY) {
+		if (mState == EMarioState::IDLE || mState == EMarioState::WALK || mState == EMarioState::RUN)
+		{
+			SetState(newState);
+			return true;
+		}
+	}
+	else if (newState == EMarioState::FALL) {
+		if (mState == EMarioState::JUMP || mState == EMarioState::FLY)
+		{
+			SetState(newState);
+			return true;
+		}
+	}
+	else if (newState == EMarioState::WALK) {
+		if (mState == EMarioState::IDLE || mState == EMarioState::RUN || mState == EMarioState::JUMP || mState == EMarioState::FLY || mState == EMarioState::ATTACK)
+		{
+			SetState(newState);
+			return true;
+		}
+	}
+	else if (newState == EMarioState::RUN) {
+		if (mState == EMarioState::IDLE || mState == EMarioState::WALK || mState == EMarioState::JUMP || mState == EMarioState::FLY || mState == EMarioState::ATTACK)
+		{
+			SetState(newState);
+			return true;
+		}
+	}
+	else if (newState == EMarioState::IDLE) {
+		if (mState == EMarioState::WALK || mState == EMarioState::RUN || mState == EMarioState::JUMP || mState == EMarioState::FLY || mState == EMarioState::ATTACK)
+		{
+			SetState(newState);
+			return true;
+		}
+	}
+	
+	return false;
+}
+
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	float vxMax = mState == EMarioState::RUN ? VELOCITY_X_SPEEDUP_MAX : VELOCITY_X_MAX;
+	if (this->isHidden) return;
+	/*if (ax > MARIO_ACCELERATION_WALK && synergies < 6) synergies++;
+	else if (synergies > 0) synergies--;*/
+	synergies = 0;
+
+	DebugOut(ToWSTR(std::to_string(synergies) + "\n").c_str());
+	//float vxMax = mState == EMarioState::RUN ? VELOCITY_X_SPEEDUP_MAX : VELOCITY_X_MAX;
 	
 	if (fabs(vx + ax*dt) < vxMax) {
 		vx = vx + ax * dt;
 	}
 		
-	if (vx > 0) f = -0.0075f;
-	if (vx < 0) f = 0.0075f;
+	if (vx > 0) f = -MARIO_FRICTION;
+	if (vx < 0) f = MARIO_FRICTION;
 	if (fabs(vx) > fabs(f))
 		vx = vx + f;
 	else vx = 0;
+
+	//float vyMax = mState==EMarioState::JUMP ? 
 
 	vy += MARIO_GRAVITY * dt;
 	
@@ -80,7 +151,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	coEvents.clear();
 
-	if (state != MARIO_STATE_DIE)
+	if (mState != EMarioState::DIE)
 		CalcPotentialCollisions(coObjects, coEvents);
 
 	if (GetTickCount() - untouchable_start > MARIO_UNTOUCHABLE_TIME)
@@ -93,8 +164,6 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		x += dx;
 		y += dy;
-		//jum
-		//fly
 	}
 	else
 	{
@@ -109,21 +178,20 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (nx != 0)
 		{
 			vx = 0;
-			mState = EMarioState::DIE;
 		}
 
 		if (ny < 0 && vx==0) {
 			vy = 0;
-			mState = EMarioState::IDLE;
+			SwitchState(EMarioState::IDLE);
 		}
-		if (ny < 0 && vx != 0 && vx < VELOCITY_X_MAX) {
+		if (ny < 0 && vx != 0 && fabs(vx) < VELOCITY_X_MAX) {
 			vy = 0;
-			mState = EMarioState::WALK;
+			SwitchState(EMarioState::WALK);
 		}
-		if (ny < 0 && vx > VELOCITY_X_MAX)
+		if (ny < 0 && fabs(vx) > VELOCITY_X_MAX)
 		{
 			vy = 0;
-			mState = EMarioState::RUN;
+			SwitchState(EMarioState::RUN);
 		}
 
 		for (UINT i = 0; i < coEventsResult.size(); i++)
@@ -145,17 +213,25 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 				else if (e->nx != 0)
 				{
+					
 					if (untouchable == 0)
 					{
 						if (goomba->GetState() != GOOMBA_STATE_DIE)
 						{
-							if (this != dynamic_cast<CMarioSmall*>(this))
+							if (mState == EMarioState::ATTACK)
+							{
+								if (dynamic_cast<CGoomba*>(e->obj))
+								{
+									((CGoomba*)(e->obj))->SetState(GOOMBA_STATE_BEING_SHOOTED, nx);
+								}
+							}
+							/*else if (this != dynamic_cast<CMarioSmall*>(this))
 							{
 								LPSCENE scence = CScences::GetInstance()->Get(CGame::GetInstance()->GetCurrentSceneId());
 								scence->SwitchPlayer(new CMarioSmall(this->x, this->y));
 								StartUntouchable();
-							}
-							else SetState(MARIO_STATE_DIE);
+							}*/
+							//else mState = EMarioState::DIE;
 						}
 					}
 				}
@@ -170,11 +246,12 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	ax = 0;
+	movementRatioX = 1;
+	vxMax = VELOCITY_X_MAX;
 }
 
 void CMario::Render()
 {
-	
 	int alpha = 255;
 	if (untouchable) alpha = 128;
 
@@ -182,46 +259,53 @@ void CMario::Render()
 	
 	if (anim != NULL)
 	{
-		if(nx<0)
-			anim->Render(x, y, D3DXVECTOR2(-1.0f, 1.0f), alpha);
-		else anim->Render(x, y, D3DXVECTOR2(1.0f, 1.0f), alpha);
+		if(nx==-1)
+			anim->Render(x , y , D3DXVECTOR2(-1.0f, 1.0f), alpha);
+		else 
+			anim->Render(x , y , D3DXVECTOR2(1.0f, 1.0f), alpha);
+			
 	}
+	//CSprites::GetInstance()->Get("spr-raccoon-mario-spin-5")->Draw(x, y, Vector2(1.0f,1.0f));
 	
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
-void CMario::SetState(int state)
+void CMario::KeyboardHandle(int key, bool type)
 {
-	CGameObject::SetState(state);
-
-	switch (state)
+	switch (key)
 	{
-	case MARIO_STATE_WALKING_RIGHT:
-		ax = MARIO_ACCELERATION_WALK;
+	case KEYBOARD_PRESS_A:
+		if (type)
+		{
+			vxMax = VELOCITY_X_SPEEDUP_MAX;
+			movementRatioX = 1.5f;
+		}
+		break;
+	case KEYBOARD_PRESS_RIGHT:
+		ax = MARIO_ACCELERATION_WALK * movementRatioX;
 		nx = 1;
 		break;
-	case MARIO_STATE_WALKING_LEFT:
-		ax = -MARIO_ACCELERATION_WALK;
+	case KEYBOARD_PRESS_LEFT:
+		ax = -MARIO_ACCELERATION_WALK * movementRatioX;
 		nx = -1;
 		break;
-	case MARIO_STATE_RUN_RIGHT:
-		ax = MARIO_ACCELERATION_RUN;
-		nx = 1;
-		break;
-	case MARIO_STATE_RUN_LEFT:
-		ax = -MARIO_ACCELERATION_RUN;
-		nx = -1;
-		break;
-	case MARIO_STATE_JUMP:
-		if (mState == EMarioState::IDLE) {
+	case KEYBOARD_PRESS_X:
+		if (SwitchState(EMarioState::JUMP)) {
 			vy = -MARIO_JUMP_SPEED_Y;
 		}
 		break;
-	case MARIO_STATE_HIGH_JUMP:
-		if (mState == EMarioState::IDLE)
+	case KEYBOARD_PRESS_S:
+		if (!type) // nhay cao
 		{
-			vy = -MARIO_HIGH_JUMP_SPEED_Y;
+			if (synergies == 6)
+				SwitchState(EMarioState::FLY);
+			else
+				if (SwitchState(EMarioState::JUMP)) 
+				{
+					vy = -MARIO_HIGH_JUMP_SPEED_Y;
+				}
 		}
+		//else //nhay cao hon
 		break;
 	case MARIO_STATE_IDLE:
 		break;
@@ -240,8 +324,8 @@ void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom
 
 void CMario::Reset()
 {
-	// set lai player
-	SetState(MARIO_STATE_IDLE);
+	mType = EMarioType::SMALL;
+	mState = EMarioState::IDLE;
 	SetPosition(start_x, start_y);
 	SetSpeed(0, 0);
 }

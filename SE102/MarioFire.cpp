@@ -6,24 +6,50 @@ CMarioFire::CMarioFire(float x, float y) : CMario(x, y) {
 	bullets.push_back(new CFireBullet(x, y));
 }
 
-void CMarioFire::SetState(int state)
+//bool CMarioFire::SwitchState(EMarioState newState)
+//{
+//	if(!CMario::SwitchState(newState)) return false;
+//
+//	switch (newState)
+//	{
+//	case EMarioState::ATTACK:
+//		for (int i = 0; i < bullets.size(); i++)
+//		{
+//			if (bullets[i]->isHidden)
+//			{
+//				bullets[i]->isHidden = false;
+//				bullets[i]->x = this->x + MARIO_BIG_BBOX_WIDTH;
+//				bullets[i]->y = this->y + MARIO_BIG_BBOX_HEIGHT / 2;
+//				bullets[i]->nx = this->nx;
+//				return true;
+//			}
+//		}
+//		break;
+//	}
+//}
+void CMarioFire::KeyboardHandle(int key, bool type)
 {
-	CMario::SetState(state);
-
-	switch (state)
+	CMario::KeyboardHandle(key, type);
+	switch (key)
 	{
-	case MARIO_STATE_ATTACK:
-		for (int i = 0; i < bullets.size(); i++)
-		{
-			if (bullets[i]->isHidden)
+	case KEYBOARD_PRESS_A:
+		if (!type) {
+			SwitchState(EMarioState::ATTACK);
+			for (int i = 0; i < bullets.size(); i++)
 			{
-				bullets[i]->isHidden = false;
-				bullets[i]->x = this->x + MARIO_BIG_BBOX_WIDTH;
-				bullets[i]->y = this->y + MARIO_BIG_BBOX_HEIGHT / 2;
-				bullets[i]->nx = this->nx;
-				return;
+				if (bullets[i]->isHidden)
+				{
+					bullets[i]->isHidden = false;
+					bullets[i]->x = this->x + MARIO_BIG_BBOX_WIDTH;
+					bullets[i]->y = this->y + MARIO_BIG_BBOX_HEIGHT / 2;
+					bullets[i]->nx = this->nx;
+					return;
+				}
 			}
 		}
+			
+		break;
+	default:
 		break;
 	}
 }

@@ -66,11 +66,11 @@ void CGame::Init(HWND hWnd)
 /*
 	Utility function to wrap LPD3DXSPRITE::Draw
 */
-void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, D3DXVECTOR2 scale, int alpha)
+void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, D3DXVECTOR2 scale, int alpha, Vector2 pivot)
 {
 	// ham sprite->Draw toi day , o day:  texture cung co nghia la sprite
 	Vector2 camPos = camera->GetCamPosition();
-	D3DXVECTOR3 p(x - camPos.x, y - camPos.y, 0);
+	D3DXVECTOR3 p(x - camPos.x - pivot.x, y - camPos.y - pivot.y, 0);
 	RECT r;
 	r.left = left;
 	r.top = top;

@@ -38,7 +38,8 @@ Vector2 CCamera::ConvertPosition(Vector2 pos) {
 void CCamera::UpdateCamPosition() {
 	float left, top, right, bottom;
 	positionController->GetBoundingBox(left, top, right, bottom); 
-	SetCamPosition(Vector2((int)(left + right - camSize.x) / 2, 710));
+	//SetCamPosition(Vector2((int)(left + right - camSize.x) / 2, 710));
+	SetCamPosition(Vector2((int)(positionController->x+20 - camSize.x / 2), 710));
 }
 
 void CCamera::Update(DWORD dt) {

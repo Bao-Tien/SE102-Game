@@ -13,6 +13,7 @@ CFireBullet::CFireBullet(float x, float y)
 
 void CFireBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 {
+	if (this->isHidden) return;
 	vx = BULLET_SPEED_X  * nx;
 	vy += BULLET_GRAVITY * dt;
 	CGameObject::Update(dt);
@@ -72,7 +73,7 @@ void CFireBullet::Render()
 			anim->Render(x, y, D3DXVECTOR2(-1.0f, 1.0f), alpha);
 		else anim->Render(x, y, D3DXVECTOR2(1.0f, 1.0f), alpha);
 	}
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CFireBullet::GetBoundingBox(float& left, float& top, float& right, float& bottom)

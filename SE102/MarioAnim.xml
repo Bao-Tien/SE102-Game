@@ -158,7 +158,7 @@
 		</Animation>
 		<!-- Animation IDLE-->
 		<Animation aniId="ani-raccoon-mario-idle" frameTime="100" name="IDLE">
-			<Sprite id="spr-raccoon-mario-idle-0" left="80" top="142"  width="21" height="28" frameTime="100"/>
+			<Sprite id="spr-raccoon-mario-idle-0" />
 		</Animation>
 		<!-- Animation WALK-->
 		<Animation aniId="ani-raccoon-mario-walk" frameTime="100" name="WALK">
@@ -198,12 +198,7 @@
 			<Sprite id="spr-raccoon-mario-fly-1" left="468" top="143"  width="24" height="27" frameTime="100"/>
 			<Sprite id="spr-raccoon-mario-fly-2" left="495" top="142"  width="24" height="28" frameTime="100"/>
 		</Animation>
-		<!-- Animation SPIN-->
-		<Animation aniId="ani-raccoon-mario-spin" frameTime="100" name="SPIN">
-			<Sprite id="spr-raccoon-mario-spin-0" left="174" top="142"  width="16" height="28" frameTime="100"/>
-			<Sprite id="spr-raccoon-mario-spin-1" left="193" top="142"  width="23" height="28" frameTime="100"/>
-			<Sprite id="spr-raccoon-mario-spin-2" left="219" top="142"  width="16" height="28" frameTime="100"/>
-		</Animation>
+		
 		<!-- Animation CROUCH-->
 		<Animation aniId="ani-raccoon-mario-crouch" frameTime="100" name="CROUCH">
 			<Sprite id="spr-raccoon-mario-crouch-0" left="522" top="152"  width="22" height="18" frameTime="100"/>
@@ -251,12 +246,11 @@
 		</Animation>
 		<!--Animation ATTACK-->
 		<Animation aniId="ani-raccoon-mario-attack" frameTime="100" name="ATTACK">
-			<Sprite id="spr-raccoon-mario-attack-0" left="80" top="142"  width="21" height="28" frameTime="100" xPivot="14"/>
-			<Sprite id="spr-raccoon-mario-attack-1" left="78" top="107"  width="23" height="28" frameTime="100" xPivot="7"/>
-			<Sprite id="spr-raccoon-mario-attack-2" left="174" top="142"  width="16" height="28" frameTime="100"/>
-			<Sprite id="spr-raccoon-mario-attack-3" left="193" top="142"  width="23" height="28" frameTime="100" xPivot="7"/>
-			<Sprite id="spr-raccoon-mario-attack-4" left="219" top="142"  width="16" height="28" frameTime="100"/>
-			<Sprite id="spr-raccoon-mario-attack-5" left="80" top="142"  width="21" height="28" frameTime="100" xPivot="14"/>
+			<Sprite id="spr-raccoon-mario-spin-0" left="80" top="142"  width="21" height="28" frameTime="80" xPivot="14"/>
+			<Sprite id="spr-raccoon-mario-spin-2" left="174" top="142"  width="16" height="28" frameTime="80"/>
+			<Sprite id="spr-raccoon-mario-spin-3" left="193" top="142"  width="23" height="28" frameTime="80" xPivot="7"/>
+			<Sprite id="spr-raccoon-mario-spin-4" left="219" top="142"  width="16" height="28" frameTime="80"/>
+			<Sprite id="spr-raccoon-mario-spin-5" left="80" top="142"  width="21" height="28" frameTime="80" xPivot="14"/>
 		</Animation>
 
 		<!--Fire Mario-->
@@ -284,7 +278,7 @@
 			<Sprite id="spr-fire-mario-skid-0" left="261" top="108"  width="16" height="28" frameTime="100"/>
 		</Animation>
 		<!-- Animation THROW -->
-		<Animation aniId="ani-fire-mario-throw" frameTime="100" name="THROW">
+		<Animation aniId="ani-fire-mario-attack" frameTime="100" name="THROW">
 			<Sprite id="spr-fire-mario-throw-0" left="280" top="109"  width="14" height="27" frameTime="100"/>
 			<Sprite id="spr-fire-mario-throw-1" left="297" top="109"  width="14" height="27" frameTime="100"/>
 		</Animation>

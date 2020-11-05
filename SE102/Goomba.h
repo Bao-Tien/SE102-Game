@@ -11,7 +11,6 @@
 #define GOOMBA_BBOX_HEIGHT 45
 #define GOOMBA_BBOX_HEIGHT_DIE 27
 
-#define GOOMBA_STATE_IDLE 90
 #define GOOMBA_STATE_WALKING 100
 #define GOOMBA_STATE_BEING_SHOOTED 150
 #define GOOMBA_STATE_WILL_DIE 200
@@ -27,8 +26,10 @@ class CGoomba : public CGameObject
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();
 	DWORD beginStateDie = 0;
+	int state;
 
 public:
 	CGoomba(float x, float y);
 	virtual void SetState(int state, float nx = 1);
+	virtual int GetState() { return state; }
 };

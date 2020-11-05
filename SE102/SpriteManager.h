@@ -17,7 +17,7 @@ class CSprites
 	unordered_map<string, LPSPRITE> sprites;
 
 public:
-	void Add(string id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
+	void Add(string id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex, D3DXVECTOR2 pivot = D3DXVECTOR2(0,0));
 	LPSPRITE Get(string id);
 	void Clear();
 	void Initialization(string path);

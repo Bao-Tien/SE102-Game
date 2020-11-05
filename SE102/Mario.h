@@ -29,24 +29,26 @@ protected:
 
 	float start_x;			// initial position of Mario at scene
 	float start_y;
-	bool isStanding ;
-	bool isHighJump;
-	bool isRunning;
-	bool isAttack;
-
-	EMarioType mType;
-	EMarioState mState;
 	// int mState; 0: IDLE, 1: ..., 2...
 
-	float isFly;
+	float movementRatioX;
+	float vxMax;
 	float ax,ay;
 	float f;
+
+	DWORD beginState = 0;
+	DWORD timeState = 0;
+	int synergies;
 public:
+	EMarioType mType;
+	EMarioState mState;
 	CMario(float x = 0.0f, float y = 0.0f);
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
+	virtual bool SwitchState(EMarioState newState);
+	virtual void SetState(EMarioState newState, DWORD timeState = 0);
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render();
 
-	void SetState(int state);
+	virtual void KeyboardHandle(int key, bool type);
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 
 	virtual string GetAnimationIdFromState();

@@ -53,7 +53,6 @@ void CKoopas::Render()
 
 void CKoopas::SetState(int state)
 {
-	CGameObject::SetState(state);
 	switch (state)
 	{
 	case KOOPAS_STATE_DIE:

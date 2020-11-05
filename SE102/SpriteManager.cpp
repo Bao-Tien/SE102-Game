@@ -11,9 +11,9 @@ CSprites* CSprites::GetInstance()
 	return __instance;
 }
 
-void CSprites::Add(string id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex)
+void CSprites::Add(string id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex, D3DXVECTOR2 pivot)
 {
-	LPSPRITE s = new CSprite(id, left, top, right, bottom, tex);
+	LPSPRITE s = new CSprite(id, left, top, right, bottom, tex, pivot);
 	sprites[id] = s;
 }
 
@@ -48,13 +48,21 @@ bool CSprites::LoadSpriteFile(std::string path)
 	for (TiXmlElement* node = texture->FirstChildElement(); node != nullptr; node = node->NextSiblingElement())
 	{
 		string spriteID = node->Attribute("id");
-		int left, top, width, height;
+		int left, top, width, height, xPivot = 0, yPivot = 0;
+
 		node->QueryIntAttribute("left", &left);
 		node->QueryIntAttribute("top", &top);
 		node->QueryIntAttribute("width", &width);
 		node->QueryIntAttribute("height", &height);
+		node->QueryIntAttribute("xPivot", &xPivot);
+		node->QueryIntAttribute("yPivot", &yPivot);
+		
+		if (xPivot != 0) {
+			int a = 999;
+		}
+
 		OutputDebugStringW(ToLPCWSTR(spriteID + ':' + to_string(left) + ':' + to_string(top) + ':' + to_string(width) + ':' + to_string(height) + '\n'));
-		Add(spriteID, left*3, top*3, (width+left)*3, (height+top)*3, tex);
+		Add(spriteID, left*3, top*3, (width+left)*3, (height+top)*3, tex, Vector2(xPivot, yPivot));
 	}
 }
 
