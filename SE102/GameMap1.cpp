@@ -16,14 +16,6 @@ CGameMap::CGameMap(int width, int height, int tileWidth, int tileHeight)
 	this->tileWidth = tileWidth;
 }
 
-//void CGameMap::UpdateCamPosition(Vector2 newPos) {
-//	camPosition = newPos;
-//}
-
-//Vector2 CGameMap::ConvertToPositionInCam(Vector2 oldPos) {
-//	return Vector2(oldPos.x - camPosition.x, oldPos.y - camPosition.y);
-//}
-
 Vector2 CGameMap::GetBound()
 {
 	return Vector2(this->width * tileWidth, this->height * tileHeight);
@@ -31,7 +23,6 @@ Vector2 CGameMap::GetBound()
 
 shared_ptr<CTileSet> CGameMap::GetTileSetByTileID(int id)
 {
-	/*return floor_entry(tilesets, id).second;*/
 
 	return tilesets[1];
 }
@@ -53,8 +44,6 @@ void CGameMap::Update(int dt)
 
 void CGameMap::Render()
 {
-	/*int col = this->camPosition.x / tileWidth;
-	int row = this->camPosition.y / tileHeight;*/
 	int col = CGame::GetInstance()->GetPosCamera().x / tileWidth;
 	int row = CGame::GetInstance()->GetPosCamera().y / tileHeight;
 

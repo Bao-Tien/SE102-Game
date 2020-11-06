@@ -14,6 +14,7 @@
 #include "MarioRaccoon.h"
 #include "MarioFire.h"
 #include "Goomba.h"
+#include "Koopas.h"
 using namespace std;
 
 CPlayScene::CPlayScene(string id, string filePath) :
@@ -68,7 +69,11 @@ bool CPlayScene::Load()
 	TiXmlElement* bbox = root->FirstChildElement("BBox");
 	string BboxPath = bbox->Attribute("path");
 	string BboxId = bbox->Attribute("id");
-	CTextures::GetInstance()->Initialization(BboxPath, BboxId);
+	TiXmlElement* BackgroundColor_bbox = bbox->FirstChildElement("BackgroundColor");
+	int bbox_R = atoi(BackgroundColor_bbox->Attribute("R"));
+	int bbox_G = atoi(BackgroundColor_bbox->Attribute("G"));
+	int bbox_B = atoi(BackgroundColor_bbox->Attribute("B"));
+	CTextures::GetInstance()->Initialization(BboxPath, BboxId, D3DCOLOR_XRGB(bbox_R, bbox_G, bbox_B));
 
 	OutputDebugStringW(ToLPCWSTR("BboxPath : " + BboxPath + '\n'));
 
@@ -78,7 +83,7 @@ bool CPlayScene::Load()
 	{
 		string TexturePath = node->Attribute("path");
 		string TextureId = node->Attribute("id");
-		CTextures::GetInstance()->Initialization(TexturePath, TextureId);
+		CTextures::GetInstance()->Initialization(TexturePath, TextureId, D3DCOLOR());
 	}
 
 	//load Sprite
@@ -118,7 +123,13 @@ bool CPlayScene::Load()
 		LPGAMEOBJECT goomba = new CGoomba(goomba_x, goomba_y);
 		objects_Enemy.push_back(goomba);
 	}
-
+	for (TiXmlElement* node = objects->FirstChildElement("Koopas"); node != nullptr; node = node->NextSiblingElement("Koopas"))
+	{
+		float koopas_x = atof(node->Attribute("x"));
+		float koopas_y = atof(node->Attribute("y"));
+		LPGAMEOBJECT koopas = new CKoopas(koopas_x, koopas_y);
+		objects_Enemy.push_back(koopas);
+	}
 
 	DebugOut(L"[INFO] Loading game file : %s has been loaded successfully\n", sceneFilePath);
 	mMap = CGameMap().FromTMX(MapPath, &objects_Map);
@@ -212,10 +223,10 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)  //event
 	case DIK_4:
 		((CPlayScene*)scence)->SwitchPlayer(new CMarioRaccoon(currentPlayer->x, currentPlayer->y));
 		break;
-	case DIK_X: //nhay thap + (raccoon: bay thap)
+	case DIK_X:
 		currentPlayer->KeyboardHandle(KEYBOARD_PRESS_X,	false);
 		break;
-	case DIK_S: //nhay cao + (raccoon: bay cao)
+	case DIK_S: 
 		currentPlayer->KeyboardHandle(KEYBOARD_PRESS_S, false);
 		break;
 	case DIK_A:
@@ -231,27 +242,27 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)  //event
 void CPlayScenceKeyHandler::KeyState(BYTE* states)
 {
 	CGame* game = CGame::GetInstance();
-	CMario* mario = (CMario*)(((CPlayScene*)scence)->GetPlayer());
+	CMario* currentPlayer = (CMario*)(((CPlayScene*)scence)->GetPlayer());
 
 	//if (mario->GetState() == MARIO_STATE_DIE) return;
-	if (mario->mState == EMarioState::DIE) return;
+	if (currentPlayer->mState == EMarioState::DIE) return;
 	// Su kien di kem
 	if (game->IsKeyDown(DIK_A))//chay nhanh
 	{
-		mario->KeyboardHandle(KEYBOARD_PRESS_A, true);
+		currentPlayer->KeyboardHandle(KEYBOARD_PRESS_A, true);
 	}
 
 	// Su kien rieng
 	if (game->IsKeyDown(DIK_RIGHT))
 	{
-		mario->KeyboardHandle(KEYBOARD_PRESS_RIGHT, true);
+		currentPlayer->KeyboardHandle(KEYBOARD_PRESS_RIGHT, true);
 	}
 	else if (game->IsKeyDown(DIK_LEFT))
 	{
-		mario->KeyboardHandle(KEYBOARD_PRESS_LEFT, true);
+		currentPlayer->KeyboardHandle(KEYBOARD_PRESS_LEFT, true);
 	}
-	else if (game->IsKeyDown(DIK_S)) //nhay cao hon
+	else if (game->IsKeyDown(DIK_S))
 	{
-		mario->KeyboardHandle(KEYBOARD_PRESS_S, true);
+		currentPlayer->KeyboardHandle(KEYBOARD_PRESS_S, true);
 	}
 }

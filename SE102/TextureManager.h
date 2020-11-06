@@ -17,7 +17,7 @@ public:
 	CTextures();
 	void Add(string id, LPCWSTR filePath, D3DCOLOR transparentColor);
 	LPDIRECT3DTEXTURE9 Get(string i);
-	void Initialization(string path, string id, int R = 255 , int G = 255, int B = 255);
+	void Initialization(string path, string id, D3DCOLOR transparentColor);
 	void Clear();
 	static CTextures* GetInstance();
 };

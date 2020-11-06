@@ -43,7 +43,7 @@ public:
 	EMarioType mType;
 	EMarioState mState;
 	CMario(float x = 0.0f, float y = 0.0f);
-	virtual bool SwitchState(EMarioState newState);
+	virtual bool SwitchState(EMarioState newState, DWORD timeState = 0);
 	virtual void SetState(EMarioState newState, DWORD timeState = 0);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render();

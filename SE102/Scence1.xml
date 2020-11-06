@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Scence1>
   <Map name="Map" path="Resources/new_world_1_1n.tmx">
-    <BackgroundColor R="156" G="252" B="240"/>
   </Map>
 
   <BBox name="BBox" path="textures\\bbox.png" id = "bbox">
@@ -10,10 +9,8 @@
 
   <Textures>
     <Texture name="Texture" path="Textures/mario-new.png" id="tex-mario">
-      <BackgroundColor R="156" G="252" B="240"/>
     </Texture>
     <Texture name="Texture" path="Textures/enemy.png" id="tex-enemy">
-      <BackgroundColor R="156" G="252" B="240"/>
     </Texture>
   </Textures>
 
@@ -29,18 +26,14 @@
   
 
   <Player name="Player" type="marioSmall" x="50" y="850">
-    <BackgroundColor R="156" G="252" B="240"/>
   </Player>
   
   <Objects >
     <Goomba x="1000" y="1150" />
     <Goomba x="2300" y="1150" />
     <Goomba x="3000" y="1000"/>
+    <Koopas x="300" y="1150"/>
+    <Koopas x="1200" y="1050"/>
   </Objects>
 
-  <Camera name="Camera" start="0" main="1">
-    <!--Camera-->
-    <!--X,Y: Mario.x, Mario.y - ScreenHeight/2-->
-    <Boundary id="0" x="94" y="814.5" left="94" top="0" right="7448" bottom="1296"/>
-  </Camera>
 </Scence1>

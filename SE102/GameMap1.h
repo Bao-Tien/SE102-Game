@@ -32,9 +32,6 @@ public:
 
 	virtual void AddLayer(shared_ptr<CMapLayer> layer);
 
-	//void UpdateCamPosition(Vector2 newPos);
-	//Vector2 ConvertToPositionInCam(Vector2 oldPos);
-
 	virtual void Update(int dt);
 
 	virtual void Render();

@@ -17,7 +17,8 @@ void CGoomba::GetBoundingBox(float& left, float& top, float& right, float& botto
 
 	if (state == GOOMBA_STATE_WILL_DIE)
 		bottom = y + GOOMBA_BBOX_HEIGHT_DIE;
-	else if (state == GOOMBA_STATE_DIE || state == GOOMBA_STATE_BEING_SHOOTED)
+	else 
+	if (state == GOOMBA_STATE_DIE || state == GOOMBA_STATE_BEING_SHOOTED|| state == GOOMBA_STATE_WILL_DIE)
 		top = left = right = bottom = 0;
 	else
 		bottom = y + GOOMBA_BBOX_HEIGHT;
@@ -26,6 +27,7 @@ void CGoomba::GetBoundingBox(float& left, float& top, float& right, float& botto
 void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (this->isHidden) return;
+	if (!this->isInScreen())return;
 
 	vy += GOOMBA_GRAVITY * dt;
 	CGameObject::Update(dt, coObjects);
@@ -56,20 +58,16 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	if (state == GOOMBA_STATE_WILL_DIE && GetTickCount() - beginStateDie > 500)
 	{
-		state = GOOMBA_STATE_DIE;
 		this->isHidden = true;
+		SetState(GOOMBA_STATE_DIE);
 	}
-	
-	
-	/*if (!this->isInScreen()) this->isHidden = true;
-	else isHidden = false;*/
 }
 
 void CGoomba::Render()
 {
 	string ani = GOOMBA_ANI_WALK;
 	if (!this->isHidden) {
-		if (state == GOOMBA_STATE_WILL_DIE || state == GOOMBA_STATE_DIE) {
+		if (state == GOOMBA_STATE_WILL_DIE) {
 			ani = GOOMBA_ANI_DIE;
 			LPANIMATION anim = CAnimations::GetInstance()->Get(ani);
 			if (anim != NULL)
@@ -112,6 +110,11 @@ void CGoomba::SetState(int state, float nx)
 		break;
 	case GOOMBA_STATE_WALKING:
 		vx = -GOOMBA_WALKING_SPEED;
+		this->state = state;
+		break;
+	case GOOMBA_STATE_DIE:
+		vx = 0;
+		vy = 0;
 		this->state = state;
 		break;
 	}

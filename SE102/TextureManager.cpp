@@ -65,9 +65,9 @@ LPDIRECT3DTEXTURE9 CTextures::Get(string id)
 	return textures[id];
 }
 
-void CTextures::Initialization(string path, string id, int R, int G, int B)
+void CTextures::Initialization(string path, string id, D3DCOLOR transparentColor)
 {
-	Add(id, ToLPCWSTR(path), D3DCOLOR_XRGB(R, G, B));
+	Add(id, ToLPCWSTR(path), transparentColor);
 }
 
 void CTextures::Clear()

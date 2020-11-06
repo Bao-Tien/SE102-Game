@@ -37,11 +37,30 @@ CMarioRaccoon::CMarioRaccoon(float x, float y) : CMario(x, y) {
 void CMarioRaccoon::KeyboardHandle(int key, bool type)
 {
 	CMario::KeyboardHandle(key, type);
+
 	switch (key)
 	{
 	case KEYBOARD_PRESS_A:
 		if (!type)
-			SwitchState(EMarioState::ATTACK);
+			SwitchState(EMarioState::ATTACK, 500);
+		break;
+	case KEYBOARD_PRESS_S:
+		if (!type) // nhay cao
+		{
+			if (synergies > 600) {
+				if (mState != EMarioState::JUMP)
+				{
+					vy = -MARIO_FLY_SPEED_Y;
+				}
+				
+				SwitchState(EMarioState::FLY, 500);
+				
+			}
+				
+		
+					
+		}
+		//else //nhay cao hon
 		break;
 	default:
 		break;
