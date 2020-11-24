@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 
 #include "PlayScence.h"
 #include "Utils.h"
@@ -62,8 +63,8 @@ bool CPlayScene::Load()
 	//load filemap
 	TiXmlElement* map = root->FirstChildElement("Map");
 	string MapPath = map->Attribute("path");
-
 	OutputDebugStringW(ToLPCWSTR("MapPath : " + MapPath + '\n'));
+	mMap = CGameMap().FromTMX(MapPath, &objects_Map);
 
 	//load file bbox
 	TiXmlElement* bbox = root->FirstChildElement("BBox");
@@ -132,7 +133,7 @@ bool CPlayScene::Load()
 	}
 
 	DebugOut(L"[INFO] Loading game file : %s has been loaded successfully\n", sceneFilePath);
-	mMap = CGameMap().FromTMX(MapPath, &objects_Map);
+	
 }
 
 void CPlayScene::Update(DWORD dt)
@@ -143,14 +144,21 @@ void CPlayScene::Update(DWORD dt)
 		coObjects.push_back(objects_Map[i]);
 	}
 
-	if (player->x - CGame::GetInstance()->camera->GetCamPosition().x < CGame::GetInstance()->GetScreenWidth() / 2)
+	for (int i = 0; i < objects_Enemy.size(); i++)
 	{
-		for (int i = 0; i < objects_Enemy.size(); i++)
+		if (!objects_Enemy[i]->isHidden)
 		{
-			if (!objects_Enemy[i]->isHidden)
+			/*if (dynamic_cast<CKoopas*>(objects_Enemy[i]))
 			{
-				objects_Enemy[i]->Update(dt, &coObjects);
+				CKoopas* koopas = (CKoopas*)(objects_Enemy[i]);
+				if (koopas->GetState() == KOOPAS_STATE_HELD);
+				{
+					objects_Priority.push_back(objects_Enemy[i]);
+					delete objects_Enemy[i];
+				}
 			}
+			else */
+				objects_Enemy[i]->Update(dt, &coObjects);
 		}
 	}
 
@@ -164,6 +172,16 @@ void CPlayScene::Update(DWORD dt)
 		objects[i]->Update(dt, &coObjects);
 	}
 
+	for (size_t i = 0; i < objects.size(); i++)
+	{
+		coObjects.push_back(objects[i]);
+	}
+
+	for (size_t i = 0; i < objects_Priority.size(); i++)
+	{
+		//objects_Priority[i]->Update(dt, &coObjects);
+	}
+
 	CGame::GetInstance()->camera->Update(dt);
 	
 
@@ -174,6 +192,7 @@ void CPlayScene::Update(DWORD dt)
 void CPlayScene::Render()
 {
 	mMap->Render();
+
 	for (int i = 0; i < objects.size(); i++)
 	{
 		if (!objects[i]->isHidden)
@@ -244,7 +263,6 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 	CGame* game = CGame::GetInstance();
 	CMario* currentPlayer = (CMario*)(((CPlayScene*)scence)->GetPlayer());
 
-	//if (mario->GetState() == MARIO_STATE_DIE) return;
 	if (currentPlayer->mState == EMarioState::DIE) return;
 	// Su kien di kem
 	if (game->IsKeyDown(DIK_A))//chay nhanh

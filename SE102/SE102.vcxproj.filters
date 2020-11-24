@@ -130,6 +130,9 @@
     <Filter Include="GameResources\Objects\Mario\Mario_Fire">
       <UniqueIdentifier>{6db46b61-df53-4588-b1e4-7881f61f1fe9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameResources\Objects\QuestionBrick">
+      <UniqueIdentifier>{51c4ee99-295e-4376-be9b-228811cb4bd4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -305,6 +308,9 @@
     </ClCompile>
     <ClCompile Include="FireBullet.cpp">
       <Filter>GameResources\Objects\Mario\Mario_Fire</Filter>
+    </ClCompile>
+    <ClCompile Include="QuestionBrick.cpp">
+      <Filter>GameResources\Objects\QuestionBrick</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -487,6 +493,9 @@
     </ClInclude>
     <ClInclude Include="FireBullet.h">
       <Filter>GameResources\Objects\Mario\Mario_Fire</Filter>
+    </ClInclude>
+    <ClInclude Include="QuestionBrick.h">
+      <Filter>GameResources\Objects\QuestionBrick</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

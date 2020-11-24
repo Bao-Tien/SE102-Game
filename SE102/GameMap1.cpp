@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "CollisionBox.h"
 #include "PlatForm.h"
+#define CAMERA_MARGIN			150
 
 CGameMap::CGameMap()
 {
@@ -52,11 +53,11 @@ void CGameMap::Render()
 	if (col < 0) col = 0;
 	if (row < 0) row = 0;
 
-	Vector2 camSize = Vector2(CGame::GetInstance()->GetScreenWidth() / tileWidth, 
-								CGame::GetInstance()->GetScreenHeight() / tileHeight);
+	Vector2 camSize = Vector2((CGame::GetInstance()->GetScreenWidth() + CAMERA_MARGIN)/ tileWidth, 
+								(CGame::GetInstance()->GetScreenHeight() + CAMERA_MARGIN) / tileHeight);
 
-	for (int i = col; i <= camSize.x + col + 2; i++) {
-		for (int j = row; j <= camSize.y + row + 2; j++) {
+	for (int i = col; i <= camSize.x + col; i++) {
+		for (int j = row; j <= camSize.y + row; j++) {
 
 			int x = i * tileWidth;
 			int y = j * tileHeight;

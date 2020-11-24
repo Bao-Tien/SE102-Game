@@ -17,8 +17,10 @@ enum class EMarioState {
 	JUMP,
 	FLY,
 	FALL,
+	FALL_SLIGHTLY,
 	ATTACK,
 	DIE,
+	HOLD,
 };
 
 class CMario : public CGameObject
@@ -29,10 +31,9 @@ protected:
 
 	float start_x;			// initial position of Mario at scene
 	float start_y;
-	// int mState; 0: IDLE, 1: ..., 2...
 
 	float movementRatioX;
-	float vxMax;
+	
 	float ax,ay;
 	float f;
 
@@ -45,6 +46,11 @@ public:
 	CMario(float x = 0.0f, float y = 0.0f);
 	virtual bool SwitchState(EMarioState newState, DWORD timeState = 0);
 	virtual void SetState(EMarioState newState, DWORD timeState = 0);
+	virtual void NoCollision();
+	/*virtual void CollisionX(int nxCollision);
+	virtual void CollisionY(int nyCollision);*/
+	virtual void CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively);
+	virtual void CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render();
 

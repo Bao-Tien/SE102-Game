@@ -1,8 +1,8 @@
 #include "MarioFire.h"
-
+#define DELTA_X_FIRE_BULLET		20
 CMarioFire::CMarioFire(float x, float y) : CMario(x, y) {
 	mType = EMarioType::FIRE;
-	bullets.push_back(new CFireBullet(x, y));
+	bullets.push_back(new CFireBullet(x, y, nx));
 	bullets.push_back(new CFireBullet(x, y));
 }
 
@@ -13,15 +13,14 @@ void CMarioFire::KeyboardHandle(int key, bool type)
 	{
 	case KEYBOARD_PRESS_A:
 		if (!type) {
-			SwitchState(EMarioState::ATTACK, 300);
-			
 			for (int i = 0; i < bullets.size(); i++)
 			{
 				if (bullets[i]->isHidden)
 				{
+					SwitchState(EMarioState::ATTACK, 300);
 					bullets[i]->isHidden = false;
-					bullets[i]->x = this->x + MARIO_BIG_BBOX_WIDTH;
-					bullets[i]->y = this->y + MARIO_BIG_BBOX_HEIGHT / 2;
+					bullets[i]->x = this->x + MARIO_BIG_BBOX_WIDTH + ((nx == 1) ? -DELTA_X_FIRE_BULLET : -DELTA_X_FIRE_BULLET*2);
+					bullets[i]->y = this->y + MARIO_BIG_BBOX_HEIGHT / 2 - DELTA_X_FIRE_BULLET;
 					bullets[i]->nx = this->nx;
 					return;
 				}
@@ -35,7 +34,8 @@ void CMarioFire::KeyboardHandle(int key, bool type)
 }
 
 void CMarioFire::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects) {
-	CMario::Update(dt, colliable_objects);
+		CMario::Update(dt, colliable_objects);
+
 		for (int i = 0; i < bullets.size(); i++)
 		{
 			if (!bullets[i]->isHidden)

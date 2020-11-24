@@ -14,4 +14,6 @@ void CMarioSmall::GetBoundingBox(float& left, float& top, float& right, float& b
 	top = y;
 	right = x + MARIO_SMALL_BBOX_WIDTH;
 	bottom = y + MARIO_SMALL_BBOX_HEIGHT;
+	if (mState == EMarioState::DIE)
+		left = top = right = bottom = 0;
 }

@@ -50,18 +50,19 @@ public:
 	float x;
 	float y;
 
-	float dx;	// dx = vx*dt
-	float dy;	// dy = vy*dt
+	float dx;	
+	float dy;	
 
 	float vx;
 	float vy;
 
 	int nx;
 
-	DWORD dt; // tg chuyen tu frame nay sang frame kia
+	DWORD dt; 
 
 	LPANIMATION_SET animation_set;
 	bool isHidden;
+	float vxMax;
 
 public:
 	bool isInScreen();
@@ -69,7 +70,7 @@ public:
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
 	void GetPosition(float& x, float& y) { x = this->x; y = this->y; }
 	void GetSpeed(float& vx, float& vy) { vx = this->vx; vy = this->vy; }
-
+	virtual float GetvxMax() { return vxMax; }
 
 	void RenderBoundingBox(); // ve gioi han doi tuong
 
@@ -85,11 +86,17 @@ public:
 		float& nx,
 		float& ny,
 		float& rdx,
-		float& rdy);  // loc obj nao va cham vs this
+		float& rdy);  
 
 	CGameObject();
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) = 0;
+	virtual void NoCollision();
+	virtual void CollisionX(int nxCollision);
+	virtual void CollisionY(int nyCollision);
+	virtual void CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively = 1);
+	virtual void CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively = 1);
+	virtual void CollisionWithObj(vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render() = 0;
 	

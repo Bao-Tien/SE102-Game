@@ -16,6 +16,8 @@
 #define KOOPAS_STATE_COUCH 200
 #define KOOPAS_STATE_BEING_ATTACK 201
 #define KOOPAS_STATE_BEING_SHOOTED 202
+#define KOOPAS_STATE_BEING_HELD 204
+#define KOOPAS_STATE_HELD 205
 #define KOOPAS_STATE_DIE 203
 
 
@@ -28,9 +30,12 @@ class CKoopas : public CGameObject
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();
 	int state;
-	DWORD beginStateDie;
+	DWORD beginState;
 public:
 	CKoopas(float x, float y);
+	virtual void NoCollision();
+	virtual void CollisionX(LPGAMEOBJECT coObj, int nxCollision);
+	virtual void CollisionY(LPGAMEOBJECT coObj, int nyCollision);
 	virtual void SetState(int state, float nxCollision = 1);
 	virtual int GetState() { return state; }
 };

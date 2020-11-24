@@ -43,7 +43,7 @@ void CTileSet::Draw(int gid, Vector2 finalPos)
 {
 	if (gid < firstgid) return;
 	RECT r;
-	r.top = ((gid - firstgid) / columns) * tileSize.y; // chua hieu
+	r.top = ((gid - firstgid) / columns) * tileSize.y; 
 	r.left = ((gid - firstgid) % columns) * tileSize.x;
 	r.bottom = r.top + tileSize.y;
 	r.right = r.left + tileSize.x;

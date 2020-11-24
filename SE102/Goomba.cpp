@@ -1,5 +1,6 @@
 #include "Goomba.h"
 #include "FireBullet.h"
+#include "Mario.h"
 
 CGoomba::CGoomba(float x, float y)
 {
@@ -24,14 +25,53 @@ void CGoomba::GetBoundingBox(float& left, float& top, float& right, float& botto
 		bottom = y + GOOMBA_BBOX_HEIGHT;
 }
 
+void CGoomba::NoCollision()
+{
+	CGameObject::NoCollision();
+}
+void CGoomba::CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively)
+{
+	if (this->state != GOOMBA_STATE_DIE)
+	{
+		if (Actively == 1)
+		{
+			vx = -vx;
+		}
+		else
+		{
+			//if (dynamic_cast<CMario*>(coObj))
+			//{
+				CMario* mario = (CMario*)coObj;
+				if (mario->mState == EMarioState::ATTACK)
+					SetState(GOOMBA_STATE_BEING_SHOOTED, nxCollision);
+			//}
+		}
+	}
+	
+	
+}
+void CGoomba::CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively)
+{
+	if (this->state != GOOMBA_STATE_DIE)
+	{
+		if (Actively == 1)
+		{
+			vy = 0;
+		}
+		else if (dynamic_cast<CMario*>(coObj))
+		{
+			SetState(GOOMBA_STATE_WILL_DIE);
+		}
+	}
+}
+
 void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (this->isHidden) return;
-	if (!this->isInScreen())return;
 
 	vy += GOOMBA_GRAVITY * dt;
 	CGameObject::Update(dt, coObjects);
-	vector<LPCOLLISIONEVENT> coEvents;
+	CollisionWithObj(coObjects);
+	/*vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 	coEvents.clear();
 	CalcPotentialCollisions(coObjects, coEvents);
@@ -55,10 +95,9 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (ny < 0) {
 			vy = 0;
 		}
-	}
-	if (state == GOOMBA_STATE_WILL_DIE && GetTickCount() - beginStateDie > 500)
+	}*/
+	if (state == GOOMBA_STATE_WILL_DIE && GetTickCount() - beginStateDie > 400)
 	{
-		this->isHidden = true;
 		SetState(GOOMBA_STATE_DIE);
 	}
 }
@@ -66,33 +105,31 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void CGoomba::Render()
 {
 	string ani = GOOMBA_ANI_WALK;
-	if (!this->isHidden) {
-		if (state == GOOMBA_STATE_WILL_DIE) {
-			ani = GOOMBA_ANI_DIE;
+	if (state == GOOMBA_STATE_WILL_DIE) {
+		ani = GOOMBA_ANI_DIE;
+		LPANIMATION anim = CAnimations::GetInstance()->Get(ani);
+		if (anim != NULL)
+			anim->Render(x, y, D3DXVECTOR2(1.0f, 1.0f));
+
+	}
+	else if (state == GOOMBA_STATE_BEING_SHOOTED)
+	{
+		ani = GOOMBA_ANI_IDLE;
 			LPANIMATION anim = CAnimations::GetInstance()->Get(ani);
 			if (anim != NULL)
-				anim->Render(x, y, D3DXVECTOR2(1.0f, 1.0f));
-
-		}
-		else if (state == GOOMBA_STATE_BEING_SHOOTED)
-		{
-			ani = GOOMBA_ANI_IDLE;
-				LPANIMATION anim = CAnimations::GetInstance()->Get(ani);
-				if (anim != NULL)
-					anim->Render(x, y, D3DXVECTOR2(1.0f, -1.0f));
-		}
-		else CAnimations::GetInstance()->Get(ani)->Render(x, y);
+				anim->Render(x, y, D3DXVECTOR2(1.0f, -1.0f));
 	}
+	else CAnimations::GetInstance()->Get(ani)->Render(x, y);
 	
 
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
-void CGoomba::SetState(int state, float nx)
+void CGoomba::SetState(int state, float nxCollision)
 {
 	switch (state)
 	{
-	case GOOMBA_STATE_WILL_DIE:
+	case GOOMBA_STATE_WILL_DIE: //bi thap xuong
 		y += GOOMBA_BBOX_HEIGHT - GOOMBA_BBOX_HEIGHT_DIE;
 		vx = 0;
 		vy = 0;
@@ -100,7 +137,7 @@ void CGoomba::SetState(int state, float nx)
 		this->state = state;
 		break;
 	case GOOMBA_STATE_BEING_SHOOTED:
-		if (nx < 0)
+		if (nxCollision < 0)
 		{
 			vx = GOOMBA_BEING_SHOOTED_SPEED_X;
 		}
@@ -115,6 +152,7 @@ void CGoomba::SetState(int state, float nx)
 	case GOOMBA_STATE_DIE:
 		vx = 0;
 		vy = 0;
+		this->isHidden = true; // roi ma tai sao van renden goomba bi roi xuong
 		this->state = state;
 		break;
 	}

@@ -190,6 +190,7 @@
     <ClCompile Include="PlatForm.cpp" />
     <ClCompile Include="PlayScence.cpp" />
     <ClCompile Include="Portal.cpp" />
+    <ClCompile Include="QuestionBrick.cpp" />
     <ClCompile Include="RectF.cpp" />
     <ClCompile Include="Scence.cpp" />
     <ClCompile Include="ScenceManager.cpp" />
@@ -253,6 +254,7 @@
     <ClInclude Include="PlatForm.h" />
     <ClInclude Include="PlayScence.h" />
     <ClInclude Include="Portal.h" />
+    <ClInclude Include="QuestionBrick.h" />
     <ClInclude Include="RectF.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Scence.h" />

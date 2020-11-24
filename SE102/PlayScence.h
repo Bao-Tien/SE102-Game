@@ -7,16 +7,15 @@
 #include "Mario.h"
 #include "Goomba.h"
 #include "Koopas.h"
-#include "GameMap1.h"
 
 class CPlayScene : public CScene
 {
 protected:
-	LPGAMEOBJECT player;					// A play scene has to have player, right? 
 	vector<LPGAMEOBJECT> objects_Enemy;
 	vector<LPGAMEOBJECT> objects_Map;
 	vector<LPGAMEOBJECT> objects;
-	shared_ptr<CGameMap> mMap;
+	vector<LPGAMEOBJECT> objects_Priority;
+	
 public:
 	CPlayScene(string id, string filePath);
 	void SwitchPlayer(LPGAMEOBJECT newPlayer);
@@ -25,7 +24,8 @@ public:
 	virtual void Render();
 	virtual void Unload();
 	virtual string GetScenceFilePath() { return sceneFilePath; }
-	
+	virtual vector<LPGAMEOBJECT> GetObjEnemy() { return objects_Enemy; }
+	virtual vector<LPGAMEOBJECT> GetObjMap() { return objects_Map; }
 	LPGAMEOBJECT GetPlayer() { return player; }
 
 	//friend class CPlayScenceKeyHandler;

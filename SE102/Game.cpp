@@ -70,7 +70,7 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top
 {
 	// ham sprite->Draw toi day , o day:  texture cung co nghia la sprite
 	Vector2 camPos = camera->GetCamPosition();
-	D3DXVECTOR3 p(x - camPos.x - pivot.x, y - camPos.y - pivot.y, 0);
+	D3DXVECTOR3 p(int(x - camPos.x - pivot.x), int(y - camPos.y - pivot.y), 0);
 	RECT r;
 	r.left = left;
 	r.top = top;
@@ -81,7 +81,7 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top
 
 	spriteHandler->GetTransform(&oldMatrix); 
 
-	D3DXMatrixTransformation2D(&newMatrix, &D3DXVECTOR2(p.x + (right - left) / 2, p.y + (bottom - top) / 2), 0, &scale, &D3DXVECTOR2(x, y), 0.0f, &D3DXVECTOR2(0.0f, 0.0f));
+	D3DXMatrixTransformation2D(&newMatrix, &D3DXVECTOR2(int(p.x + (right - left) / 2), int(p.y + (bottom - top) / 2)), 0, &scale, &D3DXVECTOR2(x, y), 0.0f, &D3DXVECTOR2(0.0f, 0.0f));
 
 	spriteHandler->SetTransform(&newMatrix);
 	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
@@ -92,7 +92,7 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top
 {
 	// ham sprite->Draw toi day , o day:  texture cung co nghia la sprite
 	Vector2 camPos = camera->GetCamPosition();
-	D3DXVECTOR3 p(x - camPos.x, y - camPos.y, 0);
+	D3DXVECTOR3 p(int(x - camPos.x), int(y - camPos.y), 0);
 	RECT r;
 	r.left = left;
 	r.top = top;

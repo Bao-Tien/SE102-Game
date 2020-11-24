@@ -12,7 +12,7 @@
 class CFireBullet: public CGameObject
 {
 public:
-	CFireBullet(float x = 0.0f, float y = 0.0f);
+	CFireBullet(int nx, float x = 0.0f, float y = 0.0f);
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
 	void Render();
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);

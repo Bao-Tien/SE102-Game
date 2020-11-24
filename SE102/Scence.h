@@ -4,6 +4,8 @@
 #include "KeyEventHandler.h"
 #include <string>
 #include "GameObject.h"
+#include "GameMap1.h"
+
 
 class CScene
 {
@@ -11,7 +13,10 @@ protected:
 	CKeyEventHandler* key_handler; 
 	std::string id;
 	std::string sceneFilePath;   
+	shared_ptr<CGameMap> mMap;
 	
+	LPGAMEOBJECT player;
+
 public:
 	CScene(std::string id, std::string filePath); 
 	
@@ -21,6 +26,8 @@ public:
 	virtual void Update(DWORD dt) = 0;
 	virtual void Render() = 0;
 	virtual void SwitchPlayer(LPGAMEOBJECT newPlayer) = 0;
+	virtual LPGAMEOBJECT GetPlayer() { return player; }
+	
 	virtual std::string GetScenceFilePath() = 0;
 };
 typedef CScene* LPSCENE;

@@ -32,8 +32,9 @@
     <Goomba x="1000" y="1150" />
     <Goomba x="2300" y="1150" />
     <Goomba x="3000" y="1000"/>
-    <Koopas x="300" y="1150"/>
+    <Koopas x="600" y="1150"/>
     <Koopas x="1200" y="1050"/>
+    <Koopas x="1800" y="1050"/>
   </Objects>
 
 </Scence1>

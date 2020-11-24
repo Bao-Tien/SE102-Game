@@ -8,31 +8,6 @@ CMarioRaccoon::CMarioRaccoon(float x, float y) : CMario(x, y) {
 	beginFlying = 0;
 }
 
-//bool CMarioRaccoon::SwitchState(EMarioState newState)
-//{
-//	if(!CMario::SwitchState(newState)) return false;
-//
-//	switch (newState)
-//	{
-//	case EMarioState::FLY:
-//		if (mState != EMarioState::FLY)
-//		{
-//			beginFlying = GetTickCount();
-//			SwitchState(EMarioState::FLY);
-//		}
-//		if (GetTickCount() - beginFlying < 5000)
-//			vy = -MARIO_JUMP_SPEED_Y * 1.25;
-//		return true;
-//		break;
-//
-//	/*case EMarioState::ATTACK:
-//		return true;
-//		break;*/
-//	/*case KEYBOARD_PRESS_A:
-//		if (!bb) ATTACK;
-//		break;*/
-//	}
-//}
 
 void CMarioRaccoon::KeyboardHandle(int key, bool type)
 {
@@ -42,10 +17,10 @@ void CMarioRaccoon::KeyboardHandle(int key, bool type)
 	{
 	case KEYBOARD_PRESS_A:
 		if (!type)
-			SwitchState(EMarioState::ATTACK, 500);
+			SwitchState(EMarioState::ATTACK, 400);
 		break;
 	case KEYBOARD_PRESS_S:
-		if (!type) // nhay cao
+		if (!type) 
 		{
 			if (synergies > 600) {
 				if (mState != EMarioState::JUMP)
@@ -53,14 +28,13 @@ void CMarioRaccoon::KeyboardHandle(int key, bool type)
 					vy = -MARIO_FLY_SPEED_Y;
 				}
 				
-				SwitchState(EMarioState::FLY, 500);
+				SwitchState(EMarioState::FLY, 900);
 				
 			}
 				
-		
+			SwitchState(EMarioState::FALL_SLIGHTLY, 150);
 					
 		}
-		//else //nhay cao hon
 		break;
 	default:
 		break;
@@ -69,8 +43,6 @@ void CMarioRaccoon::KeyboardHandle(int key, bool type)
 
 void CMarioRaccoon::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects) {
 	CMario::Update(dt, colliable_objects);
-	
-	//if (dy > 30) SwitchState(EMarioState::)
 }
 
 void CMarioRaccoon::Render()
@@ -91,29 +63,8 @@ void CMarioRaccoon::GetBoundingBox(float& left, float& top, float& right, float&
 	{
 		top = y;
 		bottom = y + MARIO_RACCOON_BBOX_HEIGHT;
-
-		if (
-			(GetTickCount() > beginState + timeState * 0.10 && GetTickCount() < beginState + timeState*0.28 
-			|| GetTickCount() > beginState + timeState * 0.68) && nx == 1
-			|| (GetTickCount() > beginState + timeState * 0.33 && GetTickCount() < beginState + timeState * 0.69) && nx == -1
-			) {
-			left = x - 22;
-			right = left + MARIO_RACCOON_BBOX_WIDTH + 22;
-		}
-		else if (
-			(GetTickCount() > beginState + timeState * 0.33 && GetTickCount() < beginState + timeState * 0.69) && nx == 1
-			|| (GetTickCount() > beginState + timeState * 0.10 && GetTickCount() < beginState + timeState * 0.28
-				|| GetTickCount() > beginState + timeState * 0.68) && nx == -1
-			) {
-			left = x;
-			right = left + MARIO_RACCOON_BBOX_WIDTH + 22;
-		}
-		else {
-			left = x;
-			right = left + MARIO_RACCOON_BBOX_WIDTH;
-			
-		}
-		
+		left = x - 20;
+		right = left + MARIO_RACCOON_BBOX_WIDTH + 44;
 		
 	}
 }

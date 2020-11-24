@@ -31,5 +31,8 @@ class CGoomba : public CGameObject
 public:
 	CGoomba(float x, float y);
 	virtual void SetState(int state, float nx = 1);
+	virtual void NoCollision();
+	virtual void CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively);
+	virtual void CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively);
 	virtual int GetState() { return state; }
 };

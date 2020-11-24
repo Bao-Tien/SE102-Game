@@ -8,6 +8,8 @@
 #include "GameObject.h"
 #include "SpriteManager.h"
 #include "PlatForm.h"
+#include "Koopas.h"
+
 
 #define BBoxId          "bbox"
 
@@ -20,16 +22,64 @@ CGameObject::CGameObject()
 	isHidden = false;
 }
 
+void CGameObject::NoCollision(){
+	x += dx;
+	y += dy;
+}
+void CGameObject::CollisionX(int nxCollision) {}
+void CGameObject::CollisionY(int nyCollision) {}
+void CGameObject::CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively){}
+void CGameObject::CollisionY(LPGAMEOBJECT coObj, int nxCollision, int Actively) {}
+
+void CGameObject::CollisionWithObj(vector<LPGAMEOBJECT>* coObjects)
+{
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
+	coEvents.clear();
+
+	CalcPotentialCollisions(coObjects, coEvents);
+
+	if (coEvents.size() == 0)
+	{
+		NoCollision();
+	}
+	else
+	{
+		float min_tx, min_ty, nx = 0, ny;
+		float rdx = 0;
+		float rdy = 0;
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+
+		x += min_tx * dx + nx * 0.4f;
+		y += min_ty * dy + ny * 0.4f;	
+
+		for (UINT i = 0; i < coEventsResult.size(); i++)
+		{
+			LPCOLLISIONEVENT e = coEventsResult[i];
+			if (e->ny != 0)
+			{
+				CollisionY(coEventsResult[i]->obj, ny);
+				//coEventsResult[i]->obj->CollisionY(this, ny);
+			}
+				
+			if (e->nx != 0)
+			{
+				CollisionX(coEventsResult[i]->obj, nx);
+				//coEventsResult[i]->obj->CollisionX(this, nx); // dung do quai chi co mario goi// no ko dc tu goi
+			}
+		}
+	}
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+}
+
 void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	this->dt = dt;   // di dc khoang thoi gian dt
+	this->dt = dt;   
 	dx = vx * dt;
 	dy = vy * dt;
 }
 
-/*
-	extension of original SweptAABB to deal with two moving objects
-*/
 bool CGameObject::isInScreen()
 {
 	Vector2 camPos = CGame::GetInstance()->camera->GetCamPosition();
@@ -68,6 +118,13 @@ LPCOLLISIONEVENT CGameObject::SweptAABBEx(LPGAMEOBJECT coO)
 		t, nx, ny
 	);
 
+	/*if(dynamic_cast<CKoopas*>(coO))
+		if (((ml + (mr-ml) >= sl) && (sl + (sr-sl) >= ml) && (mt + (mr-ml) >= st) && (st + (sr-sl) >= mt)) == true) {
+			nx = (ml < (sl + sr) / 2) ? -1 : 1;
+			ny = (mt < (st + sb) / 2) ? -1 : 1;
+			t = 0.01f;
+		}*/
+
 	CCollisionEvent* e = new CCollisionEvent(t, nx, ny, rdx, rdy, coO);
 	return e;
 }
@@ -84,6 +141,8 @@ void CGameObject::CalcPotentialCollisions(
 {
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
+		
+
 		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
 
 		if (e->t > 0 && e->t <= 1.0f)

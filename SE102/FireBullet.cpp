@@ -3,7 +3,7 @@
 #include "Goomba.h"
 #include "Koopas.h"
 
-CFireBullet::CFireBullet(float x, float y)
+CFireBullet::CFireBullet(int nx, float x, float y)
 {
 	this->x = x;
 	this->y = y;

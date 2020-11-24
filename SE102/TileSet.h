@@ -28,7 +28,7 @@ public:
 
 	int GetFirstGID();
 
-	std::shared_ptr<RectF> GetBlockBoundingBox(int id); //lm j  day?
+	std::shared_ptr<RectF> GetBlockBoundingBox(int id);
 
 	void Draw(int gid, D3DXVECTOR2 finalPos);
 
