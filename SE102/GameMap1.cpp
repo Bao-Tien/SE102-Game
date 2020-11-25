@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "CollisionBox.h"
 #include "PlatForm.h"
+#include "QuestionBrick.h"
 #define CAMERA_MARGIN			150
 
 CGameMap::CGameMap()
@@ -104,7 +105,7 @@ shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* ob
 					LPGAMEOBJECT obj = new CCollisionBox(
 						atoi(objNode->Attribute("x")),
 						atoi(objNode->Attribute("y")),
-						atoi(objNode->Attribute("width")),
+					atoi(objNode->Attribute("width")),
 						atoi(objNode->Attribute("height"))
 					);
 					objects->push_back(obj);
@@ -112,8 +113,20 @@ shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* ob
 			}
 
 			if (std::string(objGroupNode->Attribute("name")) == "RectPlatform") {
-				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+				for 	(TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
 					LPGAMEOBJECT obj = new CPlatForm(
+						atoi(objNode->Attribute("x")),
+						atoi(objNode->Attribute("y")),
+						atoi(objNode->Attribute("width")),
+						atoi(objNode->Attribute("height"))
+					);
+					objects->push_back(obj);
+				}
+			}
+
+			if (std::string(objGroupNode->Attribute("name")) == "QuestionBrick") {
+				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+					LPGAMEOBJECT obj = new CQuestionBrick(
 						atoi(objNode->Attribute("x")),
 						atoi(objNode->Attribute("y")),
 						atoi(objNode->Attribute("width")),

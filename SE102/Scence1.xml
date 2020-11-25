@@ -8,20 +8,21 @@
   </BBox>
 
   <Textures>
-    <Texture name="Texture" path="Textures/mario-new.png" id="tex-mario">
-    </Texture>
-    <Texture name="Texture" path="Textures/enemy.png" id="tex-enemy">
-    </Texture>
+    <Texture name="Texture" path="Textures/mario-new.png" id="tex-mario"/>
+    <Texture name="Texture" path="Textures/enemy.png" id="tex-enemy"/>
+    <Texture name="Texture" path="Textures/misc.png" id="tex-misc"/>
   </Textures>
 
   <Sprites>
     <Sprite name="Sprite" path="MarioDB.xml"/>
     <Sprite name="Sprite" path="EnemyDB.xml"/>
+    <Sprite name="Sprite" path="MiscDB.xml"/>
   </Sprites>
   
   <Animations>
     <Animation name="Animation" path="MarioAnim.xml"/>
     <Animation name="Animation" path="EnemyAnim.xml"/>
+    <Animation name="Animation" path="MiscAnim.xml"/>
   </Animations>
   
 

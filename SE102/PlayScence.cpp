@@ -103,7 +103,6 @@ bool CPlayScene::Load()
 		string AnimationPath = node->Attribute("path");
 		CAnimations::GetInstance()->Initialization(AnimationPath);
 	}
-	
 
 	//load player
 	TiXmlElement* play = root->FirstChildElement("Player");

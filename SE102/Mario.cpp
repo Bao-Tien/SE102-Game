@@ -165,7 +165,7 @@ void CMario::CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively)
 			scence->SwitchPlayer(new CMarioSmall(this->x, this->y));
 			StartUntouchable();
 		}
-		else SwitchState(EMarioState::DIE);
+		//else SwitchState(EMarioState::DIE);
 	}
 	else coObj->CollisionX(this, nxCollision, 0);
 }
@@ -190,7 +190,7 @@ void CMario::CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively)
 			SwitchState(EMarioState::IDLE);
 		}
 	}
-	coObj->CollisionY(this, nyCollision, 0);
+	else coObj->CollisionY(this, nyCollision, 0);
 	
 }
 

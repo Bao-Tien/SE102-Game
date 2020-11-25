@@ -28,8 +28,7 @@
 		</Animation>
 		<!-- Animation FALL-->
 		<Animation aniId="ani-small-mario-fall" frameTime="100" name="RUN">
-			<Sprite id="spr-small-mario-run-0" left="323" top="8"  width="16" height="16" frameTime="100"/>
-			<Sprite id="spr-small-mario-run-1" left="341" top="8"  width="16" height="16" frameTime="100"/>
+			<Sprite id="spr-small-mario-walk-1" left="269" top="8"  width="15" height="16" frameTime="100"/>
 		</Animation>
 		<!-- Animation JUMP-->
 		<Animation aniId="ani-small-mario-jump" frameTime="100" name="JUMP">

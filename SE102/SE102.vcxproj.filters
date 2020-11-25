@@ -55,14 +55,8 @@
     <Filter Include="Framework\Animations\AnimationSet">
       <UniqueIdentifier>{f23f923d-d1d5-4f30-a0f1-48dc6217d8c2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameResources\Objects\Goomba">
-      <UniqueIdentifier>{9b86d5e6-ba70-4735-8124-5c1ad7feb82e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Framework\KeyEventHandler">
       <UniqueIdentifier>{d9a66bd3-ee9b-4b18-a8f0-d3347b07110c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameResources\Objects\Koopas">
-      <UniqueIdentifier>{43de74c1-5033-4955-b7e5-ee425119e20b}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameResources\Objects\Portal">
       <UniqueIdentifier>{b106eb7b-4766-4991-a799-e8d69f773db4}</UniqueIdentifier>
@@ -133,6 +127,15 @@
     <Filter Include="GameResources\Objects\QuestionBrick">
       <UniqueIdentifier>{51c4ee99-295e-4376-be9b-228811cb4bd4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameResources\Objects\Enemy">
+      <UniqueIdentifier>{2547fc16-774f-47a2-a0ff-9acab3e21bc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameResources\Objects\Enemy\Koopas">
+      <UniqueIdentifier>{43de74c1-5033-4955-b7e5-ee425119e20b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameResources\Objects\Enemy\Goomba">
+      <UniqueIdentifier>{9b86d5e6-ba70-4735-8124-5c1ad7feb82e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -169,13 +172,13 @@
       <Filter>Framework\Animations\AnimationSet</Filter>
     </ClCompile>
     <ClCompile Include="Goomba.cpp">
-      <Filter>GameResources\Objects\Goomba</Filter>
+      <Filter>GameResources\Objects\Enemy\Goomba</Filter>
     </ClCompile>
     <ClCompile Include="KeyEventHandler.cpp">
       <Filter>Framework\KeyEventHandler</Filter>
     </ClCompile>
     <ClCompile Include="Koopas.cpp">
-      <Filter>GameResources\Objects\Koopas</Filter>
+      <Filter>GameResources\Objects\Enemy\Koopas</Filter>
     </ClCompile>
     <ClCompile Include="PlayScence.cpp">
       <Filter>GameResources\Scences\PlayScence</Filter>
@@ -312,6 +315,9 @@
     <ClCompile Include="QuestionBrick.cpp">
       <Filter>GameResources\Objects\QuestionBrick</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>GameResources\Objects\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -348,13 +354,13 @@
       <Filter>Framework\Animations\AnimationSet</Filter>
     </ClInclude>
     <ClInclude Include="Goomba.h">
-      <Filter>GameResources\Objects\Goomba</Filter>
+      <Filter>GameResources\Objects\Enemy\Goomba</Filter>
     </ClInclude>
     <ClInclude Include="KeyEventHandler.h">
       <Filter>Framework\KeyEventHandler</Filter>
     </ClInclude>
     <ClInclude Include="Koopas.h">
-      <Filter>GameResources\Objects\Koopas</Filter>
+      <Filter>GameResources\Objects\Enemy\Koopas</Filter>
     </ClInclude>
     <ClInclude Include="PlayScence.h">
       <Filter>GameResources\Scences\PlayScence</Filter>
@@ -473,9 +479,6 @@
     <ClInclude Include="Camera.h">
       <Filter>Framework\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="PlatForm.h">
-      <Filter>GameResources\Objects\PlatForm</Filter>
-    </ClInclude>
     <ClInclude Include="MarioConst.h">
       <Filter>GameResources\Objects\Mario</Filter>
     </ClInclude>
@@ -496,6 +499,12 @@
     </ClInclude>
     <ClInclude Include="QuestionBrick.h">
       <Filter>GameResources\Objects\QuestionBrick</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatForm.h">
+      <Filter>GameResources\Objects\PlatForm</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>GameResources\Objects\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -520,6 +529,9 @@
     <Image Include="mario.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="world-1-1n.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="MarioDB.xml">
@@ -528,5 +540,11 @@
     <Xml Include="MarioAnim.xml">
       <Filter>Resource Files</Filter>
     </Xml>
+    <Xml Include="EnemyAnim.xml" />
+    <Xml Include="EnemyDB.xml" />
+    <Xml Include="mario.xml" />
+    <Xml Include="MiscAnim.xml" />
+    <Xml Include="MiscDB.xml" />
+    <Xml Include="Scence1.xml" />
   </ItemGroup>
 </Project>

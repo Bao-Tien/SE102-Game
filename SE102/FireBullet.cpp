@@ -46,7 +46,7 @@ void CFireBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 		{
 			if (dynamic_cast<CGoomba*>(coEventsResult[i]->obj))
 			{
-				((CGoomba*)(coEventsResult[i]->obj))->SetState(GOOMBA_STATE_BEING_SHOOTED, nx);
+				((CGoomba*)(coEventsResult[i]->obj))->SetState(EnemyState::BEING_ATTACKED, nx);
 			}
 			if (dynamic_cast<CKoopas*>(coEventsResult[i]->obj))
 			{

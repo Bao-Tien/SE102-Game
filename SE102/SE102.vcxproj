@@ -150,6 +150,7 @@
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="AnimationSet.cpp" />
     <ClCompile Include="Brick.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FireBullet.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CollisionBox.cpp" />
@@ -211,6 +212,7 @@
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="AnimationSet.h" />
     <ClInclude Include="Brick.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="FireBullet.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CollisionBox.h" />
@@ -280,10 +282,17 @@
   <ItemGroup>
     <Image Include="mario.png" />
     <Image Include="Resources\New folder\world-1-1.png" />
+    <Image Include="world-1-1n.png" />
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="EnemyAnim.xml" />
+    <Xml Include="EnemyDB.xml" />
+    <Xml Include="mario.xml" />
     <Xml Include="MarioAnim.xml" />
     <Xml Include="MarioDB.xml" />
+    <Xml Include="MiscAnim.xml" />
+    <Xml Include="MiscDB.xml" />
+    <Xml Include="Scence1.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
