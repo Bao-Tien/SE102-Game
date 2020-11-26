@@ -11,9 +11,11 @@ void CQuestionBrick::CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Activel
 {
 	if (Actively == 0)
 	{
+		if (nyCollision > 0)
+			SetState(QUESTIONBRICK_STATE_AFTER_COLLISION);
 		/*if (dynamic_cast<CMario*>(coObj))
 		{*/
-		SetState(QUESTIONBRICK_STATE_AFTER_COLLISION);
+		//
 		//}
 	}
 	else return;

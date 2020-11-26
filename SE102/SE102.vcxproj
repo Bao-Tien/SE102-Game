@@ -213,6 +213,7 @@
     <ClInclude Include="AnimationSet.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyConst.h" />
     <ClInclude Include="FireBullet.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CollisionBox.h" />

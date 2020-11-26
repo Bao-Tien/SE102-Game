@@ -506,6 +506,9 @@
     <ClInclude Include="Enemy.h">
       <Filter>GameResources\Objects\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyConst.h">
+      <Filter>GameResources\Objects\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="zlibwapi.dll" />

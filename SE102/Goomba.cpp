@@ -2,9 +2,10 @@
 #include "FireBullet.h"
 #include "Mario.h"
 
-CGoomba::CGoomba(float x, float y) :CEnemy(x, y)
+CGoomba::CGoomba(float x, float y) : CEnemy(x, y)
 {
 	eType = EnemyType::GOOMBA;
+	SetState(EnemyState::LIVE, -1.0);
 }
 
 string CGoomba::GetAnimationIdFromState()
@@ -33,6 +34,22 @@ void CGoomba::GetBoundingBox(float& left, float& top, float& right, float& botto
 		bottom = y + GOOMBA_BBOX_HEIGHT; //live
 }
 
+void CGoomba::CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively)
+{
+	CEnemy::CollisionX(coObj, nxCollision, Actively);
+	if (Actively == 0)
+	{
+		if (eState != EnemyState::DIE)
+		{
+			CMario* mario = (CMario*)coObj;
+			if (mario->mState == EMarioState::ATTACK)
+				SetState(EnemyState::BEING_ATTACKED, nxCollision);
+			else mario->SwitchType();
+		}
+		
+	}
+}
+
 void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	vy += GOOMBA_GRAVITY * dt;
@@ -41,30 +58,8 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		SetState(EnemyState::DIE);
 	}
+	//DebugOut(ToWSTR("------->" + std::to_string(vx) + "\n" ).c_str());
 }
-
-//void CGoomba::Render()
-//{
-	/*string ani = GOOMBA_ANI_WALK;
-	if (eState == EnemyState::WILL_DIE) {
-		ani = GOOMBA_ANI_DIE;
-		LPANIMATION anim = CAnimations::GetInstance()->Get(ani);
-		if (anim != NULL)
-			anim->Render(x, y, D3DXVECTOR2(1.0f, 1.0f));
-
-	}
-	else if (eState == EnemyState::BEING_ATTACKED)
-	{
-		ani = GOOMBA_ANI_IDLE;
-			LPANIMATION anim = CAnimations::GetInstance()->Get(ani);
-			if (anim != NULL)
-				anim->Render(x, y, D3DXVECTOR2(1.0f, -1.0f));
-	}
-	else CAnimations::GetInstance()->Get(ani)->Render(x, y);*/
-	
-
-	//RenderBoundingBox();
-//}
 
 void CGoomba::SetState(EnemyState state, float nxCollision)
 {

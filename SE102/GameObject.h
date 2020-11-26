@@ -92,10 +92,11 @@ public:
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) = 0;
 	virtual void NoCollision();
-	virtual void CollisionX(int nxCollision);
-	virtual void CollisionY(int nyCollision);
-	virtual void CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively = 1);
-	virtual void CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively = 1);
+	virtual void CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively = 1) {};
+	virtual void CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively = 1) {};
+	virtual void CollisionYs(LPGAMEOBJECT coObj, int nyCollision, int Actively = 1);
+
+
 	virtual void CollisionWithObj(vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render() = 0;

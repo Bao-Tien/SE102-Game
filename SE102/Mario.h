@@ -21,6 +21,7 @@ enum class EMarioState {
 	ATTACK,
 	DIE,
 	HOLD,
+	REMEMBER,
 };
 
 class CMario : public CGameObject
@@ -45,12 +46,16 @@ public:
 	EMarioState mState;
 	CMario(float x = 0.0f, float y = 0.0f);
 	virtual bool SwitchState(EMarioState newState, DWORD timeState = 0);
+	virtual void SwitchType();
 	virtual void SetState(EMarioState newState, DWORD timeState = 0);
 	virtual void NoCollision();
 	/*virtual void CollisionX(int nxCollision);
 	virtual void CollisionY(int nyCollision);*/
-	virtual void CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively);
-	virtual void CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively);
+
+	virtual void CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively=1) override;
+	virtual void CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively=1) override;
+
+
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render();
 

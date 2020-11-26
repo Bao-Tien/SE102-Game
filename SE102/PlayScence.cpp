@@ -168,6 +168,10 @@ void CPlayScene::Update(DWORD dt)
 
 	for (size_t i = 0; i < objects.size(); i++)
 	{
+		if (((CMario*)player)->mState == EMarioState::REMEMBER) {
+			SwitchPlayer(new CMarioSmall(((CMario*)player)->x, ((CMario*)player)->y));
+		}
+			
 		objects[i]->Update(dt, &coObjects);
 	}
 

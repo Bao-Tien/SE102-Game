@@ -50,7 +50,7 @@ void CFireBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 			}
 			if (dynamic_cast<CKoopas*>(coEventsResult[i]->obj))
 			{
-				((CKoopas*)(coEventsResult[i]->obj))->SetState(KOOPAS_STATE_BEING_ATTACK, nx);
+				((CKoopas*)(coEventsResult[i]->obj))->SetState(EnemyState::BEING_ATTACKED, nx);
 			}
 		}
 

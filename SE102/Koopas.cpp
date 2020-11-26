@@ -5,13 +5,22 @@
 #include "MarioConst.h"
 #include "PlayScence.h"
 
-CKoopas::CKoopas(float x, float y)
+CKoopas::CKoopas(float x, float y) : CEnemy(x, y)
 {
-	this->x = x;
-	this->y = y;
-	this->isHidden = false;
-	
-	SetState(KOOPAS_STATE_LIVE);
+	SetState(EnemyState::LIVE, -1.0);
+	beginState = 0;
+}
+
+string CKoopas::GetAnimationIdFromState()
+{
+	string typeString, stateString;
+
+	typeString = "ani-red-koopa-troopa";
+	if (eState == EnemyState::LIVE ) stateString = "move";
+	else if (eState == EnemyState::WILL_DIE || eState == EnemyState::DIE || eState == EnemyState::BEING_HELD || eState == EnemyState::BEING_ATTACKED) 
+		stateString = "crouch";
+
+	return typeString + "-" + stateString;
 }
 
 void CKoopas::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -20,69 +29,43 @@ void CKoopas::GetBoundingBox(float& left, float& top, float& right, float& botto
 	top = y;
 	right = x + KOOPAS_BBOX_WIDTH;
 
-	if (state == KOOPAS_STATE_COUCH || state == KOOPAS_STATE_BEING_SHOOTED|| state == KOOPAS_STATE_BEING_HELD|| state == KOOPAS_STATE_HELD)
+	if (eState == EnemyState::WILL_DIE || eState == EnemyState::BEING_HELD)
 		bottom = y + KOOPAS_BBOX_HEIGHT_COUCH;
-	else if (state == KOOPAS_STATE_BEING_ATTACK || state == KOOPAS_STATE_DIE)
+	else if (eState == EnemyState::BEING_ATTACKED || eState == EnemyState::DIE)
 		left = top = right = bottom = 0;
 	else
 		bottom = y + KOOPAS_BBOX_HEIGHT;
 }
 
-void CKoopas::NoCollision()
+void CKoopas::CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively)
 {
-	CGameObject::NoCollision();
-}
-void CKoopas::CollisionX(LPGAMEOBJECT coObj, int nxCollition)
-{
-		if (dynamic_cast<CMario*>(coObj))
+	CEnemy::CollisionX(coObj, nxCollision, Actively);
+	if (Actively==0)
+	{
+		CMario* mario = (CMario*)coObj;
+		if (eState != EnemyState::DIE)
 		{
-			CMario* mario = (CMario*)coObj;
-			if (state != KOOPAS_STATE_DIE)
+			if (mario->mState == EMarioState::ATTACK)
 			{
-				if (mario->mState == EMarioState::ATTACK)
+				SetState(EnemyState::BEING_ATTACKED, nx); //quay duoi//ban
+			}
+			else if (mario->vxMax == VELOCITY_X_SPEEDUP_MAX) //nhan nut A
+			{
+				if (eState == EnemyState::WILL_DIE)
 				{
-					SetState(KOOPAS_STATE_BEING_ATTACK, nx); //quay duoi//ban
-				}
-				else if (mario->vxMax == VELOCITY_X_SPEEDUP_MAX) //nhan nut A
-				{
-					if (state == KOOPAS_STATE_COUCH)
-					{
-						mario->SwitchState(EMarioState::HOLD);
-						SetState(KOOPAS_STATE_BEING_HELD, nx);
-					}
-				}
-				else if (mario->mState == EMarioState::WALK)
-				{
-					if (state != KOOPAS_STATE_LIVE)
-					{
-						SetState(KOOPAS_STATE_BEING_ATTACK, nx);//bi da
-					}
+					mario->SwitchState(EMarioState::HOLD);
+					SetState(EnemyState::WILL_DIE, nx); //cam
 				}
 			}
-		}
-		else {
-			vx = -vx;
-			this->nx = -this->nx;
-		}
-}
-void CKoopas::CollisionY(LPGAMEOBJECT coObj, int nyCollition)
-{
-	
-	/*if (state == KOOPAS_STATE_BEING_ATTACK)
-	{
-		SetState(KOOPAS_STATE_DIE);
-	}*/
-	if (nyCollition < 0)
-	{
-		if (dynamic_cast<CMario*>(coObj))
-		{
-			if (state != KOOPAS_STATE_COUCH)
+			else if (mario->mState == EMarioState::WALK)
 			{
-				SetState(KOOPAS_STATE_COUCH); //nup
-				vy = -MARIO_JUMP_DEFLECT_SPEED;
+				if (eState != EnemyState::LIVE)
+				{
+					SetState(EnemyState::BEING_ATTACKED, nx);//bi da
+				}
 			}
+			else mario->SwitchType();
 		}
-		else vy = 0;
 	}
 }
 
@@ -91,55 +74,14 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vy += KOOPAS_GRAVITY * dt;
 	CGameObject::Update(dt, coObjects);
 	CollisionWithObj(coObjects);
-	/*vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
-	coEvents.clear();
-	CalcPotentialCollisions(coObjects, coEvents);
-	if (coEvents.size() == 0)
+	
+	if (eState== EnemyState::WILL_DIE && GetTickCount() - beginState > 500000)
 	{
-		x += dx;
-		y += dy;
-	}
-	else
-	{
-		float min_tx, min_ty, nx = 0, ny;
-		float rdx = 0;
-		float rdy = 0;
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
-
-		x += min_tx * dx + nx * 0.4f;
-		y += min_ty * dy + ny * 0.4f;
-
-		if (nx != 0)
-		{
-			if (state != KOOPAS_STATE_HELD)
-			{
-				vx = -vx;
-				this->nx = -this->nx;
-			}
-		}
-
-		if (ny < 0) {
-			vy = 0;
-			if (state == KOOPAS_STATE_BEING_ATTACK)
-			{
-				SetState(KOOPAS_STATE_DIE);
-			}
-		}
-		
-	}*/
-	if (state == KOOPAS_STATE_COUCH && GetTickCount() - beginState > 500000)
-	{
-		SetState(KOOPAS_STATE_LIVE);
+		SetState(EnemyState::LIVE);
 		y += KOOPAS_BBOX_HEIGHT_COUCH - KOOPAS_BBOX_HEIGHT;
 	}
-	/*if (state == KOOPAS_STATE_BEING_SHOOTED && GetTickCount() - beginState > 3000)
-	{
-		SetState(KOOPAS_STATE_DIE);
-		this->isHidden = true;
-	}*/
 	
-	if (state == KOOPAS_STATE_BEING_HELD)
+	if (eState == EnemyState::BEING_HELD)
 	{
 		LPGAMEOBJECT player = CScences::GetInstance()->Get(CGame::GetInstance()->GetCurrentSceneId())->GetPlayer();
 		if (player->GetvxMax() == VELOCITY_X_SPEEDUP_MAX) { //nhan A
@@ -153,91 +95,42 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			y = (player->y + KOOPAS_BBOX_HEIGHT_COUCH / 3);
 		}
 		else
-			SetState(KOOPAS_STATE_DIE);
+			SetState(EnemyState::DIE);
 	}	
 }
 
-void CKoopas::Render()
-{
-	string ani = KOOPAS_ANI_WALKING;
-	LPANIMATION anim = CAnimations::GetInstance()->Get(KOOPAS_ANI_WALKING);
-	if (!this->isHidden) {
-		if (state == KOOPAS_STATE_COUCH || state == KOOPAS_STATE_BEING_SHOOTED|| state== KOOPAS_STATE_BEING_HELD) {
-			ani = KOOPAS_ANI_COUCH;
-			CAnimations::GetInstance()->Get(ani)->Render(x,y);
-			
-		}
-		else if (state == KOOPAS_STATE_BEING_ATTACK || state == KOOPAS_STATE_DIE)
-		{
-			ani = KOOPAS_ANI_COUCH;
-			LPANIMATION anim = CAnimations::GetInstance()->Get(ani);
-			if (anim != NULL)
-				anim->Render(x, y, D3DXVECTOR2(1.0f, -1.0f));
-		}
-		else
-		{
-			anim = CAnimations::GetInstance()->Get(ani);
-			if (anim != NULL)
-				if (nx == 1)
-					anim->Render(x, y, D3DXVECTOR2(-1.0f, 1.0f));
-				else anim->Render(x, y, D3DXVECTOR2(1.0f, 1.0f));
-		}
-	}
-
-
-	//RenderBoundingBox();
-}
-
-void CKoopas::SetState(int state, float nxCollision)
+void CKoopas::SetState(EnemyState state, float nxCollision)
 {
 	switch (state)
 	{
-	case KOOPAS_STATE_COUCH: //nhay len dau 
+	case EnemyState::WILL_DIE: //nhay len dau 
 		y += KOOPAS_BBOX_HEIGHT - KOOPAS_BBOX_HEIGHT_COUCH;
 		vx = 0;
 		vy = 0;
 		beginState = GetTickCount();
-		this->state = state;
+		eState = state;
 		break;
-	case KOOPAS_STATE_LIVE:
+	case EnemyState::LIVE:
 		vx = -KOOPAS_WALKING_SPEED;
 		nx = -1;
-		this->state = state;
+		eState = state;
 		break;
-	case KOOPAS_STATE_BEING_ATTACK: // bi quay duoi // bi ban
+	case EnemyState::BEING_ATTACKED: // bi quay duoi // bi ban
 		if (nxCollision < 0)
 		{
-			vx = KOOPAS_BEING_SHOOTED_SPEED_X;
+			vx = KOOPAS_BEING_ATTACKED_SPEED_X;
 		}
-		else vx = -KOOPAS_BEING_SHOOTED_SPEED_X;
-		vy = -KOOPAS_BEING_SHOOTED_SPEED_Y;
-		//beginState = GetTickCount();
-		this->state = state;
+		else vx = -KOOPAS_BEING_ATTACKED_SPEED_X;
+		vy = -KOOPAS_BEING_ATTACKED_SPEED_Y;
+		eState = state;
 		break;
-	//case KOOPAS_STATE_BEING_SHOOTED: //bi ban
-	//	if (nxCollision < 0)
-	//	{
-	//		vx = KOOPAS_BEING_SHOOTED_SPEED_X;
-	//	}
-	//	else vx = -KOOPAS_BEING_SHOOTED_SPEED_X;
-	//	//beginState = GetTickCount();
-	//	this->state = state;
-	//	break;
-	case KOOPAS_STATE_BEING_HELD:
-		this->state = state;
+	case EnemyState::BEING_HELD:
+		eState = state;
 		break;
-	//case KOOPAS_STATE_HELD:
-		/*if (nxCollision < 0)
-		{
-			vx = KOOPAS_BEING_SHOOTED_SPEED_X;
-		}
-		else vx = -KOOPAS_BEING_SHOOTED_SPEED_X;*/
-		/*this->state = state;
-		break;*/
-	case KOOPAS_STATE_DIE:
+	case EnemyState::DIE:
 		vx = 0;
 		vy = 0;
-		this->state = state;
+		eState = state;
 		break;
 	}
 

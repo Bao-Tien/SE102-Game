@@ -11,6 +11,7 @@ enum class EnemyState
 {
 	LIVE,
 	BEING_ATTACKED,
+	BEING_HELD,
 	WILL_DIE,
 	DIE,
 };
@@ -27,10 +28,10 @@ protected:
 
 public:
 	CEnemy(float x, float y);
-	virtual void SetState(EnemyState state, float nx = 1){}
+	virtual void SetState(EnemyState state, float nxCollison = 1) {};
 	virtual void NoCollision();
-	virtual void CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively);
-	virtual void CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively);
+	virtual void CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively) override;
+	virtual void CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively) override;
 	virtual string GetAnimationIdFromState();
 	virtual EnemyState GetState() { return eState; }
 };

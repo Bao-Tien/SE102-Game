@@ -6,7 +6,7 @@ CEnemy::CEnemy(float x, float y)
 	this->x = x;
 	this->y = y;
 	beginState = 0;
-	eState = EnemyState::LIVE;
+	
 	this->isHidden = false;
 }
 
@@ -21,15 +21,7 @@ void CEnemy::CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively)
 		if (Actively == 1)
 		{
 			vx = -vx;
-		}
-		else
-		{
-			/*if (dynamic_cast<CMario*>(coObj))
-			{*/
-			CMario* mario = (CMario*)coObj;
-			if (mario->mState == EMarioState::ATTACK)
-				SetState(EnemyState::BEING_ATTACKED, nxCollision);
-			//}
+			nx = -nx;
 		}
 	}
 
@@ -67,9 +59,12 @@ void CEnemy::Render()
 	LPANIMATION anim = CAnimations::GetInstance()->Get(ani);
 	if (anim != NULL)
 	{
-		if(eState == EnemyState::DIE)
+		if(eState == EnemyState::BEING_ATTACKED)
 			anim->Render(x, y, D3DXVECTOR2(1.0f, -1.0f));
-		else anim->Render(x, y, D3DXVECTOR2(1.0f, 1.0f));
+		else 
+			if( nx == 1)
+				anim->Render(x, y, D3DXVECTOR2(-1.0f, 1.0f));
+			else anim->Render(x, y, D3DXVECTOR2(1.0f, 1.0f));
 	}
 	//RenderBoundingBox();
 }

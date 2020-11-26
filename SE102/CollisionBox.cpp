@@ -19,4 +19,5 @@ void CCollisionBox::GetBoundingBox(float& l, float& t, float& r, float& b)
 	t = y;
 	r = x + width;
 	b = y + height;
+	
 }

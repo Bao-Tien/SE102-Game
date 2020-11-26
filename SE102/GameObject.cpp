@@ -9,7 +9,7 @@
 #include "SpriteManager.h"
 #include "PlatForm.h"
 #include "Koopas.h"
-
+#include "Goomba.h"
 
 #define BBoxId          "bbox"
 
@@ -26,10 +26,11 @@ void CGameObject::NoCollision(){
 	x += dx;
 	y += dy;
 }
-void CGameObject::CollisionX(int nxCollision) {}
-void CGameObject::CollisionY(int nyCollision) {}
-void CGameObject::CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively){}
-void CGameObject::CollisionY(LPGAMEOBJECT coObj, int nxCollision, int Actively) {}
+
+//void CGameObject::CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively){}
+void CGameObject::CollisionYs(LPGAMEOBJECT coObj, int nyCollision, int Actively) {
+	int a = 10;
+}
 
 void CGameObject::CollisionWithObj(vector<LPGAMEOBJECT>* coObjects)
 {
@@ -57,9 +58,19 @@ void CGameObject::CollisionWithObj(vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
+			if (dynamic_cast<CGoomba*>(e->obj)) {
+				int a = 0;
+			}
+			
 			if (e->ny != 0)
 			{
-				CollisionY(coEventsResult[i]->obj, ny);
+				/*LPGAMEOBJECT aa = coEventsResult[i]->obj;
+				LPGAMEOBJECT bb = this;
+				CollisionYs(aa, ny);
+				*/
+				CollisionY(e->obj, ny);
+
+				
 				//coEventsResult[i]->obj->CollisionY(this, ny);
 			}
 				
