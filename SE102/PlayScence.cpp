@@ -236,10 +236,13 @@ void CPlayScene::Render()
 
 void CPlayScene::Unload()
 {
-	for (int i = 0; i < objects.size(); i++)
-		delete objects[i];
+	CleanupListObjects(objects);
+	CleanupListObjects(objects_Active);
+	CleanupListObjects(objects_Map);
+	CleanupListObjects(objects_Enemy);
+	CleanupListObjects(objects_Priority);
 
-	objects.clear();
+
 	player = NULL;
 
 	DebugOut(L"[INFO] Scene %s unloaded! \n", sceneFilePath);

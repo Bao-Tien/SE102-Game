@@ -187,6 +187,7 @@
     <ClCompile Include="MarioBig.cpp" />
     <ClCompile Include="MarioFire.cpp" />
     <ClCompile Include="MarioRaccoon.cpp" />
+    <ClCompile Include="MarioSelectScence.cpp" />
     <ClCompile Include="MarioSmall.cpp" />
     <ClCompile Include="PlatForm.cpp" />
     <ClCompile Include="PlayScence.cpp" />
@@ -195,6 +196,7 @@
     <ClCompile Include="RectF.cpp" />
     <ClCompile Include="Scence.cpp" />
     <ClCompile Include="ScenceManager.cpp" />
+    <ClCompile Include="SelectionScence.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteManager.cpp" />
     <ClCompile Include="TextureManager.cpp" />
@@ -253,6 +255,7 @@
     <ClInclude Include="MarioConst.h" />
     <ClInclude Include="MarioFire.h" />
     <ClInclude Include="MarioRaccoon.h" />
+    <ClInclude Include="MarioSelectScence.h" />
     <ClInclude Include="MarioSmall.h" />
     <ClInclude Include="PlatForm.h" />
     <ClInclude Include="PlayScence.h" />
@@ -262,6 +265,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Scence.h" />
     <ClInclude Include="ScenceManager.h" />
+    <ClInclude Include="SelectionScence.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteManager.h" />
     <ClInclude Include="TextureManager.h" />

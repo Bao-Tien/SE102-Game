@@ -3,7 +3,7 @@
 
 #include "Game.h"
 #include "Utils.h"
-
+#include "SelectionScence.h"
 #include "PlayScence.h"
 #include "ScenceManager.h"
 
@@ -363,6 +363,11 @@ bool CGame::Load(string gameFile)
 	TiXmlElement* root = document.RootElement();
 	string scenceStartId = root->FirstChildElement("Start")->Attribute("id");
 
+	TiXmlElement* SelectionScence = root->FirstChildElement("SelectionScence");
+	string selectionScenceId = SelectionScence->Attribute("id");
+	string selectionPath = SelectionScence->Attribute("path");
+	LPSCENE scene = new CSelectionScence(selectionScenceId, selectionPath);
+	CScences::GetInstance()->Add(selectionScenceId, scene);
 
 	for (TiXmlElement* node = root->FirstChildElement("Scence"); node != nullptr; node = node->NextSiblingElement())
 	{
@@ -385,15 +390,15 @@ void CGame::SwitchScene(string scene_id)
 {
 	DebugOut(L"[INFO] Switching to scene %d\n", scene_id);
 
-	/*scenes[current_scene]->Unload();;
+	//scenes[current_scene]->Unload();
+	CScences::GetInstance()->Get(current_scene)->Unload();
 
 	CTextures::GetInstance()->Clear();
 	CSprites::GetInstance()->Clear();
-	CAnimations::GetInstance()->Clear();*/
+	CAnimations::GetInstance()->Clear();
 
 	current_scene = scene_id;
 	LPSCENE s = CScences::GetInstance()->Get(scene_id);
 	CGame::GetInstance()->SetKeyHandler(s->GetKeyEventHandler());
-	//s->Load(path);
 	s->Load();
 }

@@ -30,7 +30,7 @@
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"SAMPLE 05 - SCENCE MANAGER"
 
-#define BACKGROUND_COLOR D3DCOLOR_XRGB(255, 255, 200)
+#define BACKGROUND_COLOR D3DCOLOR_XRGB(156, 252, 240)
 #define SCREEN_WIDTH 960
 #define SCREEN_HEIGHT 960
 
@@ -74,12 +74,17 @@ void Render()
 	if (d3ddv->BeginScene())
 	{
 		// Clear back buffer with a color
-		d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
+		
 
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
 		//CGame::GetInstance()->GetCurrentScene()->Render();
 		string currentScenceId = CGame::GetInstance()->GetCurrentSceneId();
+		if(currentScenceId == "0")
+			d3ddv->ColorFill(bb, NULL, D3DCOLOR_XRGB(0,0,0));
+		else
+			d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
+		
 		CScences::GetInstance()->Get(currentScenceId)->Render();
 
 		spriteHandler->End();

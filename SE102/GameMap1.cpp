@@ -3,6 +3,7 @@
 #include "CollisionBox.h"
 #include "PlatForm.h"
 #include "QuestionBrick.h"
+
 #define CAMERA_MARGIN			150
 
 CGameMap::CGameMap()
@@ -48,7 +49,7 @@ void CGameMap::Render()
 {
 	int col = CGame::GetInstance()->GetPosCamera().x / tileWidth;
 	int row = CGame::GetInstance()->GetPosCamera().y / tileHeight;
-
+	
 	if (col > 0) col--;
 	if (row > 0) row--;
 	if (col < 0) col = 0;
@@ -57,11 +58,25 @@ void CGameMap::Render()
 	Vector2 camSize = Vector2((CGame::GetInstance()->GetScreenWidth() + CAMERA_MARGIN)/ tileWidth, 
 								(CGame::GetInstance()->GetScreenHeight() + CAMERA_MARGIN) / tileHeight);
 
-	for (int i = col; i <= camSize.x + col; i++) {
-		for (int j = row; j <= camSize.y + row; j++) {
+	Vector2 deltaSize = Vector2(0, 0);
 
-			int x = i * tileWidth;
-			int y = j * tileHeight;
+	if (camSize.x > width) {
+		//deltaSize.x = ( camSize.x - width ) / 2 - 1;
+		camSize.x = width;
+	} 
+	if (camSize.y > height) {
+		//deltaSize.y = (camSize.y - height) / 2 ;
+		camSize.y = height;
+	} 
+
+
+	
+
+	for (int i = col; i < camSize.x + col; i++) {
+		for (int j = row; j < camSize.y + row; j++) {
+
+			int x = (i + deltaSize.x) * tileWidth;
+			int y = (j + deltaSize.y) * tileHeight;
 
 			for (shared_ptr<CMapLayer> layer : layers) {
 				if (layer->Hidden) continue;
@@ -100,7 +115,8 @@ shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* ob
 
 		// Load collision group objects
 		for (TiXmlElement* objGroupNode = root->FirstChildElement("objectgroup"); objGroupNode != nullptr; objGroupNode = objGroupNode->NextSiblingElement("objectgroup")) {
-			if (std::string(objGroupNode->Attribute("name")) == "RectCollision") {
+			if (std::string(objGroupNode->Attribute("name")) == "RectCollision" 
+				|| std::string(objGroupNode->Attribute("name")) == "CanNotGo") {
 				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
 					LPGAMEOBJECT obj = new CCollisionBox(
 						atoi(objNode->Attribute("x")),
@@ -113,7 +129,7 @@ shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* ob
 			}
 
 			if (std::string(objGroupNode->Attribute("name")) == "RectPlatform") {
-				for 	(TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
 					LPGAMEOBJECT obj = new CPlatForm(
 						atoi(objNode->Attribute("x")),
 						atoi(objNode->Attribute("y")),
@@ -135,6 +151,8 @@ shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* ob
 					objectActive->push_back(obj);
 				}
 			}
+
+			
 		}
 		return gameMap;
 	}

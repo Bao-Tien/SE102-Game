@@ -10,7 +10,7 @@ CCollisionBox::CCollisionBox(int x, int y, int width, int height) {
 
 void CCollisionBox::Render()
 {
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }
 
 void CCollisionBox::GetBoundingBox(float& l, float& t, float& r, float& b)

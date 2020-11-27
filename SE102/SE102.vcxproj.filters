@@ -136,6 +136,9 @@
     <Filter Include="GameResources\Objects\Enemy\Goomba">
       <UniqueIdentifier>{9b86d5e6-ba70-4735-8124-5c1ad7feb82e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameResources\Scences\SelectionScence">
+      <UniqueIdentifier>{145db4ab-248b-488a-90d8-73a70db78eb4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -317,6 +320,12 @@
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>GameResources\Objects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectionScence.cpp">
+      <Filter>GameResources\Scences\SelectionScence</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioSelectScence.cpp">
+      <Filter>GameResources\Scences\SelectionScence</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -508,6 +517,12 @@
     </ClInclude>
     <ClInclude Include="EnemyConst.h">
       <Filter>GameResources\Objects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectionScence.h">
+      <Filter>GameResources\Scences\SelectionScence</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioSelectScence.h">
+      <Filter>GameResources\Scences\SelectionScence</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

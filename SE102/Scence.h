@@ -14,21 +14,24 @@ protected:
 	std::string id;
 	std::string sceneFilePath;   
 	shared_ptr<CGameMap> mMap;
-	
+	vector<LPGAMEOBJECT> objects_Map;
+
 	LPGAMEOBJECT player;
 
 public:
-	CScene(std::string id, std::string filePath); 
+	CScene(std::string, std::string); 
 	
+	void CleanupListObjects(vector<LPGAMEOBJECT>&);
+
 	CKeyEventHandler* GetKeyEventHandler() { return key_handler; }
 	virtual bool Load() = 0;
 	virtual void Unload() = 0;
-	virtual void Update(DWORD dt) = 0;
+	virtual void Update(DWORD) = 0;
 	virtual void Render() = 0;
-	virtual void SwitchPlayer(LPGAMEOBJECT newPlayer) = 0;
+	virtual void SwitchPlayer(LPGAMEOBJECT) = 0;
 	virtual LPGAMEOBJECT GetPlayer() { return player; }
 	
-	virtual std::string GetScenceFilePath() = 0;
+	virtual std::string GetScenceFilePath() { return sceneFilePath; }
 };
 typedef CScene* LPSCENE;
 

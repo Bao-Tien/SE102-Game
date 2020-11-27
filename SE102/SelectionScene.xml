@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SelectionScence>
+  <Map name="Map" path="Resources/SelectionScence.tmx">
+  </Map>
+
+  <BBox name="BBox" path="textures\\bbox.png" id = "bbox">
+    <BackgroundColor R="255" G="255" B="255"/>
+  </BBox>
+
+  <Textures>
+    
+  </Textures>
+
+  <Sprites>
+    
+  </Sprites>
+  
+  <Animations>
+    
+  </Animations>
+
+  <Player name="Player" type="marioSelectionScence" x="100" y="170">
+  </Player>
+  
+  <Objects >
+    
+  </Objects>
+
+</SelectionScence>

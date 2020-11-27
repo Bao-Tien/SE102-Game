@@ -72,7 +72,7 @@ public:
 	void GetSpeed(float& vx, float& vy) { vx = this->vx; vy = this->vy; }
 	virtual float GetvxMax() { return vxMax; }
 
-	void RenderBoundingBox(); // ve gioi han doi tuong
+	void RenderBoundingBox(); 
 
 	void SetAnimationSet(LPANIMATION_SET ani_set) { animation_set = ani_set; } 
 

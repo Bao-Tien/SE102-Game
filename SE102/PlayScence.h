@@ -12,7 +12,6 @@ class CPlayScene : public CScene
 {
 protected:
 	vector<LPGAMEOBJECT> objects_Enemy;
-	vector<LPGAMEOBJECT> objects_Map;
 	vector<LPGAMEOBJECT> objects_Active;
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> objects_Priority;
@@ -24,12 +23,9 @@ public:
 	virtual void Update(DWORD dt);
 	virtual void Render();
 	virtual void Unload();
-	virtual string GetScenceFilePath() { return sceneFilePath; }
 	virtual vector<LPGAMEOBJECT> GetObjEnemy() { return objects_Enemy; }
 	virtual vector<LPGAMEOBJECT> GetObjMap() { return objects_Map; }
 	LPGAMEOBJECT GetPlayer() { return player; }
-
-	//friend class CPlayScenceKeyHandler;
 };
 
 
