@@ -29,6 +29,7 @@ void CEnemy::CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively)
 }
 void CEnemy::CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively)
 {
+	CGameObject::CollisionY(coObj, nyCollision, Actively);
 	if (eState != EnemyState::DIE)
 	{
 		if (Actively == 1)
@@ -38,6 +39,8 @@ void CEnemy::CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively)
 		else if (dynamic_cast<CMario*>(coObj))
 		{
 			SetState(EnemyState::WILL_DIE, nyCollision);
+			CMario* mario = (CMario*)coObj;
+			mario->MarioAfterCollisionYWithEnemy();
 		}
 	}
 }

@@ -152,6 +152,11 @@ bool CMario::SwitchState(EMarioState newState, DWORD newTimeState)
 	return false;
 }
 
+void CMario::MarioAfterCollisionYWithEnemy()
+{
+	vy = -MARIO_JUMP_SPEED_Y;
+}
+
 void CMario::NoCollision()
 {
 	CGameObject::NoCollision();
@@ -178,7 +183,7 @@ void CMario::CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively)
 
 void CMario::CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively)
 {
-	int i = 9;
+	CGameObject::CollisionY(coObj, nyCollision, Actively);
 	if (nyCollision < 0)
 	{
 		if (vx != 0 && fabs(vx) < VELOCITY_X_MAX)
@@ -198,6 +203,10 @@ void CMario::CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively)
 			SwitchState(EMarioState::IDLE);
 		}
 	}
+	/*else
+	{
+		vy = 0;
+	}*/
 	coObj->CollisionY(this, nyCollision, 0);
 	
 }
@@ -233,7 +242,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	ax = 0;
 	movementRatioX = 1;
 	vxMax = VELOCITY_X_MAX;
-	DebugOut(ToWSTR(std::to_string(vy) + "\n").c_str());
+	//DebugOut(ToWSTR(std::to_string(vy) + "\n").c_str());
 }
 
 void CMario::Render()
@@ -283,19 +292,9 @@ void CMario::KeyboardHandle(int key, bool type)
 		if (!type) 
 		{
 			SwitchState(EMarioState::JUMP);
-			
 		}
 
 		break;
-		// co cai nut nao lam cho no idle hay attack die dau
-	/*case MARIO_STATE_IDLE:
-		break;
-	case MARIO_STATE_ATTACK:
-		break;
-	case MARIO_STATE_DIE:
-		ax = 0;
-		ay = -MARIO_ACCELERATION_DIE;
-		break;*/
 	}
 }
 

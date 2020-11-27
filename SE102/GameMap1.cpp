@@ -72,7 +72,7 @@ void CGameMap::Render()
 	}
 }
 
-shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* objects)
+shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* objectMap, vector<LPGAMEOBJECT>* objectActive)
 {
 	string fullPath = filePath;
 	TiXmlDocument doc(fullPath.c_str());
@@ -108,7 +108,7 @@ shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* ob
 					atoi(objNode->Attribute("width")),
 						atoi(objNode->Attribute("height"))
 					);
-					objects->push_back(obj);
+					objectMap->push_back(obj);
 				}
 			}
 
@@ -120,7 +120,7 @@ shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* ob
 						atoi(objNode->Attribute("width")),
 						atoi(objNode->Attribute("height"))
 					);
-					objects->push_back(obj);
+					objectMap->push_back(obj);
 				}
 			}
 
@@ -132,7 +132,7 @@ shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* ob
 						atoi(objNode->Attribute("width")),
 						atoi(objNode->Attribute("height"))
 					);
-					objects->push_back(obj);
+					objectActive->push_back(obj);
 				}
 			}
 		}

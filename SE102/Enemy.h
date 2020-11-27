@@ -12,6 +12,7 @@ enum class EnemyState
 	LIVE,
 	BEING_ATTACKED,
 	BEING_HELD,
+	BEING_KICK,
 	WILL_DIE,
 	DIE,
 };

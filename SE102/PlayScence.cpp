@@ -16,6 +16,7 @@
 #include "MarioFire.h"
 #include "Goomba.h"
 #include "Koopas.h"
+#include "QuestionBrick.h"
 using namespace std;
 
 CPlayScene::CPlayScene(string id, string filePath) :
@@ -64,7 +65,7 @@ bool CPlayScene::Load()
 	TiXmlElement* map = root->FirstChildElement("Map");
 	string MapPath = map->Attribute("path");
 	OutputDebugStringW(ToLPCWSTR("MapPath : " + MapPath + '\n'));
-	mMap = CGameMap().FromTMX(MapPath, &objects_Map);
+	mMap = CGameMap().FromTMX(MapPath, &objects_Map, &objects_Active);
 
 	//load file bbox
 	TiXmlElement* bbox = root->FirstChildElement("BBox");
@@ -138,10 +139,12 @@ bool CPlayScene::Load()
 void CPlayScene::Update(DWORD dt)
 {
 	vector<LPGAMEOBJECT> coObjects;
+
 	for (size_t i = 0; i < objects_Map.size(); i++)
 	{
 		coObjects.push_back(objects_Map[i]);
 	}
+	
 
 	for (int i = 0; i < objects_Enemy.size(); i++)
 	{
@@ -165,6 +168,14 @@ void CPlayScene::Update(DWORD dt)
 	{
 		coObjects.push_back(objects_Enemy[i]);
 	}
+	for (int i = 0; i < objects_Active.size(); i++)
+	{
+		objects_Active[i]->Update(dt, &coObjects);
+	}
+	for (int i = 0; i < objects_Active.size(); i++)
+	{
+		coObjects.push_back(objects_Active[i]);
+	}
 
 	for (size_t i = 0; i < objects.size(); i++)
 	{
@@ -175,10 +186,14 @@ void CPlayScene::Update(DWORD dt)
 		objects[i]->Update(dt, &coObjects);
 	}
 
+	
+
 	for (size_t i = 0; i < objects.size(); i++)
 	{
 		coObjects.push_back(objects[i]);
 	}
+
+	
 
 	for (size_t i = 0; i < objects_Priority.size(); i++)
 	{
@@ -205,6 +220,11 @@ void CPlayScene::Render()
 	{
 		if (!objects_Map[i]->isHidden)
 			objects_Map[i]->Render();
+	}
+	for (int i = 0; i < objects_Active.size(); i++)
+	{
+		if (!objects_Active[i]->isHidden)
+			objects_Active[i]->Render();
 	}
 	for (int i = 0; i < objects_Enemy.size(); i++)
 	{

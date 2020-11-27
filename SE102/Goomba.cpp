@@ -54,10 +54,12 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	vy += GOOMBA_GRAVITY * dt;
 	CEnemy::Update(dt, coObjects);
-	if (eState == EnemyState::WILL_DIE && GetTickCount() - beginState > 400)
+	if (eState == EnemyState::WILL_DIE && GetTickCount() - beginState > 4000)
 	{
 		SetState(EnemyState::DIE);
 	}
+	//DebugOut(ToWSTR("------->" + std::to_string((int)(GetTickCount() - beginState)) + "\n").c_str());
+	//DebugOut(ToWSTR("------->" + std::to_string((int)eState) + "\n").c_str());
 	//DebugOut(ToWSTR("------->" + std::to_string(vx) + "\n" ).c_str());
 }
 

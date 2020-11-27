@@ -26,12 +26,13 @@ void CGameObject::NoCollision(){
 	x += dx;
 	y += dy;
 }
+void CGameObject::CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively)
+{
+	if (nyCollision > 0) {
+		this->vy = 0;
+	}
 
-//void CGameObject::CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively){}
-void CGameObject::CollisionYs(LPGAMEOBJECT coObj, int nyCollision, int Actively) {
-	int a = 10;
 }
-
 void CGameObject::CollisionWithObj(vector<LPGAMEOBJECT>* coObjects)
 {
 	vector<LPCOLLISIONEVENT> coEvents;
@@ -64,20 +65,12 @@ void CGameObject::CollisionWithObj(vector<LPGAMEOBJECT>* coObjects)
 			
 			if (e->ny != 0)
 			{
-				/*LPGAMEOBJECT aa = coEventsResult[i]->obj;
-				LPGAMEOBJECT bb = this;
-				CollisionYs(aa, ny);
-				*/
 				CollisionY(e->obj, ny);
-
-				
-				//coEventsResult[i]->obj->CollisionY(this, ny);
 			}
 				
 			if (e->nx != 0)
 			{
 				CollisionX(coEventsResult[i]->obj, nx);
-				//coEventsResult[i]->obj->CollisionX(this, nx); // dung do quai chi co mario goi// no ko dc tu goi
 			}
 		}
 	}

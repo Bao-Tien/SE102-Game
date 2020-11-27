@@ -13,6 +13,7 @@ class CPlayScene : public CScene
 protected:
 	vector<LPGAMEOBJECT> objects_Enemy;
 	vector<LPGAMEOBJECT> objects_Map;
+	vector<LPGAMEOBJECT> objects_Active;
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> objects_Priority;
 	

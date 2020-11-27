@@ -15,7 +15,8 @@ class CQuestionBrick : public CCollisionBox
 {
 private:
 	int state;
-	float yStart, yEnd;
+	float yStart;
+	bool hasCollided;
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();
 public:

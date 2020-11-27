@@ -48,10 +48,8 @@ public:
 	virtual bool SwitchState(EMarioState newState, DWORD timeState = 0);
 	virtual void SwitchType();
 	virtual void SetState(EMarioState newState, DWORD timeState = 0);
+	virtual void MarioAfterCollisionYWithEnemy();
 	virtual void NoCollision();
-	/*virtual void CollisionX(int nxCollision);
-	virtual void CollisionY(int nyCollision);*/
-
 	virtual void CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively=1) override;
 	virtual void CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively=1) override;
 

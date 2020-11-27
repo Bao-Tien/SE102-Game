@@ -26,7 +26,7 @@ void CAnimation::Render(float x, float y, D3DXVECTOR2 scale, int alpha)
 			currentFrame++; 
 			lastFrameTime = now;
 			if (currentFrame == frames.size()) currentFrame = 0;
-			DebugOut(L"now: %d, lastFrameTime: %d, t: %d\n", now, lastFrameTime, t);
+			//DebugOut(L"now: %d, lastFrameTime: %d, t: %d\n", now, lastFrameTime, t);
 		}
 
 	}
