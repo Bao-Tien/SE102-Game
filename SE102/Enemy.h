@@ -5,6 +5,7 @@ enum class EnemyType
 {
 	GOOMBA,
 	KOOPAS,
+	PARA_GOOMBA,
 };
 
 enum class EnemyState

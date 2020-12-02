@@ -46,7 +46,7 @@ public:
 	EMarioState mState;
 	CMario(float x = 0.0f, float y = 0.0f);
 	virtual bool SwitchState(EMarioState newState, DWORD timeState = 0);
-	virtual void SwitchType();
+	virtual void SwitchType(int typeObj); //1:enemy 2:magic
 	virtual void SetState(EMarioState newState, DWORD timeState = 0);
 	virtual void MarioAfterCollisionYWithEnemy();
 	virtual void NoCollision();

@@ -25,7 +25,7 @@ bool CSelectionScence::Load()
 	TiXmlElement* map = root->FirstChildElement("Map");
 	string MapPath = map->Attribute("path");
 	OutputDebugStringW(ToLPCWSTR("MapPath : " + MapPath + '\n'));
-	mMap = CGameMap().FromTMX(MapPath, &objects_Map, &objects_Map);
+	mMap = CGameMap().FromTMX(MapPath, &objects_Map,&objects_Active, &objects_NoActive);
 
 	//load file bbox
 	TiXmlElement* bbox = root->FirstChildElement("BBox");
@@ -41,29 +41,29 @@ bool CSelectionScence::Load()
 
 	//load texture
 	TiXmlElement* textures = root->FirstChildElement("Textures");
-	/*for (TiXmlElement* node = textures->FirstChildElement("Texture"); node != nullptr; node = node->NextSiblingElement("Texture"))
+	for (TiXmlElement* node = textures->FirstChildElement("Texture"); node != nullptr; node = node->NextSiblingElement("Texture"))
 	{
 		string TexturePath = node->Attribute("path");
 		string TextureId = node->Attribute("id");
 		CTextures::GetInstance()->Initialization(TexturePath, TextureId, D3DCOLOR());
-	}*/
+	}
 
 	//load Sprite
 	TiXmlElement* sprites = root->FirstChildElement("Sprites");
-	/*for (TiXmlElement* node = sprites->FirstChildElement("Sprite"); node != nullptr; node = node->NextSiblingElement("Sprite"))
+	for (TiXmlElement* node = sprites->FirstChildElement("Sprite"); node != nullptr; node = node->NextSiblingElement("Sprite"))
 	{
 		string SpritePath = node->Attribute("path");
 		CSprites::GetInstance()->Initialization(SpritePath);
-	}*/
+	}
 
 
 	//load Animation
 	TiXmlElement* animations = root->FirstChildElement("Animations");
-	/*for (TiXmlElement* node = animations->FirstChildElement("Animation"); node != nullptr; node = node->NextSiblingElement("Animation"))
+	for (TiXmlElement* node = animations->FirstChildElement("Animation"); node != nullptr; node = node->NextSiblingElement("Animation"))
 	{
 		string AnimationPath = node->Attribute("path");
 		CAnimations::GetInstance()->Initialization(AnimationPath);
-	}*/
+	}
 
 	//load player
 	TiXmlElement* play = root->FirstChildElement("Player");
@@ -83,6 +83,7 @@ void CSelectionScence::Unload()
 {
 	CleanupListObjects(objects_Map);
 	player = NULL;
+	
 }
 
 void CSelectionScence::Update(DWORD dt)
@@ -106,12 +107,16 @@ void CSelectionScence::Render()
 	{
 		objects_Map[i]->Render();
 	}
+	for (int i = 0; i < objects_NoActive.size(); i++)
+	{
+		objects_NoActive[i]->Render();
+	}
 	player->Render();
 }
 
 void CSelectionScenceKeyHandler::KeyState(BYTE* states)
 {
-	/*CGame* game = CGame::GetInstance();
+	CGame* game = CGame::GetInstance();
 	CMarioSelectScence* currentPlayer = (CMarioSelectScence*)(((CSelectionScence*)scence)->GetPlayer());
 	if (game->IsKeyDown(DIK_RIGHT))
 		currentPlayer->KeyboardHandle(KEYBOARD_PRESS_RIGHT);
@@ -120,18 +125,23 @@ void CSelectionScenceKeyHandler::KeyState(BYTE* states)
 	else if (game->IsKeyDown(DIK_UP))
 		currentPlayer->KeyboardHandle(KEYBOARD_PRESS_UP);
 	else if (game->IsKeyDown(DIK_DOWN))
-		currentPlayer->KeyboardHandle(KEYBOARD_PRESS_DOWN);*/
+		currentPlayer->KeyboardHandle(KEYBOARD_PRESS_DOWN);
+	else
+	{
+		currentPlayer->vx = 0;
+		currentPlayer->vy = 0;
+	}
 		
 }
 void CSelectionScenceKeyHandler::OnKeyDown(int KeyCode)
 {
-	//CMarioSelectScence* currentPlayer = (CMarioSelectScence*)(((CSelectionScence*)scence)->GetPlayer());
+	CMarioSelectScence* currentPlayer = (CMarioSelectScence*)(((CSelectionScence*)scence)->GetPlayer());
 	switch (KeyCode)
 	{
 	case DIK_S:
 		CGame::GetInstance()->SwitchScene("1");
 		break;
-	case DIK_RIGHT:
+	/*case DIK_RIGHT:
 		currentPlayer->KeyboardHandle(KEYBOARD_PRESS_RIGHT);
 		break;
 	case DIK_LEFT:
@@ -142,8 +152,10 @@ void CSelectionScenceKeyHandler::OnKeyDown(int KeyCode)
 		break;
 	case DIK_DOWN:
 		currentPlayer->KeyboardHandle(KEYBOARD_PRESS_DOWN);
-		break;
+		break;*/
 	default:
+		currentPlayer->vx = 0;
+		currentPlayer->vy = 0;
 		break;
 	}
 }

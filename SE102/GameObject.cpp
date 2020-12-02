@@ -62,16 +62,16 @@ void CGameObject::CollisionWithObj(vector<LPGAMEOBJECT>* coObjects)
 			if (dynamic_cast<CGoomba*>(e->obj)) {
 				int a = 0;
 			}
-			
+			if (e->nx != 0)
+			{
+				CollisionX(coEventsResult[i]->obj, nx);
+			}
 			if (e->ny != 0)
 			{
 				CollisionY(e->obj, ny);
 			}
 				
-			if (e->nx != 0)
-			{
-				CollisionX(coEventsResult[i]->obj, nx);
-			}
+			
 		}
 	}
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];

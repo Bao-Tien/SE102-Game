@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="48" tileheight="48" infinite="1" nextlayerid="6" nextobjectid="15">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="48" tileheight="48" infinite="1" nextlayerid="7" nextobjectid="21">
  <tileset firstgid="1" name="Abc2" tilewidth="48" tileheight="48" tilecount="32" columns="8">
   <image source="selectScence.png" trans="ff80c0" width="384" height="192"/>
  </tileset>
@@ -66,11 +66,18 @@
  <objectgroup id="5" name="CanNotGo">
   <object id="7" x="51" y="47" width="165" height="121"/>
   <object id="8" x="51" y="190" width="165" height="249"/>
-  <object id="9" x="241" y="47" width="477" height="24"/>
+  <object id="9" x="215" y="47" width="503" height="24"/>
   <object id="10" x="241" y="98" width="166" height="166"/>
   <object id="11" x="240" y="290" width="332" height="70"/>
   <object id="12" x="242" y="388" width="165" height="69"/>
-  <object id="13" x="155" y="24" width="159" height="21"/>
   <object id="14" x="192" y="480" width="521" height="47"/>
+ </objectgroup>
+ <objectgroup id="6" name="Gate">
+  <object id="15" x="192" y="49" width="48" height="45"/>
+  <object id="16" x="383" y="49" width="48" height="45"/>
+  <object id="17" x="480" y="50" width="47" height="44"/>
+  <object id="18" x="480" y="144" width="48" height="48"/>
+  <object id="19" x="193" y="433" width="46" height="45"/>
+  <object id="20" x="385" y="433" width="46" height="44"/>
  </objectgroup>
 </map>

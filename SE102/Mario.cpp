@@ -14,6 +14,7 @@
 #include "MarioSmall.h"
 #include "MarioBig.h"
 #include "MarioRaccoon.h"
+#include "MarioFire.h"
 #include "PlayScence.h"
 #include "Scence.h"
 #include "ScenceManager.h"
@@ -165,16 +166,32 @@ void CMario::NoCollision()
 		SwitchState(EMarioState::FALL);
 	}
 }
-void CMario::SwitchType()
+void CMario::SwitchType(int typeObj)
 {
-	if (mState != EMarioState::ATTACK)
+	if (typeObj == 1)
 	{
-		vx = 0;
-		if (mType != EMarioType::SMALL) {
-			SwitchState(EMarioState::REMEMBER);
+		if (mState != EMarioState::ATTACK)
+		{
+			vx = 0;
+			if (mType != EMarioType::SMALL) {
+				SwitchState(EMarioState::REMEMBER);
+			}
+			//else SwitchState(EMarioState::DIE);
 		}
-		//else SwitchState(EMarioState::DIE);
 	}
+	else
+	{
+		string currentScenceId = CGame::GetInstance()->GetCurrentSceneId();
+		LPSCENE s = CScences::GetInstance()->Get(currentScenceId);
+		//LPGAMEOBJECT player = s->GetPlayer();
+		if (mType == EMarioType::SMALL)
+			s->SwitchPlayer(new CMarioBig(x, y));
+		else if (mType == EMarioType::BIG)
+			s->SwitchPlayer(new CMarioRaccoon(x, y));
+		else if (mType == EMarioType::RACCOON)
+			s->SwitchPlayer(new CMarioFire(x, y));
+	}
+	
 }
 void CMario::CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively)
 {
@@ -203,10 +220,7 @@ void CMario::CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively)
 			SwitchState(EMarioState::IDLE);
 		}
 	}
-	/*else
-	{
-		vy = 0;
-	}*/
+	DebugOut(ToWSTR(std::to_string(synergies) + "\n").c_str());
 	coObj->CollisionY(this, nyCollision, 0);
 	
 }
@@ -261,7 +275,7 @@ void CMario::Render()
 			
 	}
 	
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CMario::KeyboardHandle(int key, bool type)

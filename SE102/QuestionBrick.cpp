@@ -1,5 +1,10 @@
 #include "QuestionBrick.h"
 #include "Mario.h"
+#include "MagicObject.h"
+#include "Game.h"
+#include "Scence.h"
+#include "ScenceManager.h"
+#include "PlayScence.h"
 
 CQuestionBrick::CQuestionBrick(float x, float y, float width, float height) : CCollisionBox(x, y, width, height)
 {
@@ -12,26 +17,37 @@ void CQuestionBrick::CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Activel
 {
 	if (Actively == 0)
 	{
-		if (nyCollision > 0)
+		if (nyCollision > 0) {
 			SetState(QUESTIONBRICK_STATE_AFTER_COLLISION);
-		
+			if (hasCollided == 0)
+			{
+				hasCollided = 1;
+				LPGAMEOBJECT magicObj = new CMagicObject(x, y);
+				string currentScenceId = CGame::GetInstance()->GetCurrentSceneId();
+				CPlayScene* s = (CPlayScene*)CScences::GetInstance()->Get(currentScenceId);
+				s->AddObjToObjects_Active(magicObj);
+			}
+		}
+			
 	}
 	else return;
 }
 
 void CQuestionBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-		
+	
 	if (y + QUESTIONBRICK_GRAVITY * dt < yStart)
 	{
 		vy += QUESTIONBRICK_GRAVITY * dt;
-		hasCollided = 1;
+
 	}
+	
 	CGameObject::Update(dt, coObjects);
 	CollisionWithObj(coObjects);
 	if (y > yStart)
 	{
 		y = yStart;
+		vy = 0;
 	}
 	/*if(vy!=0)
 	DebugOut(ToWSTR("------->" + std::to_string(vy) + "\n").c_str());*/

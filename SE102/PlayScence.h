@@ -23,6 +23,7 @@ public:
 	virtual void Update(DWORD dt);
 	virtual void Render();
 	virtual void Unload();
+	virtual void AddObjToObjects_Active(LPGAMEOBJECT a);
 	virtual vector<LPGAMEOBJECT> GetObjEnemy() { return objects_Enemy; }
 	virtual vector<LPGAMEOBJECT> GetObjMap() { return objects_Map; }
 	LPGAMEOBJECT GetPlayer() { return player; }

@@ -17,12 +17,18 @@
 #include "Goomba.h"
 #include "Koopas.h"
 #include "QuestionBrick.h"
+#include "Para_Goomba.h"
 using namespace std;
 
 CPlayScene::CPlayScene(string id, string filePath) :
 	CScene(id, filePath)
 {
 	key_handler = new CPlayScenceKeyHandler(this);
+}
+
+void CPlayScene::AddObjToObjects_Active(LPGAMEOBJECT a)
+{
+	objects_Active.push_back(a);
 }
 
 void CPlayScene::SwitchPlayer(LPGAMEOBJECT newPlayer)
@@ -124,6 +130,7 @@ bool CPlayScene::Load()
 		LPGAMEOBJECT goomba = new CGoomba(goomba_x, goomba_y);
 		objects_Enemy.push_back(goomba);
 	}
+	// (Koopas)
 	for (TiXmlElement* node = objects->FirstChildElement("Koopas"); node != nullptr; node = node->NextSiblingElement("Koopas"))
 	{
 		float koopas_x = atof(node->Attribute("x"));
@@ -131,7 +138,14 @@ bool CPlayScene::Load()
 		LPGAMEOBJECT koopas = new CKoopas(koopas_x, koopas_y);
 		objects_Enemy.push_back(koopas);
 	}
-
+	// (Para_Goomba)
+	for (TiXmlElement* node = objects->FirstChildElement("Para_Goomba"); node != nullptr; node = node->NextSiblingElement("Para_Goomba"))
+	{
+		float para_x = atof(node->Attribute("x"));
+		float para_y = atof(node->Attribute("y"));
+		LPGAMEOBJECT para = new CPara_Goomba(para_x, para_y);
+		objects_Enemy.push_back(para);
+	}
 	DebugOut(L"[INFO] Loading game file : %s has been loaded successfully\n", sceneFilePath);
 	
 }
@@ -164,13 +178,14 @@ void CPlayScene::Update(DWORD dt)
 		}
 	}
 
-	for (size_t i = 0; i < objects_Enemy.size(); i++)
-	{
-		coObjects.push_back(objects_Enemy[i]);
-	}
+	
 	for (int i = 0; i < objects_Active.size(); i++)
 	{
 		objects_Active[i]->Update(dt, &coObjects);
+	}
+	for (size_t i = 0; i < objects_Enemy.size(); i++)
+	{
+		coObjects.push_back(objects_Enemy[i]);
 	}
 	for (int i = 0; i < objects_Active.size(); i++)
 	{

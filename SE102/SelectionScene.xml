@@ -8,15 +8,18 @@
   </BBox>
 
   <Textures>
-    
+    <Texture name="Texture" path="Textures/mario-new.png" id="tex-mario"/>
+    <Texture name="Texture" path="Textures/MapSelection.png" id="tex-map-selection"/>
   </Textures>
 
   <Sprites>
-    
+    <Sprite name="Sprite" path="MarioDB.xml"/>
+    <Sprite name="Sprite" path="MapSelectionDB.xml"/>
   </Sprites>
   
   <Animations>
-    
+    <Animation name="Animation" path="MarioAnim.xml"/>
+    <Animation name="Animation" path="MapSelectionAnim.xml"/>
   </Animations>
 
   <Player name="Player" type="marioSelectionScence" x="100" y="170">

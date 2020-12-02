@@ -25,6 +25,15 @@ void CMarioSelectScence::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 }
 void CMarioSelectScence::Render()
 {
+	int alpha = 255;
+
+	LPANIMATION anim = CAnimations::GetInstance()->Get("ani-small-mario-idle-front");
+
+	if (anim != NULL)
+	{
+		anim->Render(x-20, y-30, D3DXVECTOR2(1.0f, 1.0f), alpha);
+		//anim->Render(80, 140, D3DXVECTOR2(1.0f, 1.0f), alpha);
+	}
 	RenderBoundingBox();
 }
 void CMarioSelectScence::KeyboardHandle(int key)
@@ -48,6 +57,7 @@ void CMarioSelectScence::KeyboardHandle(int key)
 		vx = 0;
 		break;
 	default:
+		vy=vx=0;
 		break;
 	}
 

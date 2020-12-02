@@ -64,8 +64,9 @@ void CKoopas::CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively)
 				{
 					SetState(EnemyState::BEING_KICK, nxCollision);//bi da
 				}
+				else mario->SwitchType(1);
 			}
-			else mario->SwitchType();
+			else mario->SwitchType(1);
 		}
 	}
 }

@@ -158,9 +158,11 @@
     <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="GameMap1.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Gate.cpp" />
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="KeyEventHandler.cpp" />
     <ClCompile Include="Koopas.cpp" />
+    <ClCompile Include="MagicObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapLayer.cpp" />
     <ClCompile Include="MapReader\base64.cpp" />
@@ -189,6 +191,7 @@
     <ClCompile Include="MarioRaccoon.cpp" />
     <ClCompile Include="MarioSelectScence.cpp" />
     <ClCompile Include="MarioSmall.cpp" />
+    <ClCompile Include="Para_Goomba.cpp" />
     <ClCompile Include="PlatForm.cpp" />
     <ClCompile Include="PlayScence.cpp" />
     <ClCompile Include="Portal.cpp" />
@@ -223,9 +226,11 @@
     <ClInclude Include="GameMap.h" />
     <ClInclude Include="GameMap1.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Gate.h" />
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="KeyEventHandler.h" />
     <ClInclude Include="Koopas.h" />
+    <ClInclude Include="MagicObject.h" />
     <ClInclude Include="MapLayer.h" />
     <ClInclude Include="MapReader\base64.h" />
     <ClInclude Include="MapReader\tinyxml2.h" />
@@ -257,6 +262,7 @@
     <ClInclude Include="MarioRaccoon.h" />
     <ClInclude Include="MarioSelectScence.h" />
     <ClInclude Include="MarioSmall.h" />
+    <ClInclude Include="Para_Goomba.h" />
     <ClInclude Include="PlatForm.h" />
     <ClInclude Include="PlayScence.h" />
     <ClInclude Include="Portal.h" />
@@ -292,6 +298,8 @@
   <ItemGroup>
     <Xml Include="EnemyAnim.xml" />
     <Xml Include="EnemyDB.xml" />
+    <Xml Include="MapSelectionAnim.xml" />
+    <Xml Include="MapSelectionDB.xml" />
     <Xml Include="mario.xml" />
     <Xml Include="MarioAnim.xml" />
     <Xml Include="MarioDB.xml" />

@@ -1,5 +1,6 @@
 #include "Enemy.h"
 #include "Mario.h"
+#include "EnemyConst.h"
 
 CEnemy::CEnemy(float x, float y)
 {

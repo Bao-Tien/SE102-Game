@@ -3,6 +3,7 @@
 #include "CollisionBox.h"
 #include "PlatForm.h"
 #include "QuestionBrick.h"
+#include "Gate.h"
 
 #define CAMERA_MARGIN			150
 
@@ -87,7 +88,7 @@ void CGameMap::Render()
 	}
 }
 
-shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* objectMap, vector<LPGAMEOBJECT>* objectActive)
+shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* objectMap, vector<LPGAMEOBJECT>* objectActive, vector<LPGAMEOBJECT>* objectNoActive)
 {
 	string fullPath = filePath;
 	TiXmlDocument doc(fullPath.c_str());
@@ -151,7 +152,19 @@ shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* ob
 					objectActive->push_back(obj);
 				}
 			}
-
+			if (std::string(objGroupNode->Attribute("name")) == "Gate") {
+				int stt=0;
+				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+					LPGAMEOBJECT obj = new CGate(
+						atoi(objNode->Attribute("x")),
+						atoi(objNode->Attribute("y")),
+						atoi(objNode->Attribute("width")),
+						atoi(objNode->Attribute("height")),
+						stt++
+					);
+					objectNoActive->push_back(obj);
+				}
+			}
 			
 		}
 		return gameMap;

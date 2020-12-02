@@ -4,6 +4,8 @@
 
 class CSelectionScence :public CScene
 {
+	vector<LPGAMEOBJECT> objects_NoActive;
+	vector<LPGAMEOBJECT> objects_Active;
 public:
 	CSelectionScence(std::string id, std::string filePath);
 
