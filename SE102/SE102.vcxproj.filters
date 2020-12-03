@@ -133,9 +133,6 @@
     <Filter Include="GameResources\Objects\Object\MagicObject">
       <UniqueIdentifier>{7f8d5655-77ad-45cb-852c-8a7e92e67ae2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameResources\Objects\Enemy\Para-Goomba">
-      <UniqueIdentifier>{79acb648-5388-4390-8b3b-fb2b0f7bed26}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameResources\Objects\Portal\Scences">
       <UniqueIdentifier>{1bd8823a-8690-4ffc-9654-792ff5e05ab5}</UniqueIdentifier>
     </Filter>
@@ -147,6 +144,9 @@
     </Filter>
     <Filter Include="GameResources\Objects\Mario\Mario_Raccoon">
       <UniqueIdentifier>{c62c8817-f4cd-4198-93e8-340ae0e32e8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameResources\Objects\Enemy\Red-Goomba">
+      <UniqueIdentifier>{79acb648-5388-4390-8b3b-fb2b0f7bed26}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -342,8 +342,8 @@
     <ClCompile Include="MagicObject.cpp">
       <Filter>GameResources\Objects\Object\MagicObject</Filter>
     </ClCompile>
-    <ClCompile Include="Para_Goomba.cpp">
-      <Filter>GameResources\Objects\Enemy\Para-Goomba</Filter>
+    <ClCompile Include="Red_Goomba.cpp">
+      <Filter>GameResources\Objects\Enemy\Red-Goomba</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -548,8 +548,8 @@
     <ClInclude Include="MagicObject.h">
       <Filter>GameResources\Objects\Object\MagicObject</Filter>
     </ClInclude>
-    <ClInclude Include="Para_Goomba.h">
-      <Filter>GameResources\Objects\Enemy\Para-Goomba</Filter>
+    <ClInclude Include="Red_Goomba.h">
+      <Filter>GameResources\Objects\Enemy\Red-Goomba</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -191,7 +191,7 @@
     <ClCompile Include="MarioRaccoon.cpp" />
     <ClCompile Include="MarioSelectScence.cpp" />
     <ClCompile Include="MarioSmall.cpp" />
-    <ClCompile Include="Para_Goomba.cpp" />
+    <ClCompile Include="Red_Goomba.cpp" />
     <ClCompile Include="PlatForm.cpp" />
     <ClCompile Include="PlayScence.cpp" />
     <ClCompile Include="Portal.cpp" />
@@ -262,7 +262,7 @@
     <ClInclude Include="MarioRaccoon.h" />
     <ClInclude Include="MarioSelectScence.h" />
     <ClInclude Include="MarioSmall.h" />
-    <ClInclude Include="Para_Goomba.h" />
+    <ClInclude Include="Red_Goomba.h" />
     <ClInclude Include="PlatForm.h" />
     <ClInclude Include="PlayScence.h" />
     <ClInclude Include="Portal.h" />

@@ -1,18 +1,18 @@
-#include "Goomba.h"
+#include "Red_Goomba.h"
 #include "FireBullet.h"
 #include "Mario.h"
 
-CGoomba::CGoomba(float x, float y) : CEnemy(x, y)
+CRed_Goomba::CRed_Goomba(float x, float y) : CEnemy(x, y)
 {
-	eType = EnemyType::GOOMBA;
+	eType = EnemyType::RED_GOOMBA;
 	SetState(EnemyState::LIVE, -1.0);
 }
 
-string CGoomba::GetAnimationIdFromState()
+string CRed_Goomba::GetAnimationIdFromState()
 {
 	string typeString, stateString;
-	 
-	typeString = "ani-goomba";
+
+	typeString = "ani-red-goomba";
 	if (eState == EnemyState::DIE) stateString = "die";
 	else if (eState == EnemyState::WILL_DIE) stateString = "die";
 	else if (eState == EnemyState::BEING_ATTACKED) stateString = "idle";
@@ -20,21 +20,21 @@ string CGoomba::GetAnimationIdFromState()
 
 	return typeString + "-" + stateString;
 }
-void CGoomba::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void CRed_Goomba::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
-	right = x + GOOMBA_BBOX_WIDTH;
+	right = x + RED_GOOMBA_BBOX_WIDTH;
 	if (eState == EnemyState::WILL_DIE)
-		bottom = y + GOOMBA_BBOX_HEIGHT_DIE;
-	else 
-	if (eState == EnemyState::DIE || eState == EnemyState::BEING_ATTACKED)
-		top = left = right = bottom = 0;
+		bottom = y + RED_GOOMBA_BBOX_HEIGHT_DIE;
 	else
-		bottom = y + GOOMBA_BBOX_HEIGHT; //live
+		if (eState == EnemyState::DIE || eState == EnemyState::BEING_ATTACKED)
+			top = left = right = bottom = 0;
+		else
+			bottom = y + RED_GOOMBA_BBOX_HEIGHT; //live
 }
 
-void CGoomba::CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively)
+void CRed_Goomba::CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively)
 {
 	CEnemy::CollisionX(coObj, nxCollision, Actively);
 	if (Actively == 0)
@@ -46,29 +46,26 @@ void CGoomba::CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively)
 				SetState(EnemyState::BEING_ATTACKED, nxCollision);
 			else mario->SwitchType(1);
 		}
-		
+
 	}
 }
 
-void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void CRed_Goomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	vy += GOOMBA_GRAVITY * dt;
+	vy += RED_GOOMBA_GRAVITY * dt;
 	CEnemy::Update(dt, coObjects);
 	if (eState == EnemyState::WILL_DIE && GetTickCount() - beginState > 500)
 	{
 		SetState(EnemyState::DIE);
 	}
-	//DebugOut(ToWSTR("------->" + std::to_string((int)(GetTickCount() - beginState)) + "\n").c_str());
-	//DebugOut(ToWSTR("------->" + std::to_string((int)eState) + "\n").c_str());
-	//DebugOut(ToWSTR("------->" + std::to_string(vx) + "\n" ).c_str());
 }
 
-void CGoomba::SetState(EnemyState state, float nxCollision)
+void CRed_Goomba::SetState(EnemyState state, float nxCollision)
 {
 	switch (state)
 	{
 	case EnemyState::WILL_DIE: //bi thap xuong
-		y += GOOMBA_BBOX_HEIGHT - GOOMBA_BBOX_HEIGHT_DIE;
+		y += RED_GOOMBA_BBOX_HEIGHT - RED_GOOMBA_BBOX_HEIGHT_DIE;
 		vx = 0;
 		vy = 0;
 		beginState = GetTickCount();
@@ -77,14 +74,14 @@ void CGoomba::SetState(EnemyState state, float nxCollision)
 	case EnemyState::BEING_ATTACKED:
 		if (nxCollision < 0)
 		{
-			vx = GOOMBA_BEING_ATTACKED_SPEED_X;
+			vx = RED_GOOMBA_BEING_ATTACKED_SPEED_X;
 		}
-		else vx = -GOOMBA_BEING_ATTACKED_SPEED_X;
-		vy = -GOOMBA_BEING_ATTACKED_SPEED_Y;
+		else vx = -RED_GOOMBA_BEING_ATTACKED_SPEED_X;
+		vy = -RED_GOOMBA_BEING_ATTACKED_SPEED_Y;
 		eState = state;
 		break;
 	case EnemyState::LIVE:
-		vx = -GOOMBA_WALKING_SPEED;
+		vx = -RED_GOOMBA_WALKING_SPEED;
 		eState = state;
 		break;
 	case EnemyState::DIE:

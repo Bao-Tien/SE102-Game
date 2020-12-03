@@ -4,6 +4,7 @@
 enum class EnemyType
 {
 	GOOMBA,
+	RED_GOOMBA,
 	KOOPAS,
 	PARA_GOOMBA,
 };
