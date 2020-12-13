@@ -18,6 +18,7 @@
 #include "Koopas.h"
 #include "QuestionBrick.h"
 #include "Red_Goomba.h"
+#include "Para_Goomba.h"
 using namespace std;
 
 CPlayScene::CPlayScene(string id, string filePath) :
@@ -29,6 +30,10 @@ CPlayScene::CPlayScene(string id, string filePath) :
 void CPlayScene::AddObjToObjects_Active(LPGAMEOBJECT a)
 {
 	objects_Active.push_back(a);
+}
+void CPlayScene::AddObjToObjects_Enemy(LPGAMEOBJECT a)
+{
+	objects_Enemy.push_back(a);
 }
 
 void CPlayScene::SwitchPlayer(LPGAMEOBJECT newPlayer)
@@ -143,7 +148,7 @@ bool CPlayScene::Load()
 	{
 		float para_x = atof(node->Attribute("x"));
 		float para_y = atof(node->Attribute("y"));
-		LPGAMEOBJECT para = new CRed_Goomba(para_x, para_y);
+		LPGAMEOBJECT para = new CPara_Goomba(para_x, para_y);
 		objects_Enemy.push_back(para);
 	}
 	DebugOut(L"[INFO] Loading game file : %s has been loaded successfully\n", sceneFilePath);

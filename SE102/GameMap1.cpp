@@ -4,6 +4,7 @@
 #include "PlatForm.h"
 #include "QuestionBrick.h"
 #include "Gate.h"
+#include "Coin.h"
 
 #define CAMERA_MARGIN			150
 
@@ -152,6 +153,18 @@ shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* ob
 					objectActive->push_back(obj);
 				}
 			}
+			if (std::string(objGroupNode->Attribute("name")) == "Coin") {
+				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+					LPGAMEOBJECT obj = new CCoin(
+						atoi(objNode->Attribute("x")),
+						atoi(objNode->Attribute("y")),
+						atoi(objNode->Attribute("width")),
+						atoi(objNode->Attribute("height"))
+					);
+					objectActive->push_back(obj);
+				}
+			}
+
 			if (std::string(objGroupNode->Attribute("name")) == "Gate") {
 				int stt=0;
 				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {

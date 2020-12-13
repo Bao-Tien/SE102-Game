@@ -7,6 +7,7 @@
 
 CKoopas::CKoopas(float x, float y) : CEnemy(x, y)
 {
+	eType = EnemyType::KOOPAS;
 	SetState(EnemyState::LIVE, -1.0);
 	beginState = 0;
 }

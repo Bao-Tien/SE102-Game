@@ -12,6 +12,8 @@ enum class EnemyType
 enum class EnemyState
 {
 	LIVE,
+	JUMP,
+	HIGHT_JUMP,
 	BEING_ATTACKED,
 	BEING_HELD,
 	BEING_KICK,
@@ -31,6 +33,7 @@ protected:
 
 public:
 	CEnemy(float x, float y);
+	bool SwitchType(EnemyType newType);
 	virtual void SetState(EnemyState state, float nxCollison = 1) {};
 	virtual void NoCollision();
 	virtual void CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively) override;

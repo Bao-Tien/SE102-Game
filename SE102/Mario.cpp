@@ -153,7 +153,7 @@ bool CMario::SwitchState(EMarioState newState, DWORD newTimeState)
 	return false;
 }
 
-void CMario::MarioAfterCollisionYWithEnemy()
+void CMario::MarioAfterCollisionYWithEnemy() //nay len
 {
 	vy = -MARIO_JUMP_SPEED_Y;
 }
@@ -168,7 +168,7 @@ void CMario::NoCollision()
 }
 void CMario::SwitchType(int typeObj)
 {
-	if (typeObj == 1)
+	if (typeObj == 1) //nen lam giong magic
 	{
 		if (mState != EMarioState::ATTACK)
 		{
@@ -179,7 +179,7 @@ void CMario::SwitchType(int typeObj)
 			//else SwitchState(EMarioState::DIE);
 		}
 	}
-	else
+	else //magic
 	{
 		string currentScenceId = CGame::GetInstance()->GetCurrentSceneId();
 		LPSCENE s = CScences::GetInstance()->Get(currentScenceId);

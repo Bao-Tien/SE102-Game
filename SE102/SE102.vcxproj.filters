@@ -133,20 +133,23 @@
     <Filter Include="GameResources\Objects\Object\MagicObject">
       <UniqueIdentifier>{7f8d5655-77ad-45cb-852c-8a7e92e67ae2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameResources\Objects\Portal\Scences">
-      <UniqueIdentifier>{1bd8823a-8690-4ffc-9654-792ff5e05ab5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameResources\Objects\Portal\Scences\PlayScence">
-      <UniqueIdentifier>{0afc84ca-4aa8-46aa-a965-bc591b45d547}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameResources\Objects\Portal\Scences\SelectionScence">
-      <UniqueIdentifier>{145db4ab-248b-488a-90d8-73a70db78eb4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameResources\Objects\Mario\Mario_Raccoon">
       <UniqueIdentifier>{c62c8817-f4cd-4198-93e8-340ae0e32e8f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameResources\Objects\Enemy\Red-Goomba">
+    <Filter Include="GameResources\Scences">
+      <UniqueIdentifier>{1bd8823a-8690-4ffc-9654-792ff5e05ab5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameResources\Scences\PlayScence">
+      <UniqueIdentifier>{0afc84ca-4aa8-46aa-a965-bc591b45d547}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameResources\Scences\SelectionScence">
+      <UniqueIdentifier>{145db4ab-248b-488a-90d8-73a70db78eb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameResources\Objects\Enemy\Para-Goomba">
       <UniqueIdentifier>{79acb648-5388-4390-8b3b-fb2b0f7bed26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameResources\Objects\Object\Coin">
+      <UniqueIdentifier>{24ef5046-f554-44a0-8ab5-bc82ec76cfb9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -193,7 +196,7 @@
       <Filter>GameResources\Objects\Enemy\Koopas</Filter>
     </ClCompile>
     <ClCompile Include="PlayScence.cpp">
-      <Filter>GameResources\Objects\Portal\Scences\PlayScence</Filter>
+      <Filter>GameResources\Scences\PlayScence</Filter>
     </ClCompile>
     <ClCompile Include="Portal.cpp">
       <Filter>GameResources\Objects\Portal</Filter>
@@ -331,19 +334,25 @@
       <Filter>GameResources\Objects\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="SelectionScence.cpp">
-      <Filter>GameResources\Objects\Portal\Scences\SelectionScence</Filter>
+      <Filter>GameResources\Scences\SelectionScence</Filter>
     </ClCompile>
     <ClCompile Include="MarioSelectScence.cpp">
-      <Filter>GameResources\Objects\Portal\Scences\SelectionScence</Filter>
+      <Filter>GameResources\Scences\SelectionScence</Filter>
     </ClCompile>
     <ClCompile Include="Gate.cpp">
-      <Filter>GameResources\Objects\Portal\Scences\SelectionScence</Filter>
+      <Filter>GameResources\Scences\SelectionScence</Filter>
     </ClCompile>
     <ClCompile Include="MagicObject.cpp">
       <Filter>GameResources\Objects\Object\MagicObject</Filter>
     </ClCompile>
     <ClCompile Include="Red_Goomba.cpp">
-      <Filter>GameResources\Objects\Enemy\Red-Goomba</Filter>
+      <Filter>GameResources\Objects\Enemy\Para-Goomba</Filter>
+    </ClCompile>
+    <ClCompile Include="Para_Goomba.cpp">
+      <Filter>GameResources\Objects\Enemy\Para-Goomba</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>GameResources\Objects\Object\Coin</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -390,7 +399,7 @@
       <Filter>GameResources\Objects\Enemy\Koopas</Filter>
     </ClInclude>
     <ClInclude Include="PlayScence.h">
-      <Filter>GameResources\Objects\Portal\Scences\PlayScence</Filter>
+      <Filter>GameResources\Scences\PlayScence</Filter>
     </ClInclude>
     <ClInclude Include="Portal.h">
       <Filter>GameResources\Objects\Portal</Filter>
@@ -537,19 +546,25 @@
       <Filter>GameResources\Objects\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="SelectionScence.h">
-      <Filter>GameResources\Objects\Portal\Scences\SelectionScence</Filter>
+      <Filter>GameResources\Scences\SelectionScence</Filter>
     </ClInclude>
     <ClInclude Include="MarioSelectScence.h">
-      <Filter>GameResources\Objects\Portal\Scences\SelectionScence</Filter>
+      <Filter>GameResources\Scences\SelectionScence</Filter>
     </ClInclude>
     <ClInclude Include="Gate.h">
-      <Filter>GameResources\Objects\Portal\Scences\SelectionScence</Filter>
+      <Filter>GameResources\Scences\SelectionScence</Filter>
     </ClInclude>
     <ClInclude Include="MagicObject.h">
       <Filter>GameResources\Objects\Object\MagicObject</Filter>
     </ClInclude>
     <ClInclude Include="Red_Goomba.h">
-      <Filter>GameResources\Objects\Enemy\Red-Goomba</Filter>
+      <Filter>GameResources\Objects\Enemy\Para-Goomba</Filter>
+    </ClInclude>
+    <ClInclude Include="Para_Goomba.h">
+      <Filter>GameResources\Objects\Enemy\Para-Goomba</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>GameResources\Objects\Object\Coin</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

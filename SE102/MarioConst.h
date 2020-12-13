@@ -11,7 +11,7 @@
 #define VELOCITY_X_SPEEDUP_MAX  0.48f
 #define VELOCITY_X_MAX          0.32f//0.00255f//0.32f
 #define MARIO_DIE_DEFLECT_SPEED	 0.5f
-#define MARIO_FLY_SPEED_Y				0.21f
+#define MARIO_FLY_SPEED_Y				0.35f
 #define MARIO_JUMP_SPEED_Y				0.49f
 #define MARIO_HIGH_JUMP_SPEED_Y			0.63
 

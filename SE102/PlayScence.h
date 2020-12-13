@@ -24,6 +24,7 @@ public:
 	virtual void Render();
 	virtual void Unload();
 	virtual void AddObjToObjects_Active(LPGAMEOBJECT a);
+	virtual void AddObjToObjects_Enemy(LPGAMEOBJECT a);
 	virtual vector<LPGAMEOBJECT> GetObjEnemy() { return objects_Enemy; }
 	virtual vector<LPGAMEOBJECT> GetObjMap() { return objects_Map; }
 	LPGAMEOBJECT GetPlayer() { return player; }

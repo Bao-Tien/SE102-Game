@@ -1,6 +1,11 @@
 #include "Enemy.h"
 #include "Mario.h"
 #include "EnemyConst.h"
+#include "Red_Goomba.h"
+#include "PlayScence.h"
+#include "Game.h"
+#include "ScenceManager.h"
+
 
 CEnemy::CEnemy(float x, float y)
 {
@@ -9,6 +14,20 @@ CEnemy::CEnemy(float x, float y)
 	beginState = 0;
 	
 	this->isHidden = false;
+}
+
+bool CEnemy::SwitchType(EnemyType newType)
+{
+	if(newType == EnemyType::RED_GOOMBA)
+		if (eType == EnemyType::PARA_GOOMBA)
+		{
+			CRed_Goomba* red_goomba = new CRed_Goomba(x, y);
+			string currentScenceId = CGame::GetInstance()->GetCurrentSceneId();
+			CPlayScene* s = (CPlayScene*)CScences::GetInstance()->Get(currentScenceId);
+			s->AddObjToObjects_Enemy(red_goomba);
+			return true;
+		}
+	return false;
 }
 
 void CEnemy::NoCollision()
@@ -40,8 +59,9 @@ void CEnemy::CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively)
 		else if (dynamic_cast<CMario*>(coObj))
 		{
 			SetState(EnemyState::WILL_DIE, nyCollision);
+			SwitchType(EnemyType::RED_GOOMBA);
 			CMario* mario = (CMario*)coObj;
-			mario->MarioAfterCollisionYWithEnemy();
+			mario->MarioAfterCollisionYWithEnemy(); 
 		}
 	}
 }
