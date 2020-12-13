@@ -82,9 +82,6 @@
     <Filter Include="Framework\GameMap">
       <UniqueIdentifier>{77d70b8f-6bac-4b21-9a38-68c53334b735}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Framework\GameMap\TileSet">
-      <UniqueIdentifier>{1abd63aa-2976-4d4d-bbfa-5734d614b3b2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Framework\GameMap\MapLayer">
       <UniqueIdentifier>{85fee0ec-0023-47a3-93d4-73bd05c71181}</UniqueIdentifier>
     </Filter>
@@ -150,6 +147,12 @@
     </Filter>
     <Filter Include="GameResources\Objects\Object\Coin">
       <UniqueIdentifier>{24ef5046-f554-44a0-8ab5-bc82ec76cfb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameResources\Scences\SelectionScence\Map">
+      <UniqueIdentifier>{da57dd2a-9f6e-4321-8cf8-fc9ae1fcf454}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\GameMap\TileSet">
+      <UniqueIdentifier>{1abd63aa-2976-4d4d-bbfa-5734d614b3b2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -339,9 +342,6 @@
     <ClCompile Include="MarioSelectScence.cpp">
       <Filter>GameResources\Scences\SelectionScence</Filter>
     </ClCompile>
-    <ClCompile Include="Gate.cpp">
-      <Filter>GameResources\Scences\SelectionScence</Filter>
-    </ClCompile>
     <ClCompile Include="MagicObject.cpp">
       <Filter>GameResources\Objects\Object\MagicObject</Filter>
     </ClCompile>
@@ -353,6 +353,12 @@
     </ClCompile>
     <ClCompile Include="Coin.cpp">
       <Filter>GameResources\Objects\Object\Coin</Filter>
+    </ClCompile>
+    <ClCompile Include="Gate.cpp">
+      <Filter>GameResources\Scences\SelectionScence\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Tree.cpp">
+      <Filter>GameResources\Scences\SelectionScence\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -551,9 +557,6 @@
     <ClInclude Include="MarioSelectScence.h">
       <Filter>GameResources\Scences\SelectionScence</Filter>
     </ClInclude>
-    <ClInclude Include="Gate.h">
-      <Filter>GameResources\Scences\SelectionScence</Filter>
-    </ClInclude>
     <ClInclude Include="MagicObject.h">
       <Filter>GameResources\Objects\Object\MagicObject</Filter>
     </ClInclude>
@@ -565,6 +568,12 @@
     </ClInclude>
     <ClInclude Include="Coin.h">
       <Filter>GameResources\Objects\Object\Coin</Filter>
+    </ClInclude>
+    <ClInclude Include="Gate.h">
+      <Filter>GameResources\Scences\SelectionScence\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Tree.h">
+      <Filter>GameResources\Scences\SelectionScence\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

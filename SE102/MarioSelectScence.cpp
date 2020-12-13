@@ -31,7 +31,7 @@ void CMarioSelectScence::Render()
 
 	if (anim != NULL)
 	{
-		anim->Render(x-20, y-30, D3DXVECTOR2(1.0f, 1.0f), alpha);
+		anim->Render(x-10, y-20, D3DXVECTOR2(1.0f, 1.0f), alpha);
 		//anim->Render(80, 140, D3DXVECTOR2(1.0f, 1.0f), alpha);
 	}
 	RenderBoundingBox();

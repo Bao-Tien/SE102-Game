@@ -5,6 +5,7 @@
 #include "QuestionBrick.h"
 #include "Gate.h"
 #include "Coin.h"
+#include "Tree.h"
 
 #define CAMERA_MARGIN			150
 
@@ -124,6 +125,18 @@ shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* ob
 						atoi(objNode->Attribute("x")),
 						atoi(objNode->Attribute("y")),
 					atoi(objNode->Attribute("width")),
+						atoi(objNode->Attribute("height"))
+					);
+					objectMap->push_back(obj);
+				}
+			}
+
+			if (std::string(objGroupNode->Attribute("name")) == "Tree") {
+				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+					LPGAMEOBJECT obj = new CTree(
+						atoi(objNode->Attribute("x")),
+						atoi(objNode->Attribute("y")),
+						atoi(objNode->Attribute("width")),
 						atoi(objNode->Attribute("height"))
 					);
 					objectMap->push_back(obj);
