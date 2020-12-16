@@ -14,7 +14,7 @@ protected:
 	vector<LPGAMEOBJECT> objects_Enemy;
 	vector<LPGAMEOBJECT> objects_Active;
 	vector<LPGAMEOBJECT> objects;
-	vector<LPGAMEOBJECT> objects_Priority;
+	vector<LPGAMEOBJECT> objects_Magic;
 	
 public:
 	CPlayScene(string id, string filePath);
@@ -23,7 +23,7 @@ public:
 	virtual void Update(DWORD dt);
 	virtual void Render();
 	virtual void Unload();
-	virtual void AddObjToObjects_Active(LPGAMEOBJECT a);
+	virtual void AddObjToObjects_Magic(LPGAMEOBJECT a);
 	virtual void AddObjToObjects_Enemy(LPGAMEOBJECT a);
 	virtual vector<LPGAMEOBJECT> GetObjEnemy() { return objects_Enemy; }
 	virtual vector<LPGAMEOBJECT> GetObjMap() { return objects_Map; }

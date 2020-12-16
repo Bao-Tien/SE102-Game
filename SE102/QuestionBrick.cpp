@@ -19,13 +19,13 @@ void CQuestionBrick::CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Activel
 	{
 		if (nyCollision > 0) {
 			SetState(QUESTIONBRICK_STATE_AFTER_COLLISION);
-			if (hasCollided == 0)
+			if (hasCollided == 0 && y==yStart)
 			{
 				hasCollided = 1;
 				LPGAMEOBJECT magicObj = new CMagicObject(x, y);
 				string currentScenceId = CGame::GetInstance()->GetCurrentSceneId();
 				CPlayScene* s = (CPlayScene*)CScences::GetInstance()->Get(currentScenceId);
-				s->AddObjToObjects_Active(magicObj);
+				s->AddObjToObjects_Magic(magicObj);
 			}
 		}
 			

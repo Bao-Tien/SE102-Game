@@ -19,6 +19,7 @@
 #include "QuestionBrick.h"
 #include "Red_Goomba.h"
 #include "Para_Goomba.h"
+#include "MagicObject.h"
 using namespace std;
 
 CPlayScene::CPlayScene(string id, string filePath) :
@@ -27,9 +28,9 @@ CPlayScene::CPlayScene(string id, string filePath) :
 	key_handler = new CPlayScenceKeyHandler(this);
 }
 
-void CPlayScene::AddObjToObjects_Active(LPGAMEOBJECT a)
+void CPlayScene::AddObjToObjects_Magic(LPGAMEOBJECT a)
 {
-	objects_Active.push_back(a);
+	objects_Magic.push_back(a);
 }
 void CPlayScene::AddObjToObjects_Enemy(LPGAMEOBJECT a)
 {
@@ -169,17 +170,7 @@ void CPlayScene::Update(DWORD dt)
 	{
 		if (!objects_Enemy[i]->isHidden)
 		{
-			/*if (dynamic_cast<CKoopas*>(objects_Enemy[i]))
-			{
-				CKoopas* koopas = (CKoopas*)(objects_Enemy[i]);
-				if (koopas->GetState() == KOOPAS_STATE_HELD);
-				{
-					objects_Priority.push_back(objects_Enemy[i]);
-					delete objects_Enemy[i];
-				}
-			}
-			else */
-				objects_Enemy[i]->Update(dt, &coObjects);
+			objects_Enemy[i]->Update(dt, &coObjects);
 		}
 	}
 
@@ -188,13 +179,21 @@ void CPlayScene::Update(DWORD dt)
 	{
 		objects_Active[i]->Update(dt, &coObjects);
 	}
-	for (size_t i = 0; i < objects_Enemy.size(); i++)
-	{
-		coObjects.push_back(objects_Enemy[i]);
-	}
 	for (int i = 0; i < objects_Active.size(); i++)
 	{
 		coObjects.push_back(objects_Active[i]);
+	}
+	for (int i = 0; i < objects_Magic.size(); i++)
+	{
+		objects_Magic[i]->Update(dt, &coObjects);
+	}
+	for (int i = 0; i < objects_Magic.size(); i++)
+	{
+		coObjects.push_back(objects_Magic[i]);
+	}
+	for (size_t i = 0; i < objects_Enemy.size(); i++)
+	{
+		coObjects.push_back(objects_Enemy[i]);
 	}
 
 	for (size_t i = 0; i < objects.size(); i++)
@@ -206,18 +205,9 @@ void CPlayScene::Update(DWORD dt)
 		objects[i]->Update(dt, &coObjects);
 	}
 
-	
-
 	for (size_t i = 0; i < objects.size(); i++)
 	{
 		coObjects.push_back(objects[i]);
-	}
-
-	
-
-	for (size_t i = 0; i < objects_Priority.size(); i++)
-	{
-		//objects_Priority[i]->Update(dt, &coObjects);
 	}
 
 	CGame::GetInstance()->camera->Update(dt);
@@ -229,28 +219,36 @@ void CPlayScene::Update(DWORD dt)
 
 void CPlayScene::Render()
 {
+	
+	for (int i = 0; i < objects_Map.size(); i++)
+	{
+		if (!objects_Map[i]->isHidden)
+			objects_Map[i]->Render();
+	}
+	
 	mMap->Render();
-
+	for (int i = 0; i < objects_Enemy.size(); i++)
+	{
+		if (!objects_Enemy[i]->isHidden)
+			objects_Enemy[i]->Render();
+	}
 	for (int i = 0; i < objects.size(); i++)
 	{
 		if (!objects[i]->isHidden)
 			objects[i]->Render();
 	}
-	for (int i = 0; i < objects_Map.size(); i++)
+	for (int i = 0; i < objects_Magic.size(); i++)
 	{
-		if (!objects_Map[i]->isHidden)
-			objects_Map[i]->Render();
+		if (!objects_Magic[i]->isHidden)
+			objects_Magic[i]->Render();
 	}
 	for (int i = 0; i < objects_Active.size(); i++)
 	{
 		if (!objects_Active[i]->isHidden)
 			objects_Active[i]->Render();
 	}
-	for (int i = 0; i < objects_Enemy.size(); i++)
-	{
-		if (!objects_Enemy[i]->isHidden)
-			objects_Enemy[i]->Render();
-	}
+	
+	
 
 }
 
@@ -260,7 +258,7 @@ void CPlayScene::Unload()
 	CleanupListObjects(objects_Active);
 	CleanupListObjects(objects_Map);
 	CleanupListObjects(objects_Enemy);
-	CleanupListObjects(objects_Priority);
+	CleanupListObjects(objects_Magic);
 
 
 	player = NULL;

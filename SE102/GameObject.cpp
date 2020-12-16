@@ -1,7 +1,5 @@
 #include <d3dx9.h>
 #include <algorithm>
-
-
 #include "Utils.h"
 #include "TextureManager.h"
 #include "Game.h"
@@ -70,8 +68,6 @@ void CGameObject::CollisionWithObj(vector<LPGAMEOBJECT>* coObjects)
 			{
 				CollisionY(e->obj, ny);
 			}
-				
-			
 		}
 	}
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
