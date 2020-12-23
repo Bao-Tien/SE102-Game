@@ -2,8 +2,9 @@
 #include "Game.h"
 #include "Goomba.h"
 #include "Koopas.h"
+#include "Enemy.h"
 
-CFireBullet::CFireBullet(int nx, float x, float y)
+CFireBullet::CFireBullet(int nx, float x, float y) :CGameObject()
 {
 	this->x = x;
 	this->y = y;
@@ -12,79 +13,81 @@ CFireBullet::CFireBullet(int nx, float x, float y)
 	isHidden = true;
 }
 
-void CFireBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
-{
-	if (this->isHidden) return;
-	vx = BULLET_SPEED_X  * nx;
-	vy += BULLET_GRAVITY * dt;
-	CGameObject::Update(dt);
-
-
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
-
-	coEvents.clear();
-
-	CalcPotentialCollisions(colliable_objects, coEvents);
-
-	if (coEvents.size() == 0)
-	{
-		x += dx;
-		y += dy;
-	}
-	else
-	{
-		float min_tx, min_ty, nx = 0, ny;
-		float rdx = 0;
-		float rdy = 0;
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
-
-		x += min_tx * dx + nx * 0.4f;
-		y += min_ty * dy + ny * 0.4f;
-		
-		for (int i = 0; i < coEventsResult.size(); i++)
-		{
-			if (dynamic_cast<CGoomba*>(coEventsResult[i]->obj))
-			{
-				((CGoomba*)(coEventsResult[i]->obj))->SetState(EnemyState::BEING_ATTACKED, nx);
-			}
-			if (dynamic_cast<CKoopas*>(coEventsResult[i]->obj))
-			{
-				((CKoopas*)(coEventsResult[i]->obj))->SetState(EnemyState::BEING_ATTACKED, nx);
-			}
-		}
-
-		if (nx != 0) {
-			vx = 0;
-			this->isHidden = true;
-		}
-
-		if (ny < 0) {
-			vy = -BULLET_SPEED_Y;
-		}
-	}
-	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
-	if (!this->isInScreen()) this->isHidden = true;
-}
-
-void CFireBullet::Render()
-{
-	int alpha = 255;
-
-	LPANIMATION anim = CAnimations::GetInstance()->Get(ANI_FIRE_BULLET);
-	if (anim != NULL)
-	{
-		if (nx < 0)
-			anim->Render(x, y, D3DXVECTOR2(-1.0f, 1.0f), alpha);
-		else anim->Render(x, y, D3DXVECTOR2(1.0f, 1.0f), alpha);
-	}
-	//RenderBoundingBox();
-}
-
 void CFireBullet::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
 	right = x + FIRE_BULLET_WIDTH;
 	bottom = y + FIRE_BULLET_HEIGHT;
+}
+
+void CFireBullet::CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively)
+{
+	if (Actively == 1)
+	{
+		if (dynamic_cast<CEnemy*>(coObj))
+		{
+			((CEnemy*)coObj)->SetState(EnemyState::BEING_ATTACKED, -nx);
+			SetState(BULLET_STATE_NOACTIVE);
+		}
+		if (nxCollision != 0) {
+			SetState(BULLET_STATE_NOACTIVE);
+		}
+	}
+	
+}
+void CFireBullet::CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively)
+{
+	if (Actively == 1)
+	{
+		if (dynamic_cast<CEnemy*>(coObj))
+		{
+			((CEnemy*)coObj)->SetState(EnemyState::BEING_ATTACKED, -nx);
+			SetState(BULLET_STATE_NOACTIVE);
+		}
+		else if (nyCollision < 0)
+			vy = -BULLET_SPEED_Y;
+	}
+	
+}
+void CFireBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+{
+	if (this->isHidden) return;
+	vx = BULLET_SPEED_X  * nx;
+	vy += BULLET_GRAVITY * dt;
+	CGameObject::Update(dt);
+	CollisionWithObj(coObjects);
+	if (!this->isInScreen()) this->isHidden = true;
+}
+
+void CFireBullet::Render()
+{
+	LPANIMATION anim = CAnimations::GetInstance()->Get(ANI_FIRE_BULLET);
+	if (anim != NULL)
+	{
+		if (nx < 0)
+			anim->Render(x, y, D3DXVECTOR2(-1.0f, 1.0f));
+		else anim->Render(x, y, D3DXVECTOR2(1.0f, 1.0f));
+	}
+	RenderBoundingBox();
+}
+
+void CFireBullet::SetState(int state, int nx)
+{
+	switch (state)
+	{
+	case BULLET_STATE_ACTIVE:
+		this->isHidden = false;
+		this->nx = nx;
+		this->state = state;
+		break;
+	case BULLET_STATE_NOACTIVE:
+		vx = 0;
+		this->isHidden = true;
+		this->state = state;
+		break;
+	default:
+		break;
+	}
+
 }

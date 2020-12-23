@@ -12,7 +12,6 @@ CEnemy::CEnemy(float x, float y)
 	this->x = x;
 	this->y = y;
 	beginState = 0;
-	
 	this->isHidden = false;
 }
 
@@ -68,6 +67,8 @@ void CEnemy::CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively)
 
 void CEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (!this->isInScreen())
+		return;
 	CGameObject::Update(dt, coObjects);
 	CollisionWithObj(coObjects);
 }
@@ -90,5 +91,5 @@ void CEnemy::Render()
 				anim->Render(x, y, D3DXVECTOR2(-1.0f, 1.0f));
 			else anim->Render(x, y, D3DXVECTOR2(1.0f, 1.0f));
 	}
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }

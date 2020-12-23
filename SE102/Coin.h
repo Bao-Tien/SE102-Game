@@ -1,6 +1,7 @@
 #pragma once
 #include "CollisionBox.h"
 
+#define COIN_STATE_MAGICOBJECT 113
 #define COIN_STATE_AFTER_COLLISION 112
 #define COIN_STATE_NORMAL 111
 

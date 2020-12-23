@@ -154,6 +154,9 @@
     <Filter Include="Framework\GameMap\TileSet">
       <UniqueIdentifier>{1abd63aa-2976-4d4d-bbfa-5734d614b3b2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameResources\Objects\Enemy\Red_Venus">
+      <UniqueIdentifier>{6dfd1866-283f-4721-9a1e-9d850f7ec1a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -342,9 +345,6 @@
     <ClCompile Include="MarioSelectScence.cpp">
       <Filter>GameResources\Scences\SelectionScence</Filter>
     </ClCompile>
-    <ClCompile Include="MagicObject.cpp">
-      <Filter>GameResources\Objects\Object\MagicObject</Filter>
-    </ClCompile>
     <ClCompile Include="Red_Goomba.cpp">
       <Filter>GameResources\Objects\Enemy\Para-Goomba</Filter>
     </ClCompile>
@@ -359,6 +359,18 @@
     </ClCompile>
     <ClCompile Include="Tree.cpp">
       <Filter>GameResources\Scences\SelectionScence\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Red_Venus.cpp">
+      <Filter>GameResources\Objects\Enemy\Red_Venus</Filter>
+    </ClCompile>
+    <ClCompile Include="Mushroom.cpp">
+      <Filter>GameResources\Objects\Object\MagicObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin_MagicObj.cpp">
+      <Filter>GameResources\Objects\Object\MagicObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Leaf.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -557,9 +569,6 @@
     <ClInclude Include="MarioSelectScence.h">
       <Filter>GameResources\Scences\SelectionScence</Filter>
     </ClInclude>
-    <ClInclude Include="MagicObject.h">
-      <Filter>GameResources\Objects\Object\MagicObject</Filter>
-    </ClInclude>
     <ClInclude Include="Red_Goomba.h">
       <Filter>GameResources\Objects\Enemy\Para-Goomba</Filter>
     </ClInclude>
@@ -574,6 +583,18 @@
     </ClInclude>
     <ClInclude Include="Tree.h">
       <Filter>GameResources\Scences\SelectionScence\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Red_Venus.h">
+      <Filter>GameResources\Objects\Enemy\Red_Venus</Filter>
+    </ClInclude>
+    <ClInclude Include="Mushroom.h">
+      <Filter>GameResources\Objects\Object\MagicObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin_MagicObj.h">
+      <Filter>GameResources\Objects\Object\MagicObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Leaf.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

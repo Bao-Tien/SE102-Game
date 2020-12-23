@@ -61,7 +61,8 @@ public:
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 
 	virtual string GetAnimationIdFromState();
-
+	virtual int GetX() { return this->x; }
+	EMarioType GetType() { return mType; }
 	void Reset();
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 };

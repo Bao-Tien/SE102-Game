@@ -7,6 +7,7 @@ enum class EnemyType
 	RED_GOOMBA,
 	KOOPAS,
 	PARA_GOOMBA,
+	RED_VENUS
 };
 
 enum class EnemyState
@@ -19,6 +20,9 @@ enum class EnemyState
 	BEING_KICK,
 	WILL_DIE,
 	DIE,
+	UP,
+	DOWN,
+	ATTACK,
 };
 
 class CEnemy : public CGameObject

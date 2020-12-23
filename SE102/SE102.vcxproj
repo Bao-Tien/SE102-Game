@@ -151,6 +151,7 @@
     <ClCompile Include="AnimationSet.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Coin.cpp" />
+    <ClCompile Include="Coin_MagicObj.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FireBullet.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -163,7 +164,8 @@
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="KeyEventHandler.cpp" />
     <ClCompile Include="Koopas.cpp" />
-    <ClCompile Include="MagicObject.cpp" />
+    <ClCompile Include="Leaf.cpp" />
+    <ClCompile Include="Mushroom.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapLayer.cpp" />
     <ClCompile Include="MapReader\base64.cpp" />
@@ -199,6 +201,7 @@
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="QuestionBrick.cpp" />
     <ClCompile Include="RectF.cpp" />
+    <ClCompile Include="Red_Venus.cpp" />
     <ClCompile Include="Scence.cpp" />
     <ClCompile Include="ScenceManager.cpp" />
     <ClCompile Include="SelectionScence.cpp" />
@@ -221,6 +224,7 @@
     <ClInclude Include="AnimationSet.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Coin.h" />
+    <ClInclude Include="Coin_MagicObj.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyConst.h" />
     <ClInclude Include="FireBullet.h" />
@@ -234,7 +238,8 @@
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="KeyEventHandler.h" />
     <ClInclude Include="Koopas.h" />
-    <ClInclude Include="MagicObject.h" />
+    <ClInclude Include="Leaf.h" />
+    <ClInclude Include="Mushroom.h" />
     <ClInclude Include="MapLayer.h" />
     <ClInclude Include="MapReader\base64.h" />
     <ClInclude Include="MapReader\tinyxml2.h" />
@@ -273,6 +278,7 @@
     <ClInclude Include="Portal.h" />
     <ClInclude Include="QuestionBrick.h" />
     <ClInclude Include="RectF.h" />
+    <ClInclude Include="Red_Venus.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Scence.h" />
     <ClInclude Include="ScenceManager.h" />

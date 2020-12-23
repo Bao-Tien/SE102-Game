@@ -19,7 +19,7 @@
 #include "QuestionBrick.h"
 #include "Red_Goomba.h"
 #include "Para_Goomba.h"
-#include "MagicObject.h"
+#include "Red_Venus.h"
 using namespace std;
 
 CPlayScene::CPlayScene(string id, string filePath) :
@@ -152,6 +152,15 @@ bool CPlayScene::Load()
 		LPGAMEOBJECT para = new CPara_Goomba(para_x, para_y);
 		objects_Enemy.push_back(para);
 	}
+	//Red_Venus
+	for (TiXmlElement* node = objects->FirstChildElement("Red_Venus"); node != nullptr; node = node->NextSiblingElement("Red_Venus"))
+	{
+		float RedVenus_x = atof(node->Attribute("x"));
+		float RedVenus_y = atof(node->Attribute("y"));
+		LPGAMEOBJECT redVenus = new CRed_Venus(RedVenus_x, RedVenus_y);
+		//objects_Enemy.push_back(redVenus);
+		objects_Active.push_back(redVenus);
+	}
 	DebugOut(L"[INFO] Loading game file : %s has been loaded successfully\n", sceneFilePath);
 	
 }
@@ -225,7 +234,11 @@ void CPlayScene::Render()
 		if (!objects_Map[i]->isHidden)
 			objects_Map[i]->Render();
 	}
-	
+	for (int i = 0; i < objects_Active.size(); i++)
+	{
+		if (!objects_Active[i]->isHidden)
+			objects_Active[i]->Render();
+	}
 	mMap->Render();
 	for (int i = 0; i < objects_Enemy.size(); i++)
 	{
@@ -242,11 +255,7 @@ void CPlayScene::Render()
 		if (!objects_Magic[i]->isHidden)
 			objects_Magic[i]->Render();
 	}
-	for (int i = 0; i < objects_Active.size(); i++)
-	{
-		if (!objects_Active[i]->isHidden)
-			objects_Active[i]->Render();
-	}
+	
 	
 	
 
