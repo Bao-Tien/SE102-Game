@@ -3,30 +3,31 @@
   <Map name="Map" path="Resources/new_world_1_1n.tmx">
   </Map>
 
-  <BBox name="BBox" path="textures\\bbox.png" id = "bbox">
-    <BackgroundColor R="255" G="255" B="255"/>
-  </BBox>
-
   <Textures>
     <Texture name="Texture" path="Textures/mario-new.png" id="tex-mario"/>
     <Texture name="Texture" path="Textures/enemy.png" id="tex-enemy"/>
-    <Texture name="Texture" path="Textures/misc.png" id="tex-misc"/>
+    <Texture name="Texture" path="Textures/misc.png" id="tex-misc" tranColorR="239" tranColorG="228" tranColorB="176"/>
+    <Texture name="Texture" path="Textures/bbox.png" id="tex-bbox"/>
+    <Texture name="Texture" path="Textures/Black.png" id="tex-black"/>
+    <Texture name="Texture" path="Textures/UI.png" id="tex-ui"/>
   </Textures>
 
   <Sprites>
     <Sprite name="Sprite" path="MarioDB.xml"/>
     <Sprite name="Sprite" path="EnemyDB.xml"/>
     <Sprite name="Sprite" path="MiscDB.xml"/>
+    <Sprite name="Sprite" path="UiDB.xml"/>
   </Sprites>
   
   <Animations>
     <Animation name="Animation" path="MarioAnim.xml"/>
     <Animation name="Animation" path="EnemyAnim.xml"/>
     <Animation name="Animation" path="MiscAnim.xml"/>
+    <Animation name="Animation" path="UiAnim.xml"/>
   </Animations>
   
 
-  <Player name="Player" type="marioSmall" x="50" y="850">
+  <Player name="Player" type="marioSmall" x="2100" y="850">
   </Player>
   
   <Objects >
@@ -36,7 +37,7 @@
     <Koopas x="600" y="1150"/>
     <Koopas x="1200" y="1050"/>
     <Koopas x="1800" y="1050"/>
-    <Para_Goomba x="2000" y="1050"/>
+    <Para_Goomba x="2500" y="1050"/>
     <Red_Venus x="1080" y="1104"/>
   </Objects>
 

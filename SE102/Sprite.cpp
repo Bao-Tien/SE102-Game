@@ -25,3 +25,15 @@ void CSprite::Draw(float x, float y, D3DXVECTOR2 scale, int alpha)
 	}
 	
 }
+
+void CSprite::DrawWithoutConverting(float x, float y, D3DXVECTOR2 scale, int alpha)
+{
+	CGame* game = CGame::GetInstance();
+	if (scale.x == -1.0f) {
+		game->DrawWithoutConverting(x, y, texture, left, top, right, bottom, scale, alpha);
+	}
+	else {
+		game->DrawWithoutConverting(x, y, texture, left, top, right, bottom, scale, alpha, pivot);
+	}
+
+}

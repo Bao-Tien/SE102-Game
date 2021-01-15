@@ -1,12 +1,16 @@
 #pragma once
-#include "GameObject.h"
+#include "Square.h"
 
-#define BRICK_BBOX_WIDTH  16
-#define BRICK_BBOX_HEIGHT 16
-
-class CBrick : public CGameObject
+class CBrick : public CSquare
 {
+	float r;
 public:
-	virtual void Render();
-	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);
+	CBrick(int x, int y, int width, int height);
+	string GetAnimationIdFromState();
+	void CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively) override;
+	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) override;
+	void Render() override;
+	void SetMagicObject();
+	void SetPoinCenter();
 };
+

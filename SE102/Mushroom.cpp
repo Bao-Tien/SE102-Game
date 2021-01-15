@@ -2,105 +2,34 @@
 #include "Mario.h"
 #include "QuestionBrick.h"
 
-CMushRoom::CMushRoom(float x, float y) : CGameObject()
+CMushRoom::CMushRoom(float x, float y) : CMagic_Object(x,y)
 {
-	this->x = x;
-	this->y = y;
 	yStart = y;
-	SetState(MUSHROOM_STATE);
+	SetState(MagicState::ACTIVE);
 }
 
-void CMushRoom::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+string CMushRoom::GetAnimationIdFromType()
 {
-	left = x;
-	right = x + MUSHROOM_BBOX_WIDTH;
-	top = y;
-	bottom = y + MUSHROOM_BBOX_HEIGHT;
+	return MUSHROOM_ANI;
 }
 
-void CMushRoom::CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively)
+Vector2 CMushRoom::GetSizeFromType()
 {
-	if (state != MUSHROOM_STATE_DIE)
-	{
-		if (Actively == 1)
-		{
-			if (nxCollision < 0)
-			{
-				vx = -vx;
-			}
-			else
-				SetState(MUSHROOM_STATE_DIE);
-		}
-	}
-	if(Actively==0)
-	{
-		CMario* mario = (CMario*)coObj;
-		mario->SwitchType(2);
-		SetState(MUSHROOM_STATE_DIE);
-	}
-}
-
-void CMushRoom::CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively)
-{
-	if (state != MUSHROOM_STATE_DIE)
-	{
-		if (Actively == 1)
-		{
-			vy = 0;
-		}
-	}
-	
-	if (Actively == 0)
-	{
-		CMario* mario = (CMario*)coObj;
-		mario->SwitchType(2);
-		SetState(MUSHROOM_STATE_DIE);
-	}
+	return Vector2(MUSHROOM_BBOX_WIDTH, MUSHROOM_BBOX_HEIGHT);
 }
 
 void CMushRoom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (state == MUSHROOM_STATE)
+	if (mgState == MagicState::ACTIVE)
 	{
 		if (y > yStart - MUSHROOM_BBOX_HEIGHT)
 		{
 			y -= 2;
 			return;
 		}
-		else SetState(MUSHROOM_STATE_X);
+		else On_MOVE();
 	}
-	vy += MUSHROOM_GRAVITY * dt;
-	//vx = MAGICOBJECT_SPEED;
-	CGameObject::Update(dt, coObjects);
-	CollisionWithObj(coObjects);
-}
+	CMagic_Object::Update(dt, coObjects);
 
-void CMushRoom::Render()
-{
-	string ani;
-	ani = MUSHROOM_ANI;
-	LPANIMATION anim = CAnimations::GetInstance()->Get(ani);
-	if (anim != NULL)
-		anim->Render(x, y, D3DXVECTOR2(1.0f, 1.0f));
-	RenderBoundingBox();
-}
-
-void CMushRoom::SetState(int state)
-{
-	switch (state)
-	{
-	case MUSHROOM_STATE:
-		this->state = state;
-		break;
-	case MUSHROOM_STATE_X:
-		vx = MUSHROOM_SPEED;
-		this->state = state;
-		break;
-	case MUSHROOM_STATE_DIE:
-		this->isHidden = true;
-		this->state = state;
-		break;
-	default:
-		break;
-	}
+	//DebugOut(ToWSTR(std::to_string((int)mgState) + "\n").c_str());
 }

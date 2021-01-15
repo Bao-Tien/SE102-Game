@@ -1,16 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Textures>
 	<!--	Texture Misc  	-->
-	<Textures gameObjectId=0 textureId=0>
+	<Textures gameObjectId="0" textureId="0">
+
+
+		<Animation aniId="ani-end-scene-world1-1" frameTime="100" name = "MUSHROOM">
+            <Sprite id="spr-misc-card-0" />
+            <Sprite id="spr-misc-card-1" />
+			<Sprite id="spr-misc-card-2" />
+        </Animation>
+        
+
 
 		<!-- COIN -->
 		<Animation aniId="ani-coin" frameTime="100">
-			<Sprite id="spr-coin-0" left="294" top="101"  width="8" height="14"/>
-			<Sprite id="spr-coin-1" left="311" top="101"  width="1" height="14"/>
-			<Sprite id="spr-coin-2" left="321" top="101"  width="4" height="14"/>
+			
 			<Sprite id="spr-coin-3" left="334" top="100"  width="14" height="16"/>
 			<Sprite id="spr-coin-4" left="357" top="100"  width="6" height="16"/>
 			<Sprite id="spr-coin-5" left="372" top="100"  width="10" height="16"/>
+		</Animation>
+
+		<Animation aniId="ani-coin-in-question-block" frameTime="100">
+			<Sprite id="spr-coin-0" left="294" top="101"  width="8" height="14" frameTime="70"/>
+			<Sprite id="spr-coin-1" left="311" top="101"  width="1" height="14" frameTime="70"/>
+			<Sprite id="spr-coin-2" left="321" top="101"  width="4" height="14" frameTime="70"/>
+			
 		</Animation>
 
 		<!-- SUPER MUSHROOM -->
@@ -132,6 +146,12 @@
 			<Sprite id="spr-platform-0" left="352" top="167"  width="48" height="16"/>
 		</Animation>
 
+		<Animation aniId="ani-brick-debris" frameTime="100">
+			<Sprite id="spr-debris-0"/>
+			<Sprite id="spr-debris-1"/>
+			<Sprite id="spr-debris-2"/>
+			<Sprite id="spr-debris-3"/>
+		</Animation>
 		<!-- MUSIC NOTE BLOCK -->
 		<!-- White -->
 		<Animation aniId="ani-music-note-block" frameTime="100">

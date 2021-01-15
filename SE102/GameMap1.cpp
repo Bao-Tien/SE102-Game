@@ -6,6 +6,8 @@
 #include "Gate.h"
 #include "Coin.h"
 #include "Tree.h"
+#include "TextureManager.h"
+#include "Brick.h"
 
 #define CAMERA_MARGIN			150
 
@@ -72,9 +74,6 @@ void CGameMap::Render()
 		camSize.y = height;
 	} 
 
-
-	
-
 	for (int i = col; i < camSize.x + col; i++) {
 		for (int j = row; j < camSize.y + row; j++) {
 
@@ -89,6 +88,8 @@ void CGameMap::Render()
 		}
 	}
 }
+
+
 
 shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* objectMap, vector<LPGAMEOBJECT>* objectActive, vector<LPGAMEOBJECT>* objectNoActive)
 {
@@ -158,6 +159,17 @@ shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* ob
 			if (std::string(objGroupNode->Attribute("name")) == "QuestionBrick") {
 				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
 					LPGAMEOBJECT obj = new CQuestionBrick(
+						atoi(objNode->Attribute("x")),
+						atoi(objNode->Attribute("y")),
+						atoi(objNode->Attribute("width")),
+						atoi(objNode->Attribute("height"))
+					);
+					objectActive->push_back(obj);
+				}
+			}
+			if (std::string(objGroupNode->Attribute("name")) == "Brick") {
+				for (TiXmlElement* objNode = objGroupNode->FirstChildElement("object"); objNode != nullptr; objNode = objNode->NextSiblingElement("object")) {
+					LPGAMEOBJECT obj = new CBrick(
 						atoi(objNode->Attribute("x")),
 						atoi(objNode->Attribute("y")),
 						atoi(objNode->Attribute("width")),

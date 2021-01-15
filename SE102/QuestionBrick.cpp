@@ -6,24 +6,39 @@
 #include "ScenceManager.h"
 #include "PlayScence.h"
 #include "Coin_MagicObj.h"
+#include "Leaf.h"
 
-CQuestionBrick::CQuestionBrick(float x, float y, float width, float height) : CCollisionBox(x, y, width, height)
+CQuestionBrick::CQuestionBrick(int x, int y, int width, int height) : CSquare(x, y, width, height)
 {
 	yStart = y;
-	SetState(QUESTIONBRICK_STATE_NORMAL);
-	hasCollided = 0;
+	SetState(SquareState::NORMAL);
+	bGravity = BRICK_GRAVITY;
+}
+
+string CQuestionBrick::GetAnimationIdFromState()
+{
+	if (bState == SquareState::NORMAL) return QUESTIONBRICK_ANI_NORMAL;
+	else return QUESTIONBRICK_ANI_AFTER_COLLISION;
+}
+
+void CQuestionBrick::CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively)
+{
+	
 }
 
 void CQuestionBrick::CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively)
 {
 	if (Actively == 0)
 	{
-		if (nyCollision > 0) {
-			SetState(QUESTIONBRICK_STATE_AFTER_COLLISION);
-			if (hasCollided == 0 && y==yStart)
-			{
-				hasCollided = 1;
-				SetMagicObject();
+		if (dynamic_cast<CMario*>(coObj))
+		{
+			if (nyCollision > 0) {
+				if (bState == SquareState::NORMAL)
+				{
+					On_AFTER_COLLISION();
+					SetMagicObject();
+
+				}
 			}
 		}
 	}
@@ -32,51 +47,15 @@ void CQuestionBrick::CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Activel
 
 void CQuestionBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	
-	if (y + QUESTIONBRICK_GRAVITY * dt < yStart)
+	if (y + BRICK_GRAVITY * dt < yStart)
 	{
-		vy += QUESTIONBRICK_GRAVITY * dt;
+		vy += BRICK_GRAVITY * dt;
 	}
-	
-	CGameObject::Update(dt, coObjects);
-	CollisionWithObj(coObjects);
+	CSquare::Update(dt, coObjects);
 	if (y > yStart)
 	{
 		y = yStart;
 		vy = 0;
-	}
-	/*if(vy!=0)
-	DebugOut(ToWSTR("------->" + std::to_string(vy) + "\n").c_str());*/
-}
-
-void CQuestionBrick::Render()
-{
-	string ani;
-	if (state == QUESTIONBRICK_STATE_AFTER_COLLISION)
-		ani = QUESTIONBRICK_ANI_AFTER_COLLISION;
-	else ani = QUESTIONBRICK_ANI_NORMAL;
-	LPANIMATION anim = CAnimations::GetInstance()->Get(ani);
-	if (anim != NULL)
-		anim->Render(x, y, D3DXVECTOR2(1.0f, 1.0f));
-
-	RenderBoundingBox();
-}
-
-void CQuestionBrick::SetState(int state)
-{
-	switch (state)
-	{
-	case QUESTIONBRICK_STATE_AFTER_COLLISION:
-		if (hasCollided == 0)
-			vy = -QUESTIONBRICK_SPEED_Y * 2;
-		this->state = state;
-		break;
-	case QUESTIONBRICK_STATE_NORMAL:
-		this->state = state;
-		break;
-
-	default:
-		break;
 	}
 }
 
@@ -86,14 +65,24 @@ void CQuestionBrick::SetMagicObject()
 	CPlayScene* s = (CPlayScene*)CScences::GetInstance()->Get(currentScenceId);
 	LPGAMEOBJECT obj = s->GetPlayer();
 	CMario* mario = (CMario*)obj;
-	LPGAMEOBJECT magicObj = new CCoin_MagicObj(x, y);
-	if (x == QUESTIONBRICK_X1 || x == QUESTIONBRICK_X2 || x == QUESTIONBRICK_X3 || x == QUESTIONBRICK_X4)
+	magicObj;
+	if (mario->GetType() == EMarioType::SMALL)
 	{
-		if (mario->GetType() == EMarioType::SMALL)
+		if (x == QUESTIONBRICK_X2 || x == QUESTIONBRICK_X3 || x == QUESTIONBRICK_X4)
+		{
+
 			magicObj = new CMushRoom(x, y);
-		//else // la
+		}
+		else if (x == QUESTIONBRICK_X1)
+		{
+			magicObj = new CLeaf(x, y);
+		}
+		else magicObj = new CLeaf(x, y);
 	}
-	else
+	else {
 		magicObj = new CCoin_MagicObj(x, y);
+		s->AddPoint(100);
+	}
+		
 	s->AddObjToObjects_Magic(magicObj);
 }

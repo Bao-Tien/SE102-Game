@@ -6,11 +6,11 @@
 
 class CKoopas : public CEnemy
 {
-	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 public:
 	CKoopas(float x, float y);
-	virtual void CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively) override;
-	virtual void SetState(EnemyState state, float nxCollision = 1) override;
-	virtual string GetAnimationIdFromState();
+	string GetAnimationIdFromState();
+	Vector2 GetSizeFromState(EnemyState state) override;
+	void CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively) override;
+	void AutoSwitchState() override;
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 };

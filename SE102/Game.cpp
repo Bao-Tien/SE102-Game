@@ -66,6 +66,27 @@ void CGame::Init(HWND hWnd)
 /*
 	Utility function to wrap LPD3DXSPRITE::Draw
 */
+
+void CGame::DrawWithoutConverting(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, D3DXVECTOR2 scale, int alpha, Vector2 pivot)
+{
+	D3DXVECTOR3 p(int(x - pivot.x), int(y - pivot.y), 0);
+	RECT r;
+	r.left = left;
+	r.top = top;
+	r.right = right;
+	r.bottom = bottom;
+
+	D3DXMATRIX oldMatrix, newMatrix;
+
+	spriteHandler->GetTransform(&oldMatrix);
+
+	D3DXMatrixTransformation2D(&newMatrix, &D3DXVECTOR2(int(p.x + (right - left) / 2), int(p.y + (bottom - top) / 2)), 0, &scale, &D3DXVECTOR2(x, y), 0.0f, &D3DXVECTOR2(0.0f, 0.0f));
+
+	spriteHandler->SetTransform(&newMatrix);
+	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+	spriteHandler->SetTransform(&oldMatrix);
+}
+
 void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, D3DXVECTOR2 scale, int alpha, Vector2 pivot)
 {
 	// ham sprite->Draw toi day , o day:  texture cung co nghia la sprite
@@ -77,30 +98,23 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top
 	r.right = right;
 	r.bottom = bottom;
 
-	D3DXMATRIX oldMatrix, newMatrix;
+	if (scale.x == 1 && scale.y == 1) {
+		spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+	}
+	else {
+		D3DXMATRIX oldMatrix, newMatrix;
 
-	spriteHandler->GetTransform(&oldMatrix); 
+		spriteHandler->GetTransform(&oldMatrix);
 
-	D3DXMatrixTransformation2D(&newMatrix, &D3DXVECTOR2(int(p.x + (right - left) / 2), int(p.y + (bottom - top) / 2)), 0, &scale, &D3DXVECTOR2(x, y), 0.0f, &D3DXVECTOR2(0.0f, 0.0f));
+		D3DXMatrixTransformation2D(&newMatrix, &D3DXVECTOR2(int(p.x + (right - left) / 2), int(p.y + (bottom - top) / 2)), 0, &scale, &D3DXVECTOR2(x, y), 0.0f, &D3DXVECTOR2(0.0f, 0.0f));
 
-	spriteHandler->SetTransform(&newMatrix);
-	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
-	spriteHandler->SetTransform(&oldMatrix);
+		spriteHandler->SetTransform(&newMatrix);
+		spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+		spriteHandler->SetTransform(&oldMatrix);
+	}
+	
 }
 
-void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
-{
-	// ham sprite->Draw toi day , o day:  texture cung co nghia la sprite
-	Vector2 camPos = camera->GetCamPosition();
-	D3DXVECTOR3 p(int(x - camPos.x), int(y - camPos.y), 0);
-	RECT r;
-	r.left = left;
-	r.top = top;
-	r.right = right;
-	r.bottom = bottom;
-
-	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
-}
 int CGame::IsKeyDown(int KeyCode)
 {
 	return (keyStates[KeyCode] & 0x80) > 0;
@@ -347,7 +361,7 @@ CGame* CGame::GetInstance()
 #define GAME_FILE_SECTION_SCENES 2
 void CGame::SetCamPos(float x, float y)
 {
-
+		
 	camera->SetCamPosition(Vector2(x, y));
 }
 

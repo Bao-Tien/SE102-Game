@@ -9,7 +9,7 @@ class CRed_Goomba : public CEnemy
 public:
 	CRed_Goomba(float x, float y);
 	virtual void CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively) override;
-	virtual void SetState(EnemyState state, float nxCollision = 1) override;
+	//virtual void SetState(EnemyState state, float nxCollision = 1) override;
 	virtual string GetAnimationIdFromState();
 };
 

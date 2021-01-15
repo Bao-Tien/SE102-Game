@@ -69,18 +69,18 @@
 
 		<!--Red Venus Fire Trap-->
     <!-- Animation HEAD DOWN-->
-    <Animation aniId="ani-red-venus-fire-trap-headdown-idle" frameTime="100">
+    <Animation aniId="ani-red-venus-fire-trap-headdown-idle" frameTime="300">
       <Sprite id="spr-red-venus-head-down-0"/>
     </Animation>
-    <Animation aniId="ani-red-venus-fire-trap-headdown" frameTime="300">
+    <Animation aniId="ani-red-venus-fire-trap-headdown" frameTime="1000">
       <Sprite id="spr-red-venus-head-down-0"/>
       <Sprite id="spr-red-venus-head-down-1"/>
     </Animation>
     <!-- Animation HEAD UP-->
-    <Animation aniId="ani-red-venus-fire-trap-headup-idle" frameTime="100">
+    <Animation aniId="ani-red-venus-fire-trap-headup-idle" frameTime="300">
       <Sprite id="spr-red-venus-head-up-0"/>
     </Animation>
-    <Animation aniId="ani-red-venus-fire-trap-headup" frameTime="300">
+    <Animation aniId="ani-red-venus-fire-trap-headup" frameTime="1000">
       <Sprite id="spr-red-venus-head-up-0"/>
       <Sprite id="spr-red-venus-head-up-1"/>
     </Animation>

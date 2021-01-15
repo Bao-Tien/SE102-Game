@@ -2,8 +2,8 @@
 #define DELTA_X_FIRE_BULLET		20
 CMarioFire::CMarioFire(float x, float y) : CMario(x, y) {
 	mType = EMarioType::FIRE;
-	bullets.push_back(new CFireBullet(x, y));
-	bullets.push_back(new CFireBullet(x, y));
+	bullets.push_back(new CFireBullet(1, x, y));
+	bullets.push_back(new CFireBullet(1, x, y));
 }
 
 void CMarioFire::KeyboardHandle(int key, bool type)
@@ -18,8 +18,8 @@ void CMarioFire::KeyboardHandle(int key, bool type)
 				if (bullets[i]->isHidden)
 				{
 					SwitchState(EMarioState::ATTACK, 300);
-					bullets[i]->isHidden = false;
-					bullets[i]->x = this->x + MARIO_BIG_BBOX_WIDTH + ((nx == 1) ? -DELTA_X_FIRE_BULLET : -DELTA_X_FIRE_BULLET*2);
+					//bullets[i]->x = this->x + MARIO_BIG_BBOX_WIDTH + ((nx == 1) ? -DELTA_X_FIRE_BULLET : -DELTA_X_FIRE_BULLET*2);
+					bullets[i]->x = (nx == 1) ? (this->x + MARIO_BIG_BBOX_WIDTH) : this->x;
 					bullets[i]->y = this->y + MARIO_BIG_BBOX_HEIGHT / 2 - DELTA_X_FIRE_BULLET;
 					bullets[i]->SetState(BULLET_STATE_ACTIVE, this->nx);
 					return;

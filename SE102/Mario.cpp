@@ -195,12 +195,27 @@ void CMario::SwitchType(int typeObj)
 }
 void CMario::CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively)
 {
+	if (mState == EMarioState::ATTACK) {
+		if (hasAttack == false) hasAttack = true;
+		else return;
+	}
 	coObj->CollisionX(this, nxCollision, 0);
+}
+
+void CMario::OnHadCollided(LPGAMEOBJECT coObj) {
+	if (mState == EMarioState::ATTACK) {
+		if (dx > 0) {
+			CollisionX(coObj, -1, 1);
+		}
+		else {
+			CollisionX(coObj, 1, 1);
+		}
+	}
 }
 
 void CMario::CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively)
 {
-	CGameObject::CollisionY(coObj, nyCollision, Actively);
+	
 	if (nyCollision < 0)
 	{
 		if (vx != 0 && fabs(vx) < VELOCITY_X_MAX)
@@ -220,8 +235,9 @@ void CMario::CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively)
 			SwitchState(EMarioState::IDLE);
 		}
 	}
-	DebugOut(ToWSTR(std::to_string(synergies) + "\n").c_str());
-	coObj->CollisionY(this, nyCollision, 0);
+	//DebugOut(ToWSTR(std::to_string(synergies) + "\n").c_str());
+	//coObj->CollisionY(this, nyCollision, 0);
+	CGameObject::CollisionY(coObj, nyCollision, Actively);
 	
 }
 
@@ -275,7 +291,7 @@ void CMario::Render()
 			
 	}
 	
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }
 
 void CMario::KeyboardHandle(int key, bool type)

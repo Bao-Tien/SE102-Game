@@ -27,7 +27,7 @@ void CFireBullet::CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively)
 	{
 		if (dynamic_cast<CEnemy*>(coObj))
 		{
-			((CEnemy*)coObj)->SetState(EnemyState::BEING_ATTACKED, -nx);
+			((CEnemy*)coObj)->On_BEING_ATTACKED(nxCollision);
 			SetState(BULLET_STATE_NOACTIVE);
 		}
 		if (nxCollision != 0) {

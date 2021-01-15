@@ -7,90 +7,78 @@
 
 CRed_Venus::CRed_Venus(float x, float y) : CEnemy(x,y)
 {
+	eGravity = 0;
 	eType = EnemyType::RED_VENUS;
-	yStart = y;
-	SetState(EnemyState::UP, GetnxFromMario());
+	yStart = y +3;
+	SetState(EnemyState::IDLE_DOWN, VENUS_RED_TIME_IDLE_DOWN);
+	bullet = new CBullet_Venus(x, y);
 }
 
 string CRed_Venus::GetAnimationIdFromState()
 {
 	string typeString, stateString;
 
-	typeString = "ani-red-venus-fire-trap";
-	if (eState == EnemyState::UP || eState == EnemyState::DOWN) stateString = "headup";
-	else if (eState == EnemyState::ATTACK) stateString = "headdown-idle";
-	else stateString = "headup";
+	typeString = VENUS_RED_ANI;
+	if (eState == EnemyState::GOING_UP || eState == EnemyState::GOING_DOWN) stateString = HEADUP_ANI;
+	else if (eState == EnemyState::IDLE_UP || eState == EnemyState::IDLE_DOWN || eState == EnemyState::ATTACK) stateString = HEADDOWN_ANI;
+	else stateString = HEADUP_ANI;
 
-	return typeString + "-" + stateString;
+	return typeString + HYPHEN + stateString;
 }
 
-void CRed_Venus::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+Vector2 CRed_Venus::GetSizeFromState(EnemyState state)
 {
-	left = x;
-	top = y;
-	right = x + VENUS_BBOX_WIDTH;
-	bottom = y + VENUS_BBOX_HEIGHT;
+	float width, height;
+	width = VENUS_RED_BBOX_WIDTH;
+	height = VENUS_RED_BBOX_HEIGHT;
+
+	return Vector2(width, height);
 }
 
-void CRed_Venus::CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively)
+void CRed_Venus::AutoSwitchState()
 {
-	if (Actively == 0)
+	//idle down, co tg > going up > idle up, co tg > attack > going down > idle down . het
+	if (eState == EnemyState::IDLE_DOWN)
 	{
-		CMario* mario = (CMario*)coObj;
-		mario->SwitchType(1);
+		int a = y;
+		GetnxFromMario();
+		SwitchState(EnemyState::GOING_UP);
 	}
-}
-void CRed_Venus::CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively)
-{
-	if (Actively == 0)
+	if (eState == EnemyState::IDLE_UP)
 	{
-		CMario* mario = (CMario*)coObj;
-		mario->SwitchType(1);
+		SwitchState(EnemyState::ATTACK, VENUS_RED_TIME_ATTACK);
+		SetBullet();
+	}
+	if (eState == EnemyState::ATTACK)
+	{
+		SwitchState(EnemyState::GOING_DOWN);
 	}
 }
 
 void CRed_Venus::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	CEnemy::Update(dt, coObjects);
-	if (eState == EnemyState::UP)
+	if (eState == EnemyState::GOING_UP)
 	{
-		if (y > yStart - VENUS_BBOX_HEIGHT)
+		
+		if (y > yStart - VENUS_RED_BBOX_HEIGHT + 3)
 		{
 			y -= 3;
 		}
-		else SetState(EnemyState::ATTACK);
+		else SetState(EnemyState::IDLE_UP, VENUS_RED_TIME_IDLE_UP);
 	}
-	if (eState == EnemyState::ATTACK && GetTickCount() - beginState > 1000)
-	{
-		SetState(EnemyState::DOWN);
-	}
-	if (eState == EnemyState::DOWN)
+	
+	if (eState == EnemyState::GOING_DOWN)
 	{
 		if (y < yStart)
 		{
 			y += 3;
 		}
-		else SetState(EnemyState::UP);
+		else SetState(EnemyState::IDLE_DOWN, VENUS_RED_TIME_IDLE_DOWN);
 	}
-}
 
-void CRed_Venus::SetState(EnemyState state, float nxCollision)
-{
-	switch (state)
-	{
-	case EnemyState::UP:
-		eState = state;
-		break;
-	case EnemyState::DOWN:
-		eState = state;
-		break;
-	case EnemyState::ATTACK:
-		beginState = GetTickCount();
-		eState = state;
-		break;
-	default:
-		break;
-	}
+	bullet->Update(dt, &SetObjectCollision());
+	CEnemy::Update(dt, coObjects);
+	//DebugOut(ToWSTR(std::to_string((int)eState) + "\n").c_str());
 }
 
 int CRed_Venus::GetnxFromMario()
@@ -99,7 +87,21 @@ int CRed_Venus::GetnxFromMario()
 	CPlayScene* s = (CPlayScene*)CScences::GetInstance()->Get(currentScenceId);
 	LPGAMEOBJECT obj = s->GetPlayer();
 	CMario* mario = (CMario*)obj;
-	if (mario->GetX() < this->x + VENUS_BBOX_WIDTH)
+	if (mario->GetX() < this->x + VENUS_RED_BBOX_WIDTH)
 		return nx = -1;
 	return nx = 1;
 }
+
+void CRed_Venus::SetBullet()
+{
+	if (nx > 0)
+	{
+		bullet->x = this->x + VENUS_RED_BBOX_WIDTH;
+	}else bullet->x = this->x - BULLET_VENUS_WIDTH;
+	bullet->y = this->y + BULLET_VENUS_WIDTH / 2;
+	bullet->vx = 0;
+	bullet->vy = 0;
+	bullet->nx = this->nx;
+	bullet->SetState(EnemyState::ACTION);
+}
+

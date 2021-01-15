@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Game>
-  <Start name="StartScence" id="0"/>
+  <Start name="StartScence" id="1"/>
     <!--ListScence-->
   <SelectionScence name="Scence1" id="0" path="SelectionScene.xml" />
   <Scence name="Scence1" id="1" path="Scence1.xml" />

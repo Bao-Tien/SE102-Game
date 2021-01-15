@@ -11,8 +11,6 @@
 
 using namespace std;
 
-#define ID_TEX_BBOX "-100"		// special texture to draw object bounding box // hop gioi han doi tuong
-
 class CGameObject;
 typedef CGameObject* LPGAMEOBJECT;
 
@@ -56,6 +54,8 @@ public:
 	float vx;
 	float vy;
 
+
+
 	int nx;
 
 	DWORD dt; 
@@ -73,6 +73,8 @@ public:
 	virtual float GetvxMax() { return vxMax; }
 
 	void RenderBoundingBox(); 
+
+	bool HasOverLap(Vector2 l1, Vector2 r1, Vector2 l2, Vector2 r2);
 
 	void SetAnimationSet(LPANIMATION_SET ani_set) { animation_set = ani_set; } 
 
@@ -92,13 +94,15 @@ public:
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) = 0;
 	virtual void NoCollision();
-	virtual void CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively = 1) {};
+	virtual void CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively = 1);
 	virtual void CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively = 1) ;
+	virtual void OnHadCollided(LPGAMEOBJECT coObj);
 
 
 	virtual void CollisionWithObj(vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render() = 0;
+	virtual vector<LPGAMEOBJECT> SetObjectCollision();
 	
 	~CGameObject();
 };

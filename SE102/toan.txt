@@ -1,0 +1,50 @@
+Enemy{
+
+virtual Vector2 GetSizeFromState(a);
+
+virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom){
+	left = x;
+	right = x + GetSizeFromState(eState).x;
+	top = y;
+	bottom = y + GetSizeFromState(eState).x;
+}
+
+
+SwitchState(newState, kTimeState=0){
+	ktraThoiGian();
+
+	SetState(newState, kTimeState);
+
+}
+
+
+SetState(newState, kTimeState=0){
+	x += GetSizeFromState(eState).x - GetSizeFromState(newState).x;
+	y += GetSizeFromState(eState).y - GetSizeFromState(newState).y;
+
+	beginState = GetTickCount();
+	timeState = kTimeState;
+	state = newState;
+}
+
+
+}
+
+
+
+
+Goomba{
+
+CollisionY(LPGAMEOBJECT coObj, int nxCollision, int Actively){
+	Enemy::CollisionY(coObj,nxCollision,Actively);
+
+	if(Actively == 0)
+	{	
+		Mario* mario = (Mario*)coObj;
+		if(mario->mState == ATTACK)
+			SwitchState(DIE);
+		else SwitchState(Will_die,500);
+	}
+}
+
+}

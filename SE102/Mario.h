@@ -29,7 +29,7 @@ class CMario : public CGameObject
 protected:
 	int untouchable;
 	DWORD untouchable_start;
-
+	bool hasAttack = false;
 	float start_x;			// initial position of Mario at scene
 	float start_y;
 
@@ -56,7 +56,7 @@ public:
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render();
-
+	void OnHadCollided(LPGAMEOBJECT coObj) override;
 	virtual void KeyboardHandle(int key, bool type);
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 

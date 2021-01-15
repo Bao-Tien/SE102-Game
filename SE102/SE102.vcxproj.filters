@@ -34,9 +34,6 @@
     <Filter Include="Framework\TextureManager">
       <UniqueIdentifier>{d922e30e-984c-4a6c-9054-14bdbc2dff4c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameResources\Objects\Brick">
-      <UniqueIdentifier>{8f6ec28a-7fec-4c5a-849f-5e653a3e03a4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Framework\Animations">
       <UniqueIdentifier>{25425555-4227-4bdd-98f7-b11fa53f2926}</UniqueIdentifier>
     </Filter>
@@ -75,9 +72,6 @@
     </Filter>
     <Filter Include="Framework\Scences\SenceManager">
       <UniqueIdentifier>{a8266424-2054-45a2-9e28-100190cf43fa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\GameMap1">
-      <UniqueIdentifier>{17ed61c5-e93d-43f1-ba09-39ce96a1ed92}</UniqueIdentifier>
     </Filter>
     <Filter Include="Framework\GameMap">
       <UniqueIdentifier>{77d70b8f-6bac-4b21-9a38-68c53334b735}</UniqueIdentifier>
@@ -124,9 +118,6 @@
     <Filter Include="GameResources\Objects\Object">
       <UniqueIdentifier>{a638ec7c-8174-4255-9ea5-04e71cd6b66e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameResources\Objects\Object\QuestionBrick">
-      <UniqueIdentifier>{51c4ee99-295e-4376-be9b-228811cb4bd4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameResources\Objects\Object\MagicObject">
       <UniqueIdentifier>{7f8d5655-77ad-45cb-852c-8a7e92e67ae2}</UniqueIdentifier>
     </Filter>
@@ -157,6 +148,24 @@
     <Filter Include="GameResources\Objects\Enemy\Red_Venus">
       <UniqueIdentifier>{6dfd1866-283f-4721-9a1e-9d850f7ec1a4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameResources\Objects\Object\MagicObject\Coin_Magic">
+      <UniqueIdentifier>{dd221cab-e695-4a57-aea7-61e28b887ba7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameResources\Objects\Object\MagicObject\Leaf">
+      <UniqueIdentifier>{919c5346-6b92-48a6-a9cf-c19ac9323937}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameResources\Objects\Object\MagicObject\Mushroom">
+      <UniqueIdentifier>{91d2d510-9550-4bc0-9a33-824131627528}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameResources\Objects\Object\Brick">
+      <UniqueIdentifier>{60918081-9a54-4974-a80f-d33dfa815b35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameResources\Objects\Object\Brick\QuestionBrick">
+      <UniqueIdentifier>{51c4ee99-295e-4376-be9b-228811cb4bd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameResources\Objects\Object\Brick\Brick">
+      <UniqueIdentifier>{a41b49fb-4b93-40df-bc37-b9cfb14b23b4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -185,9 +194,6 @@
     </ClCompile>
     <ClCompile Include="AnimationManager.cpp">
       <Filter>Framework\Animations\AnimationManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Brick.cpp">
-      <Filter>GameResources\Objects\Brick</Filter>
     </ClCompile>
     <ClCompile Include="AnimationSet.cpp">
       <Filter>Framework\Animations\AnimationSet</Filter>
@@ -270,9 +276,6 @@
     <ClCompile Include="MapReader\TmxUtil.cpp">
       <Filter>Framework\MapReader</Filter>
     </ClCompile>
-    <ClCompile Include="GameMap.cpp">
-      <Filter>Framework\GameMap1</Filter>
-    </ClCompile>
     <ClCompile Include="Utils.cpp">
       <Filter>Framework\Utils</Filter>
     </ClCompile>
@@ -334,7 +337,7 @@
       <Filter>GameResources\Objects\Mario\Mario_Fire</Filter>
     </ClCompile>
     <ClCompile Include="QuestionBrick.cpp">
-      <Filter>GameResources\Objects\Object\QuestionBrick</Filter>
+      <Filter>GameResources\Objects\Object\Brick\QuestionBrick</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>GameResources\Objects\Enemy</Filter>
@@ -344,9 +347,6 @@
     </ClCompile>
     <ClCompile Include="MarioSelectScence.cpp">
       <Filter>GameResources\Scences\SelectionScence</Filter>
-    </ClCompile>
-    <ClCompile Include="Red_Goomba.cpp">
-      <Filter>GameResources\Objects\Enemy\Para-Goomba</Filter>
     </ClCompile>
     <ClCompile Include="Para_Goomba.cpp">
       <Filter>GameResources\Objects\Enemy\Para-Goomba</Filter>
@@ -363,14 +363,26 @@
     <ClCompile Include="Red_Venus.cpp">
       <Filter>GameResources\Objects\Enemy\Red_Venus</Filter>
     </ClCompile>
-    <ClCompile Include="Mushroom.cpp">
+    <ClCompile Include="Bullet_Venus.cpp">
+      <Filter>GameResources\Objects\Enemy\Red_Venus</Filter>
+    </ClCompile>
+    <ClCompile Include="Magic_Object.cpp">
       <Filter>GameResources\Objects\Object\MagicObject</Filter>
     </ClCompile>
     <ClCompile Include="Coin_MagicObj.cpp">
-      <Filter>GameResources\Objects\Object\MagicObject</Filter>
+      <Filter>GameResources\Objects\Object\MagicObject\Coin_Magic</Filter>
     </ClCompile>
     <ClCompile Include="Leaf.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>GameResources\Objects\Object\MagicObject\Leaf</Filter>
+    </ClCompile>
+    <ClCompile Include="Mushroom.cpp">
+      <Filter>GameResources\Objects\Object\MagicObject\Mushroom</Filter>
+    </ClCompile>
+    <ClCompile Include="Square.cpp">
+      <Filter>GameResources\Objects\Object\Brick</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>GameResources\Objects\Object\Brick\Brick</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -400,9 +412,6 @@
     </ClInclude>
     <ClInclude Include="TextureManager.h">
       <Filter>Framework\TextureManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Brick.h">
-      <Filter>GameResources\Objects\Brick</Filter>
     </ClInclude>
     <ClInclude Include="AnimationSet.h">
       <Filter>Framework\Animations\AnimationSet</Filter>
@@ -497,9 +506,6 @@
     <ClInclude Include="MapReader\zlib.h">
       <Filter>Framework\MapReader</Filter>
     </ClInclude>
-    <ClInclude Include="GameMap.h">
-      <Filter>Framework\GameMap1</Filter>
-    </ClInclude>
     <ClInclude Include="Utils.h">
       <Filter>Framework\Utils</Filter>
     </ClInclude>
@@ -552,7 +558,7 @@
       <Filter>GameResources\Objects\Mario\Mario_Fire</Filter>
     </ClInclude>
     <ClInclude Include="QuestionBrick.h">
-      <Filter>GameResources\Objects\Object\QuestionBrick</Filter>
+      <Filter>GameResources\Objects\Object\Brick\QuestionBrick</Filter>
     </ClInclude>
     <ClInclude Include="PlatForm.h">
       <Filter>GameResources\Objects\PlatForm</Filter>
@@ -569,9 +575,6 @@
     <ClInclude Include="MarioSelectScence.h">
       <Filter>GameResources\Scences\SelectionScence</Filter>
     </ClInclude>
-    <ClInclude Include="Red_Goomba.h">
-      <Filter>GameResources\Objects\Enemy\Para-Goomba</Filter>
-    </ClInclude>
     <ClInclude Include="Para_Goomba.h">
       <Filter>GameResources\Objects\Enemy\Para-Goomba</Filter>
     </ClInclude>
@@ -587,14 +590,35 @@
     <ClInclude Include="Red_Venus.h">
       <Filter>GameResources\Objects\Enemy\Red_Venus</Filter>
     </ClInclude>
-    <ClInclude Include="Mushroom.h">
+    <ClInclude Include="Bullet_Venus.h">
+      <Filter>GameResources\Objects\Enemy\Red_Venus</Filter>
+    </ClInclude>
+    <ClInclude Include="MagicConst.h">
+      <Filter>GameResources\Objects\Object\MagicObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Magic_Object.h">
       <Filter>GameResources\Objects\Object\MagicObject</Filter>
     </ClInclude>
     <ClInclude Include="Coin_MagicObj.h">
-      <Filter>GameResources\Objects\Object\MagicObject</Filter>
+      <Filter>GameResources\Objects\Object\MagicObject\Coin_Magic</Filter>
     </ClInclude>
     <ClInclude Include="Leaf.h">
-      <Filter>Header Files</Filter>
+      <Filter>GameResources\Objects\Object\MagicObject\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScenceConst.h">
+      <Filter>GameResources\Scences\PlayScence</Filter>
+    </ClInclude>
+    <ClInclude Include="Mushroom.h">
+      <Filter>GameResources\Objects\Object\MagicObject\Mushroom</Filter>
+    </ClInclude>
+    <ClInclude Include="Square.h">
+      <Filter>GameResources\Objects\Object\Brick</Filter>
+    </ClInclude>
+    <ClInclude Include="SquareConst.h">
+      <Filter>GameResources\Objects\Object\Brick</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>GameResources\Objects\Object\Brick\Brick</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

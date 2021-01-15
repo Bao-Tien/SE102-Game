@@ -8,9 +8,13 @@
 #include "PlatForm.h"
 #include "Koopas.h"
 #include "Goomba.h"
+#include "ScenceManager.h"
+#include "PlayScence.h"
+#include <math.h>
 
-#define BBoxId          "bbox"
+#define MAX_VY			0.7f
 
+#define BBoxId          "tex-bbox"
 
 CGameObject::CGameObject()
 {
@@ -24,12 +28,24 @@ void CGameObject::NoCollision(){
 	x += dx;
 	y += dy;
 }
+
+void CGameObject::CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively)
+{
+	if (Actively == 1) {
+		coObj->CollisionX(this, nxCollision, 0);
+	}
+}
+
 void CGameObject::CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively)
 {
-	if (nyCollision > 0) {
-		this->vy = 0;
-	}
+	
+	if (Actively == 1) {
+		if (nyCollision > 0) {
+			this->vy = 0;
+		}
 
+		coObj->CollisionY(this, nyCollision, 0);
+	}
 }
 void CGameObject::CollisionWithObj(vector<LPGAMEOBJECT>* coObjects)
 {
@@ -51,8 +67,7 @@ void CGameObject::CollisionWithObj(vector<LPGAMEOBJECT>* coObjects)
 		float rdy = 0;
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
-		x += min_tx * dx + nx * 0.4f;
-		y += min_ty * dy + ny * 0.4f;	
+		
 
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
@@ -62,13 +77,19 @@ void CGameObject::CollisionWithObj(vector<LPGAMEOBJECT>* coObjects)
 			}
 			if (e->nx != 0)
 			{
-				CollisionX(coEventsResult[i]->obj, nx);
+				if (abs((int)this->dt) < 10000)
+					CollisionX(coEventsResult[i]->obj, nx);
 			}
 			if (e->ny != 0)
 			{
-				CollisionY(e->obj, ny);
+				if (abs((int)this->dt) < 10000)
+					CollisionY(e->obj, ny);
 			}
 		}
+
+		x += min_tx * dx + nx * 0.4f;
+		y += min_ty * dy + ny * 0.4f;
+
 	}
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
@@ -77,17 +98,33 @@ void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	this->dt = dt;   
 	dx = vx * dt;
+	if (vy > MAX_VY) vy = MAX_VY;
 	dy = vy * dt;
 }
 
 bool CGameObject::isInScreen()
 {
 	Vector2 camPos = CGame::GetInstance()->camera->GetCamPosition();
-	if (this->x < camPos.x || this->y < camPos.y ||
-		this->x > CGame::GetInstance()->GetScreenWidth() + camPos.x
+	if (this->x < camPos.x-100 || this->y < camPos.y ||
+		this->x > CGame::GetInstance()->GetScreenWidth() + camPos.x +100
 		|| this->y > CGame::GetInstance()->GetScreenHeight() + camPos.y)
 		return false;
 	return true;
+}
+
+bool CGameObject::HasOverLap(Vector2 l1, Vector2 r1, Vector2 l2, Vector2 r2) {
+	if (l1.x >= r2.x || l2.x >= r1.x)
+		return false;
+
+	// If one rectangle is above other 
+	if (l1.y >= r2.y || l2.y >= r1.y)
+		return false;
+
+	return true;
+}
+
+void CGameObject::OnHadCollided(LPGAMEOBJECT coObj) {
+	
 }
 
 LPCOLLISIONEVENT CGameObject::SweptAABBEx(LPGAMEOBJECT coO)
@@ -118,12 +155,16 @@ LPCOLLISIONEVENT CGameObject::SweptAABBEx(LPGAMEOBJECT coO)
 		t, nx, ny
 	);
 
-	/*if(dynamic_cast<CKoopas*>(coO))
-		if (((ml + (mr-ml) >= sl) && (sl + (sr-sl) >= ml) && (mt + (mr-ml) >= st) && (st + (sr-sl) >= mt)) == true) {
-			nx = (ml < (sl + sr) / 2) ? -1 : 1;
-			ny = (mt < (st + sb) / 2) ? -1 : 1;
-			t = 0.01f;
-		}*/
+	
+	if (ml < mr && mt < mb && sl != sr && st != sb) {
+		if (
+			HasOverLap(Vector2(ml, mt), Vector2(mr, mb), Vector2(sl, st), Vector2(sr, sb))
+			) {
+
+			coO->OnHadCollided(this);
+			this->OnHadCollided(coO);
+		}
+	}
 
 	CCollisionEvent* e = new CCollisionEvent(t, nx, ny, rdx, rdy, coO);
 	return e;
@@ -197,7 +238,6 @@ void CGameObject::FilterCollision(
 
 void CGameObject::RenderBoundingBox()
 {
-	D3DXVECTOR3 p(x, y, 0);
 	RECT rect;
 
 	LPDIRECT3DTEXTURE9 bbox = CTextures::GetInstance()->Get(BBoxId);
@@ -205,20 +245,24 @@ void CGameObject::RenderBoundingBox()
 	float l, t, r, b;
 
 	GetBoundingBox(l, t, r, b);
-	/*rect.left = 0;
+	
+	rect.left = 0;
 	rect.top = 0;
-	rect.right = (int)r - (int)l;
-	rect.bottom = (int)b - (int)t;*/
-
-	rect.left = l;
-	rect.top = t;
-	rect.right = r;
-	rect.bottom = b;
+	rect.right = r-l;
+	rect.bottom = b-t;
 	
 
-	CGame::GetInstance()->Draw(l, t, bbox, rect.left, rect.top, rect.right, rect.bottom,120);
+	CGame::GetInstance()->Draw(l, t, bbox, rect.left, rect.top, rect.right, rect.bottom,Vector2(1,1), 120);
 }
-
+vector<LPGAMEOBJECT> CGameObject::SetObjectCollision()
+{
+	vector<LPGAMEOBJECT> obj;
+	string currentScenceId = CGame::GetInstance()->GetCurrentSceneId();
+	CPlayScene* s = (CPlayScene*)CScences::GetInstance()->Get(currentScenceId);
+	LPGAMEOBJECT player = s->GetPlayer();
+	obj.push_back(player);
+	return obj;
+}
 
 CGameObject::~CGameObject()
 {

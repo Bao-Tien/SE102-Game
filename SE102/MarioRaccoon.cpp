@@ -17,7 +17,9 @@ void CMarioRaccoon::KeyboardHandle(int key, bool type)
 	{
 	case KEYBOARD_PRESS_A:
 		if (!type)
-			SwitchState(EMarioState::ATTACK, 400);
+			if (SwitchState(EMarioState::ATTACK, 400)) {
+				hasAttack = false;
+			}
 		break;
 	case KEYBOARD_PRESS_S:
 		if (!type) 
@@ -52,7 +54,7 @@ void CMarioRaccoon::Render()
 
 void CMarioRaccoon::GetBoundingBox(float& left, float& top, float& right, float& bottom) {
 
-	if (mState != EMarioState::ATTACK)
+	if (mState != EMarioState::ATTACK || hasAttack == true)
 	{
 		left = x;
 		top = y;
@@ -61,7 +63,7 @@ void CMarioRaccoon::GetBoundingBox(float& left, float& top, float& right, float&
 	}
 	else
 	{
-		top = y;
+		top = y + MARIO_RACCOON_BBOX_HEIGHT * 0.65f;
 		bottom = y + MARIO_RACCOON_BBOX_HEIGHT;
 		left = x - 20;
 		right = left + MARIO_RACCOON_BBOX_WIDTH + 44;

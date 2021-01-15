@@ -23,7 +23,8 @@ Vector2 CCamera::GetCamPosition() {
 
 void CCamera::SetCamPosition(Vector2 pos) {
 	if (pos.x < 0) pos.x = 0; // overflow left side
-	//if (pos.x + camSize.x > mapSize.x) pos.x = (int)(mapSize.x - camSize.x); // overflow right side
+	if (pos.x + camSize.x > 8448) pos.x = 8448 - camSize.x;
+
 	if (pos.y < 0) pos.y = 0;
 	
 	camPosition = pos;
@@ -37,7 +38,7 @@ Vector2 CCamera::ConvertPosition(Vector2 pos) {
 void CCamera::UpdateCamPosition() {
 	float left, top, right, bottom;
 	positionController->GetBoundingBox(left, top, right, bottom); 
-	SetCamPosition(Vector2((int)(positionController->x+20 - camSize.x / 2), 720));
+	SetCamPosition(Vector2((int)(positionController->x+20 - camSize.x / 2), 550));
 	
 }
 
