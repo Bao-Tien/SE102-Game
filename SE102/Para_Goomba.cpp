@@ -35,7 +35,11 @@ string CPara_Goomba::GetAnimationIdFromState()
 		}
 	}
 	else if (level == 0) {
-
+		if (eState == EnemyState::WILL_DIE)
+		{
+			typeString = RED_GOOMBA_ANI;
+			stateString = DIE_ANI;
+		}
 	}
 	
 	return typeString + HYPHEN + stateString;
@@ -71,16 +75,16 @@ void CPara_Goomba::CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively)
 		{
 			if (dynamic_cast<CMario*>(coObj))
 			{
+				CMario* mario = (CMario*)coObj;
 				if (nyCollision < 0) {
 					if (level > 0) level--;
 					if (level == 1) SetState(EnemyState::LIVE);
+					if (level == 0) SetState(EnemyState::WILL_DIE, PARA_GOOMBA_TIME_WILL_DIE);
+					mario->MarioAfterCollisionYWithEnemy();
 				}
 				else {
-					CMario* mario = (CMario*)coObj;
 					mario->SwitchType(1);
 				}
-				
-				
 			}
 		}
 	}
@@ -115,6 +119,11 @@ void CPara_Goomba::AutoSwitchState()
 		{
 			SwitchState(EnemyState::LIVE, PARA_GOOMBA_TIME_LIVE);
 		}
+	}
+	if (level == 0)
+	{
+		if (eState == EnemyState::WILL_DIE)
+			SwitchState(EnemyState::DIE);
 	}
 	
 }

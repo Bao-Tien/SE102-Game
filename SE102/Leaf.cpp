@@ -46,6 +46,6 @@ void CLeaf::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 
 	/*DebugOut(ToWSTR(std::to_string((int)mgState) + "\n").c_str());*/
-	DebugOut(ToWSTR(std::to_string(dx) + "\n").c_str());
+	//DebugOut(ToWSTR(std::to_string(dx) + "\n").c_str());
 }
 

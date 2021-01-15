@@ -68,10 +68,25 @@
 #define VENUS_RED_TIME_IDLE_UP 300
 #define VENUS_RED_TIME_ATTACK 100
 #define VENUS_RED_TIME_IDLE_DOWN 300
+//VENUS_GREEN
+#define VENUS_GREEN_ANI "ani-green-venus-fire-trap"
 //Bullet venus
 #define BULLET_VENUS_ANI     "ani-fire-bullet"
-
 #define BULLET_VENUS_WIDTH     30
 #define BULLET_VENUS_HEIGHT    30
+//Piranha_plant
+#define PIRANHA_PLANT_VENUS_ANI "ani-green-piranha-plant-attack"
+#define PIRANHA_PLANT_BBOX_WIDTH 48
+#define PIRANHA_PLANT_BBOX_HEIGHT 72
+
 
 #define BULLET_VENUS_SPEED 0.4f;
+//Green Koopa Paratroopa
+#define PARATROPA_ANI "ani-green-koopa-paratroopa-fly"
+#define PARATROPA_GRAVITY 0.003f
+#define PARATROPA_WIDTH     16*3
+#define PARATROPA_HEIGHT    26*3
+#define PARATROPA_SPEED_Y  0.5f * 3;
+#define PARATROPA_SPEED_X  0.15f;
+//Green koopas
+#define GREEN_KOOPAS_ANI "ani-green-koopa-troopa"

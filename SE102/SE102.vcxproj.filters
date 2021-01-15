@@ -166,6 +166,18 @@
     <Filter Include="GameResources\Objects\Object\Brick\Brick">
       <UniqueIdentifier>{a41b49fb-4b93-40df-bc37-b9cfb14b23b4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameResources\Objects\Enemy\Green-Venus">
+      <UniqueIdentifier>{50ad5f29-7fb8-4dc1-a62b-f4dd6fe7965b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameResources\Objects\Enemy\Piranha_Plant">
+      <UniqueIdentifier>{6a232ec5-2281-4383-be54-fbc727b4a51c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameResources\Objects\Enemy\Green_Koopas">
+      <UniqueIdentifier>{8afbab4e-577a-452c-8f27-fc4acb759328}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameResources\Objects\Enemy\Green_Paratroopa">
+      <UniqueIdentifier>{4c1ddfcf-2e86-4d54-bc1a-5c2bbdc7762a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -383,6 +395,18 @@
     </ClCompile>
     <ClCompile Include="Brick.cpp">
       <Filter>GameResources\Objects\Object\Brick\Brick</Filter>
+    </ClCompile>
+    <ClCompile Include="Green_Venus.cpp">
+      <Filter>GameResources\Objects\Enemy\Green-Venus</Filter>
+    </ClCompile>
+    <ClCompile Include="Piranha_Plant.cpp">
+      <Filter>GameResources\Objects\Enemy\Piranha_Plant</Filter>
+    </ClCompile>
+    <ClCompile Include="Green_Koopas.cpp">
+      <Filter>GameResources\Objects\Enemy\Green_Koopas</Filter>
+    </ClCompile>
+    <ClCompile Include="Green_Paratroopa.cpp">
+      <Filter>GameResources\Objects\Enemy\Green_Paratroopa</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -619,6 +643,18 @@
     </ClInclude>
     <ClInclude Include="Brick.h">
       <Filter>GameResources\Objects\Object\Brick\Brick</Filter>
+    </ClInclude>
+    <ClInclude Include="Green_Venus.h">
+      <Filter>GameResources\Objects\Enemy\Green-Venus</Filter>
+    </ClInclude>
+    <ClInclude Include="Piranha_Plant.h">
+      <Filter>GameResources\Objects\Enemy\Piranha_Plant</Filter>
+    </ClInclude>
+    <ClInclude Include="Green_Koopas.h">
+      <Filter>GameResources\Objects\Enemy\Green_Koopas</Filter>
+    </ClInclude>
+    <ClInclude Include="Green_Paratroopa.h">
+      <Filter>GameResources\Objects\Enemy\Green_Paratroopa</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

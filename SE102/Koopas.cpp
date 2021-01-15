@@ -46,6 +46,7 @@ void CKoopas::CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively)
 	{
 		if (eState != EnemyState::DIE)
 		{
+			if (coObj->dt > 1000) return;
 			if (dynamic_cast<CMario*>(coObj))
 			{
 				CMario* mario = (CMario*)coObj;
@@ -94,5 +95,10 @@ void CKoopas::AutoSwitchState()
 	{
 		SwitchState(EnemyState::LIVE);
 		//mario DIE
+		string currentScenceId = CGame::GetInstance()->GetCurrentSceneId();
+		CPlayScene* s = (CPlayScene*)CScences::GetInstance()->Get(currentScenceId);
+		LPGAMEOBJECT obj = s->GetPlayer();
+		CMario* mario = (CMario*)obj;
+		mario->SwitchType(1);
 	}
 }

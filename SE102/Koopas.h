@@ -8,9 +8,9 @@ class CKoopas : public CEnemy
 {
 public:
 	CKoopas(float x, float y);
-	string GetAnimationIdFromState();
-	Vector2 GetSizeFromState(EnemyState state) override;
-	void CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively) override;
-	void AutoSwitchState() override;
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
+	virtual string GetAnimationIdFromState();
+	virtual Vector2 GetSizeFromState(EnemyState state) override;
+	virtual void CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively) override;
+	virtual void AutoSwitchState() override;
+	virtual virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 };

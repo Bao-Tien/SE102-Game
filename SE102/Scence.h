@@ -17,6 +17,7 @@ protected:
 	vector<LPGAMEOBJECT> objects_Map;
 	long long sceneTime = 0;
 	long long scenePoint = 0;
+	long long sceneSynergies = 0;
 	LPGAMEOBJECT player;
 
 public:
@@ -30,6 +31,7 @@ public:
 	virtual void Update(DWORD) = 0;
 	virtual void Render() = 0;
 	virtual void SwitchPlayer(LPGAMEOBJECT) = 0;
+	virtual void SetSynergies(int a) { sceneSynergies = a; }
 	virtual void AddPoint(long long point) { scenePoint += point; }
 	virtual LPGAMEOBJECT GetPlayer() { return player; }
 	

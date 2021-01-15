@@ -38,7 +38,8 @@ public:
 
 	virtual void GetMapSize(Vector2& out);
 
-	static shared_ptr<CGameMap> FromTMX(string filePath, vector<LPGAMEOBJECT>* objectMap, vector<LPGAMEOBJECT>* objectActive = NULL, vector<LPGAMEOBJECT>* objectNoActive = NULL);
+	static shared_ptr<CGameMap> FromTMX(string filePath, vector<LPGAMEOBJECT>* objectMap, 
+		vector<LPGAMEOBJECT>* objectActive = NULL, vector<LPGAMEOBJECT>* objectNoActive = NULL, vector<LPGAMEOBJECT>* objectBrick = NULL);
 	~CGameMap();
 };
 

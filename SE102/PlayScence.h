@@ -11,12 +11,13 @@
 class CPlayScene : public CScene
 {
 protected:
+	vector<LPGAMEOBJECT> objects_Brick;
 	vector<LPGAMEOBJECT> objects_Enemy;
 	vector<LPGAMEOBJECT> objects_Active;
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> objects_Magic;
 	vector<LPGAMEOBJECT> onlyRender;
-
+	int synergies;
 	
 	
 public:
@@ -24,8 +25,9 @@ public:
 	void SwitchPlayer(LPGAMEOBJECT newPlayer);
 	virtual bool Load();
 	virtual void Update(DWORD dt);
-	virtual void ChangeToSprite(string input, Vector2 position);
-	void DrawFixedLengthNumber(std::string inp, Vector2 finalPos, char defaultChar, int numLength);
+	virtual void DrawChangeStringToSprite(string input, Vector2 position);
+	void DrawFixedLengthNumber(string inp, Vector2 position, char defaultChar, int numLength);
+	void DrawFollow(string inp1, int x1, string inp2,int x2, Vector2 position);
 	virtual void Render();
 	virtual void Render_HUD();
 	virtual void Unload();

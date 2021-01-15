@@ -1,7 +1,6 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
-
 #include "PlayScence.h"
 #include "Utils.h"
 #include "TextureManager.h"
@@ -23,6 +22,10 @@
 #include "Bullet_Venus.h"
 #include "SpriteManager.h"
 #include "PlayScenceConst.h"
+#include "Green_Venus.h"
+#include "Piranha_Plant.h"
+#include "Green_Koopas.h"
+#include "Green_Paratroopa.h"
 
 using namespace std;
 
@@ -30,7 +33,7 @@ CPlayScene::CPlayScene(string id, string filePath) :
 	CScene(id, filePath)
 {
 	key_handler = new CPlayScenceKeyHandler(this);
-	sceneTime = 300000;
+	sceneTime = 600000;
 }
 
 void CPlayScene::AddObjToObjects_Magic(LPGAMEOBJECT a)
@@ -82,19 +85,7 @@ bool CPlayScene::Load()
 	TiXmlElement* map = root->FirstChildElement("Map");
 	string MapPath = map->Attribute("path");
 	OutputDebugStringW(ToLPCWSTR("MapPath : " + MapPath + '\n'));
-	mMap = CGameMap().FromTMX(MapPath, &objects_Map, &objects_Active);
-
-	//load file bbox
-	/*TiXmlElement* bbox = root->FirstChildElement("BBox");
-	string BboxPath = bbox->Attribute("path");
-	string BboxId = bbox->Attribute("id");
-	TiXmlElement* BackgroundColor_bbox = bbox->FirstChildElement("BackgroundColor");
-	int bbox_R = atoi(BackgroundColor_bbox->Attribute("R"));
-	int bbox_G = atoi(BackgroundColor_bbox->Attribute("G"));
-	int bbox_B = atoi(BackgroundColor_bbox->Attribute("B"));
-	CTextures::GetInstance()->Initialization(BboxPath, BboxId, D3DCOLOR_XRGB(bbox_R, bbox_G, bbox_B));
-
-	OutputDebugStringW(ToLPCWSTR("BboxPath : " + BboxPath + '\n'));*/
+	mMap = CGameMap().FromTMX(MapPath, &objects_Map, &objects_Active, NULL, &objects_Brick);
 
 	//load texture
 	TiXmlElement* textures = root->FirstChildElement("Textures");
@@ -168,6 +159,14 @@ bool CPlayScene::Load()
 		LPGAMEOBJECT para = new CPara_Goomba(para_x, para_y);
 		objects_Enemy.push_back(para);
 	}
+	// (Para_Goomba)
+	for (TiXmlElement* node = objects->FirstChildElement("Green_Paratroopa"); node != nullptr; node = node->NextSiblingElement("Green_Paratroopa"))
+	{
+		float paratroopa_x = atof(node->Attribute("x"));
+		float paratroopa_y = atof(node->Attribute("y"));
+		LPGAMEOBJECT paratroopa = new CGreen_Paratroopa(paratroopa_x, paratroopa_y);
+		objects_Enemy.push_back(paratroopa);
+	}
 	//Red_Venus
 	for (TiXmlElement* node = objects->FirstChildElement("Red_Venus"); node != nullptr; node = node->NextSiblingElement("Red_Venus"))
 	{
@@ -175,9 +174,26 @@ bool CPlayScene::Load()
 		float RedVenus_y = atof(node->Attribute("y"));
 		LPGAMEOBJECT redVenus = new CRed_Venus(RedVenus_x, RedVenus_y);
 		LPGAMEOBJECT bullet = ((CRed_Venus*)redVenus)->GetBullet();
-		//objects_Enemy.push_back(redVenus);
 		objects_Active.push_back(redVenus); 
 		onlyRender.push_back(bullet);
+	}
+	//Green_Venus
+	for (TiXmlElement* node = objects->FirstChildElement("Green_Venus"); node != nullptr; node = node->NextSiblingElement("Green_Venus"))
+	{
+		float GreenVenus_x = atof(node->Attribute("x"));
+		float GreenVenus_y = atof(node->Attribute("y"));
+		LPGAMEOBJECT greenVenus = new CGreen_Venus(GreenVenus_x, GreenVenus_y);
+		LPGAMEOBJECT bullet = ((CGreen_Venus*)greenVenus)->GetBullet();
+		objects_Active.push_back(greenVenus);
+		onlyRender.push_back(bullet);
+	}
+	//Piranha_Plant
+	for (TiXmlElement* node = objects->FirstChildElement("Piranha_Plant"); node != nullptr; node = node->NextSiblingElement("Piranha_Plant"))
+	{
+		float Piranha_x = atof(node->Attribute("x"));
+		float Piranha_y = atof(node->Attribute("y"));
+		LPGAMEOBJECT piranha = new CPiranha_Plant(Piranha_x, Piranha_y);
+		objects_Active.push_back(piranha);
 	}
 	DebugOut(L"[INFO] Loading game file : %s has been loaded successfully\n", sceneFilePath);
 	
@@ -197,7 +213,15 @@ void CPlayScene::Update(DWORD dt)
 	{
 		coObjects.push_back(objects_Map[i]);
 	}
-	
+
+	for (int i = 0; i < objects_Brick.size(); i++)
+	{
+		objects_Brick[i]->Update(dt, &coObjects);
+	}
+	for (int i = 0; i < objects_Brick.size(); i++)
+	{
+		coObjects.push_back(objects_Brick[i]);
+	}
 
 	for (int i = 0; i < objects_Enemy.size(); i++)
 	{
@@ -207,7 +231,6 @@ void CPlayScene::Update(DWORD dt)
 				objects_Enemy[i]->Update(dt, &coObjects);
 		}
 	}
-
 	
 	for (int i = 0; i < objects_Active.size(); i++)
 	{
@@ -245,19 +268,31 @@ void CPlayScene::Update(DWORD dt)
 	}
 
 	CGame::GetInstance()->camera->Update(dt);
-	
-
 	if (player == NULL) return;
 
+	synergies = int(sceneSynergies * 6 / 1000);
 }
 
-void CPlayScene::ChangeToSprite(string input, Vector2 position)
+void CPlayScene::DrawChangeStringToSprite(string input, Vector2 position)
 {
 	for (int i = 0; i < input.length(); i++)
 	{
 		string aniId = string(1, input[i]) == " " ? "spr-font-space" : "spr-font-" + string(1, input[i]);
 		CSprites::GetInstance()->Get(aniId)->DrawWithoutConverting(position.x + i * 20, position.y);
 	}
+}
+void CPlayScene::DrawFixedLengthNumber(std::string inp, Vector2 position, char defaultChar, int numLength) {
+	while (inp.length() < numLength) inp = string(1, defaultChar) + inp;
+	for (int i = 0; i < inp.length(); i++) {
+		CSprites::GetInstance()->Get("spr-font-" + string(1, inp[i]))->DrawWithoutConverting(position.x + i * 20, position.y);
+	}
+}
+void CPlayScene::DrawFollow(string inp1, int x1, string inp2, int x2, Vector2 position)
+{
+	for (int i = 0; i < x1; i++)
+		CSprites::GetInstance()->Get(inp1)->DrawWithoutConverting(position.x + i * 20, position.y);
+	for (int i = x1; i < x1 + x2; i++)
+		CSprites::GetInstance()->Get(inp2)->DrawWithoutConverting(position.x + i * 20, position.y);
 }
 
 void CPlayScene::Render_HUD()
@@ -275,32 +310,21 @@ void CPlayScene::Render_HUD()
 	//player
 	CGame::GetInstance()->DrawWithoutConverting(posHUD.x, posHUD.y, black, rect.left, rect.top, rect.right, rect.bottom);
 	CSprites::GetInstance()->Get(HUD_ANI)->DrawWithoutConverting(posHUD.x + 20, posHUD.y + 20);
-	int a = 0;
-	for (int i = 0; i < 6; i++)
-	{
-		CSprites::GetInstance()->Get("spr-arrow-icon-black")->DrawWithoutConverting(posHUD.x + 20 + 160 + a, posHUD.y + 20 + 21);
-		a = a + 20;
-	}
-	CSprites::GetInstance()->Get("spr-p-icon-black")->DrawWithoutConverting(posHUD.x + 20 + 160 + a, posHUD.y + 20 + 21);
-
-	//00000000
-	DrawFixedLengthNumber(to_string(scenePoint), Vector2(posHUD.x + 20 + 160, posHUD.y + 20 + 49), '0', 8);
-	//tg=300
+	//sceneSynergies
 	
-	ChangeToSprite(to_string((sceneTime / 1000)), Vector2(posHUD.x + 20 + 160 + 220, posHUD.y + 20 + 49));
+	DrawFollow(ARROW_WHITE_ANI, synergies, ARROW_BLACK_ANI, 6 - synergies, Vector2(posHUD.x + 180, posHUD.y + 41));
+	if(synergies==6)
+		CSprites::GetInstance()->Get(P_ANI)->DrawWithoutConverting(posHUD.x + 300, posHUD.y + 41);
+	else CSprites::GetInstance()->Get(P_BLACK_ANI)->DrawWithoutConverting(posHUD.x + 300, posHUD.y + 41);
+
+	//00000000 diem
+	DrawFixedLengthNumber(to_string(scenePoint), Vector2(posHUD.x + 180, posHUD.y + 69), '0', 8);
+	//tg=300
+	DrawChangeStringToSprite(to_string((sceneTime / 1000)), Vector2(posHUD.x + 400, posHUD.y + 69));
 	
 	CSprites::GetInstance()->Get(EMPTY_CARD_ANI)->DrawWithoutConverting(posHUD.x + 600, posHUD.y + 20);
 	CSprites::GetInstance()->Get(EMPTY_CARD_ANI)->DrawWithoutConverting(posHUD.x + 700, posHUD.y + 20);
 	CSprites::GetInstance()->Get(EMPTY_CARD_ANI)->DrawWithoutConverting(posHUD.x + 800, posHUD.y + 20);
-}
-
-void CPlayScene::DrawFixedLengthNumber(std::string inp, Vector2 position, char defaultChar, int numLength) {
-	while (inp.length() < numLength) inp = string(1, defaultChar) + inp;
-	for (int i = 0; i < inp.length(); i++) {
-		CSprites::GetInstance()->Get("spr-font-" + string(1, inp[i]))->DrawWithoutConverting(position.x + i * 20, position.y);
-		
-
-	}
 }
 
 void CPlayScene::Render()
@@ -317,6 +341,11 @@ void CPlayScene::Render()
 			objects_Active[i]->Render();
 	}
 	mMap->Render();
+	for (int i = 0; i < objects_Brick.size(); i++)
+	{
+		if (!objects_Brick[i]->isHidden)
+			objects_Brick[i]->Render();
+	}
 	for (int i = 0; i < onlyRender.size(); i++)
 	{
 		if (!onlyRender[i]->isHidden)
@@ -344,6 +373,7 @@ void CPlayScene::Unload()
 {
 	CleanupListObjects(objects);
 	CleanupListObjects(objects_Active);
+	CleanupListObjects(objects_Brick);
 	CleanupListObjects(objects_Map);
 	CleanupListObjects(objects_Enemy);
 	CleanupListObjects(objects_Magic);

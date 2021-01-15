@@ -34,6 +34,12 @@ void CEnemy::SwitchState(EnemyState newState, DWORD timeNewState)
 		SetState(newState, timeNewState);
 }
 
+void CEnemy::SwitchType(EnemyType newType)
+{
+	eType = newType;
+	timeWillDie = KOOPAS_TIME_WILL_DIE;
+}
+
 void CEnemy::On_BEING_ATTACKED(int nxCollision)
 {
 	if (nxCollision < 0)
@@ -103,7 +109,8 @@ void CEnemy::CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively)
 					if (mario->mState == EMarioState::ATTACK) {
 						On_BEING_ATTACKED(nxCollision);
 					}
-					else mario->SwitchType(1);
+					else 
+						mario->SwitchType(1);
 				}
 			}
 		}
@@ -130,7 +137,7 @@ void CEnemy::CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively)
 				}
 			}
 			else mario->SwitchType(1);
-			if(eType == EnemyType::RED_VENUS)
+			if (eType == EnemyType::RED_VENUS)
 				mario->SwitchType(1);
 		}
 	}

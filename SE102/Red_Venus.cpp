@@ -105,3 +105,12 @@ void CRed_Venus::SetBullet()
 	bullet->SetState(EnemyState::ACTION);
 }
 
+void CRed_Venus::On_BEING_ATTACKED(int nxCollision)
+{
+	vx = 0;
+	vy = 0;
+	this->isHidden = true;
+	SetState(EnemyState::BEING_ATTACKED);
+}
+
+

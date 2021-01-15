@@ -162,6 +162,9 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Gate.cpp" />
     <ClCompile Include="Goomba.cpp" />
+    <ClCompile Include="Green_Koopas.cpp" />
+    <ClCompile Include="Green_Paratroopa.cpp" />
+    <ClCompile Include="Green_Venus.cpp" />
     <ClCompile Include="KeyEventHandler.cpp" />
     <ClCompile Include="Koopas.cpp" />
     <ClCompile Include="Leaf.cpp" />
@@ -196,6 +199,7 @@
     <ClCompile Include="MarioSelectScence.cpp" />
     <ClCompile Include="MarioSmall.cpp" />
     <ClCompile Include="Para_Goomba.cpp" />
+    <ClCompile Include="Piranha_Plant.cpp" />
     <ClCompile Include="PlatForm.cpp" />
     <ClCompile Include="PlayScence.cpp" />
     <ClCompile Include="Portal.cpp" />
@@ -237,6 +241,9 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Gate.h" />
     <ClInclude Include="Goomba.h" />
+    <ClInclude Include="Green_Koopas.h" />
+    <ClInclude Include="Green_Paratroopa.h" />
+    <ClInclude Include="Green_Venus.h" />
     <ClInclude Include="KeyEventHandler.h" />
     <ClInclude Include="Koopas.h" />
     <ClInclude Include="Leaf.h" />
@@ -275,6 +282,7 @@
     <ClInclude Include="MarioSelectScence.h" />
     <ClInclude Include="MarioSmall.h" />
     <ClInclude Include="Para_Goomba.h" />
+    <ClInclude Include="Piranha_Plant.h" />
     <ClInclude Include="PlatForm.h" />
     <ClInclude Include="PlayScence.h" />
     <ClInclude Include="PlayScenceConst.h" />

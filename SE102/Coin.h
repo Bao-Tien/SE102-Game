@@ -20,5 +20,6 @@ public:
 	void CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively) override;
 	void CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively) override;
 	void SetState(int state);
+	void AddPoint();
 };
 

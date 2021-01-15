@@ -66,23 +66,17 @@ void CQuestionBrick::SetMagicObject()
 	LPGAMEOBJECT obj = s->GetPlayer();
 	CMario* mario = (CMario*)obj;
 	magicObj;
-	if (mario->GetType() == EMarioType::SMALL)
+	if (x == QUESTIONBRICK_X1 || x == QUESTIONBRICK_X2 || x == QUESTIONBRICK_X3 || x == QUESTIONBRICK_X4)
 	{
-		if (x == QUESTIONBRICK_X2 || x == QUESTIONBRICK_X3 || x == QUESTIONBRICK_X4)
-		{
-
+		if(mario->GetType() == EMarioType::SMALL)
 			magicObj = new CMushRoom(x, y);
-		}
-		else if (x == QUESTIONBRICK_X1)
-		{
-			magicObj = new CLeaf(x, y);
-		}
 		else magicObj = new CLeaf(x, y);
 	}
 	else {
 		magicObj = new CCoin_MagicObj(x, y);
 		s->AddPoint(100);
 	}
+
 		
 	s->AddObjToObjects_Magic(magicObj);
 }

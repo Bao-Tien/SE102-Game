@@ -40,8 +40,9 @@ protected:
 
 	DWORD beginState = 0;
 	DWORD timeState = 0;
-	int synergies;
+	
 public:
+	int synergies;
 	EMarioType mType;
 	EMarioState mState;
 	CMario(float x = 0.0f, float y = 0.0f);

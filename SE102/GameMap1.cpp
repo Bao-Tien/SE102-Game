@@ -91,7 +91,8 @@ void CGameMap::Render()
 
 
 
-shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* objectMap, vector<LPGAMEOBJECT>* objectActive, vector<LPGAMEOBJECT>* objectNoActive)
+shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* objectMap, vector<LPGAMEOBJECT>* objectActive,
+	vector<LPGAMEOBJECT>* objectNoActive, vector<LPGAMEOBJECT>* objectBrick)
 {
 	string fullPath = filePath;
 	TiXmlDocument doc(fullPath.c_str());
@@ -164,7 +165,7 @@ shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* ob
 						atoi(objNode->Attribute("width")),
 						atoi(objNode->Attribute("height"))
 					);
-					objectActive->push_back(obj);
+					objectBrick->push_back(obj);
 				}
 			}
 			if (std::string(objGroupNode->Attribute("name")) == "Brick") {
@@ -175,7 +176,7 @@ shared_ptr<CGameMap> CGameMap::FromTMX(string filePath, vector<LPGAMEOBJECT>* ob
 						atoi(objNode->Attribute("width")),
 						atoi(objNode->Attribute("height"))
 					);
-					objectActive->push_back(obj);
+					objectBrick->push_back(obj);
 				}
 			}
 			if (std::string(objGroupNode->Attribute("name")) == "Coin") {

@@ -32,7 +32,7 @@ CMario::CMario(float x, float y) : CGameObject()
 	movementRatioX = 1;
 	synergies = 0;
 	vxMax = VELOCITY_X_MAX;
-} 
+}
 
 string CMario::GetAnimationIdFromState()
 {
@@ -43,7 +43,7 @@ string CMario::GetAnimationIdFromState()
 	else if (mType == EMarioType::RACCOON) typeString = "ani-raccoon-mario";
 	else if (mType == EMarioType::FIRE) typeString = "ani-fire-mario";
 	else typeString = "ani-small-mario";
-	
+
 
 	if (mState == EMarioState::IDLE) stateString = "idle";
 	else if (mState == EMarioState::WALK) stateString = "walk";
@@ -92,7 +92,7 @@ bool CMario::SwitchState(EMarioState newState, DWORD newTimeState)
 	}
 	else if (newState == EMarioState::FLY) {
 		if (mState == EMarioState::IDLE || mState == EMarioState::WALK || mState == EMarioState::RUN
-			|| mState == EMarioState::FALL|| mState == EMarioState::JUMP)
+			|| mState == EMarioState::FALL || mState == EMarioState::JUMP)
 		{
 			SetState(newState, newTimeState);
 			return true;
@@ -115,15 +115,15 @@ bool CMario::SwitchState(EMarioState newState, DWORD newTimeState)
 		}
 	}
 	else if (newState == EMarioState::WALK) {
-		if (mState == EMarioState::IDLE || mState == EMarioState::RUN || mState == EMarioState::JUMP 
-			|| mState == EMarioState::FLY || mState == EMarioState::ATTACK|| mState == EMarioState::FALL)
+		if (mState == EMarioState::IDLE || mState == EMarioState::RUN || mState == EMarioState::JUMP
+			|| mState == EMarioState::FLY || mState == EMarioState::ATTACK || mState == EMarioState::FALL)
 		{
 			SetState(newState, newTimeState);
 			return true;
 		}
 	}
 	else if (newState == EMarioState::RUN) {
-		if (mState == EMarioState::IDLE || mState == EMarioState::WALK || mState == EMarioState::JUMP 
+		if (mState == EMarioState::IDLE || mState == EMarioState::WALK || mState == EMarioState::JUMP
 			|| mState == EMarioState::FLY || mState == EMarioState::ATTACK || mState == EMarioState::FALL)
 		{
 			SetState(newState, newTimeState);
@@ -131,7 +131,7 @@ bool CMario::SwitchState(EMarioState newState, DWORD newTimeState)
 		}
 	}
 	else if (newState == EMarioState::IDLE) {
-		if (mState == EMarioState::WALK || mState == EMarioState::RUN || mState == EMarioState::JUMP 
+		if (mState == EMarioState::WALK || mState == EMarioState::RUN || mState == EMarioState::JUMP
 			|| mState == EMarioState::FALL || mState == EMarioState::ATTACK || vxMax != VELOCITY_X_SPEEDUP_MAX)
 		{
 			SetState(newState, newTimeState);
@@ -146,10 +146,10 @@ bool CMario::SwitchState(EMarioState newState, DWORD newTimeState)
 		}
 	}
 	else if (newState == EMarioState::REMEMBER) {
-			SetState(newState, newTimeState);
-			return true;
+		SetState(newState, newTimeState);
+		return true;
 	}
-	
+
 	return false;
 }
 
@@ -168,15 +168,42 @@ void CMario::NoCollision()
 }
 void CMario::SwitchType(int typeObj)
 {
+	
 	if (typeObj == 1) //nen lam giong magic
 	{
 		if (mState != EMarioState::ATTACK)
 		{
 			vx = 0;
-			if (mType != EMarioType::SMALL) {
+			/*if (mType != EMarioType::SMALL) {
 				SwitchState(EMarioState::REMEMBER);
-			}
+			}*/
 			//else SwitchState(EMarioState::DIE);
+
+			//if (mType != EMarioType::SMALL) {
+			//	SwitchState(EMarioState::DIE);
+			//}
+			////else SwitchState(EMarioState::DIE);
+			//else {
+			//	string currentScenceId = CGame::GetInstance()->GetCurrentSceneId();
+			//	LPSCENE s = CScences::GetInstance()->Get(currentScenceId);
+			//	if (mType == EMarno cioType::FIRE)
+			//		s->SwitchPlayer(new CMarioRaccoon(x, y));
+			//	else if (mType == EMarioType::RACCOON)
+			//		s->SwitchPlayer(new CMarioBig(x, y));
+			//	else if (mType == EMarioType::BIG)
+			//		s->SwitchPlayer(new CMarioSmall(x, y));
+			//}
+					string currentScenceId = CGame::GetInstance()->GetCurrentSceneId();
+					LPSCENE s = CScences::GetInstance()->Get(currentScenceId);
+					if (mType == EMarioType::SMALL)
+						SwitchState(EMarioState::DIE);
+					else if (mType == EMarioType::BIG)
+						s->SwitchPlayer(new CMarioSmall(x, y));
+					/*else if (mType == EMarioType::RACCOON)
+						s->SwitchPlayer(new CMarioBig(x, y));*/
+					else if (mType == EMarioType::FIRE)
+						s->SwitchPlayer(new CMarioRaccoon(x, y));
+						//}
 		}
 	}
 	else //magic
@@ -191,7 +218,7 @@ void CMario::SwitchType(int typeObj)
 		else if (mType == EMarioType::RACCOON)
 			s->SwitchPlayer(new CMarioFire(x, y));
 	}
-	
+
 }
 void CMario::CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively)
 {
@@ -215,7 +242,7 @@ void CMario::OnHadCollided(LPGAMEOBJECT coObj) {
 
 void CMario::CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively)
 {
-	
+
 	if (nyCollision < 0)
 	{
 		if (vx != 0 && fabs(vx) < VELOCITY_X_MAX)
@@ -238,26 +265,26 @@ void CMario::CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively)
 	//DebugOut(ToWSTR(std::to_string(synergies) + "\n").c_str());
 	//coObj->CollisionY(this, nyCollision, 0);
 	CGameObject::CollisionY(coObj, nyCollision, Actively);
-	
+
 }
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (this->isHidden) return;
-	
-	if (fabs(vx + ax*dt) < vxMax) {
+
+	if (fabs(vx + ax * dt) < vxMax) {
 		vx = vx + ax * dt;
 	}
-		
+
 	if (vx > 0) f = -MARIO_FRICTION;
 	if (vx < 0) f = MARIO_FRICTION;
 	if (fabs(vx) > fabs(f))
 		vx = vx + f;
 	else vx = 0;
 
-	
+
 	vy += MARIO_GRAVITY * dt;
-	
+
 	CGameObject::Update(dt);
 
 
@@ -281,16 +308,16 @@ void CMario::Render()
 	if (untouchable) alpha = 128;
 
 	LPANIMATION anim = CAnimations::GetInstance()->Get(GetAnimationIdFromState());
-	
+
 	if (anim != NULL)
 	{
-		if(nx==-1)
-			anim->Render(x , y , D3DXVECTOR2(-1.0f, 1.0f), alpha);
-		else 
-			anim->Render(x , y , D3DXVECTOR2(1.0f, 1.0f), alpha);
-			
+		if (nx == -1)
+			anim->Render(x, y, D3DXVECTOR2(-1.0f, 1.0f), alpha);
+		else
+			anim->Render(x, y, D3DXVECTOR2(1.0f, 1.0f), alpha);
+
 	}
-	
+
 	RenderBoundingBox();
 }
 
@@ -319,7 +346,7 @@ void CMario::KeyboardHandle(int key, bool type)
 		}
 		break;
 	case KEYBOARD_PRESS_S:
-		if (!type) 
+		if (!type)
 		{
 			SwitchState(EMarioState::JUMP);
 		}
@@ -339,5 +366,3 @@ void CMario::Reset()
 	SetPosition(start_x, start_y);
 	SetSpeed(0, 0);
 }
-
-

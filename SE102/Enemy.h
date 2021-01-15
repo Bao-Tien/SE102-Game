@@ -6,13 +6,18 @@ enum class EnemyType
 {
 	GOOMBA,
 	KOOPAS,
+	GREEN_KOOPAS,
+	GREEN_PARATROOPA,
 	PARA_GOOMBA,
 	RED_VENUS,
+	GREEN_VENUS,
 	BULLET,
+	PIRANHA_PLANT,
 };
 
 enum class EnemyState
 {
+	VIP,
 	LIVE,
 	JUMP,
 	FLY,
@@ -53,6 +58,7 @@ public:
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) override;
 	virtual void SwitchState(EnemyState newState, DWORD timeNewState = 0);
 	virtual void SetState(EnemyState newState, DWORD timeNewState = 0);
+	virtual void SwitchType(EnemyType newType);
 
 	virtual void AutoSwitchState() {};
 	virtual void On_BEING_ATTACKED(int nxCollision);

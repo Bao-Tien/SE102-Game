@@ -27,7 +27,7 @@
   </Animations>
   
 
-  <Player name="Player" type="marioSmall" x="2100" y="850">
+  <Player name="Player" type="marioSmall" x="200" y="850">
   </Player>
   
   <Objects >
@@ -39,6 +39,11 @@
     <Koopas x="1800" y="1050"/>
     <Para_Goomba x="2500" y="1050"/>
     <Red_Venus x="1080" y="1104"/>
+    <Green_Venus x="5544" y="1108"/>
+    <Piranha_Plant x="5352" y="1152"/>
+    <Green_Paratroopa x="3950" y="800"/>
+    <Green_Paratroopa x="4050" y="800"/>
+    <Green_Paratroopa x="4150" y="800"/>
   </Objects>
 
 </Scence1>

@@ -1,4 +1,7 @@
 #include "Coin.h"
+#include "Game.h"
+#include "PlayScence.h"
+#include "ScenceManager.h"
 
 CCoin::CCoin(float x, float y, float width, float height) : CCollisionBox(x, y, width, height)
 {
@@ -17,6 +20,7 @@ void CCoin::CollisionX(LPGAMEOBJECT coObj, int nxCollision, int Actively)
 	if (Actively == 0)
 	{
 		SetState(COIN_STATE_AFTER_COLLISION);
+		AddPoint();
 	}
 	else return;
 }
@@ -25,7 +29,11 @@ void CCoin::CollisionY(LPGAMEOBJECT coObj, int nyCollision, int Actively)
 	if (Actively == 0)
 	{
 		if (nyCollision > 0)
+		{
 			SetState(COIN_STATE_AFTER_COLLISION);
+			AddPoint();
+		}
+			
 	}
 	else return;
 }
@@ -62,4 +70,11 @@ void CCoin::SetState(int state)
 	default:
 		break;
 	}
+}
+
+void CCoin::AddPoint()
+{
+	string currentScenceId = CGame::GetInstance()->GetCurrentSceneId();
+	CPlayScene* s = (CPlayScene*)CScences::GetInstance()->Get(currentScenceId);
+	s->AddPoint(100);
 }
